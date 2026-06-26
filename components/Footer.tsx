@@ -64,6 +64,8 @@ export function Footer() {
         <div className={styles.bottom}>
           <p className={styles.legal}>
             &copy; {year} Torqpoint. All rights reserved.
+            <span className={styles.legalSep} aria-hidden="true">·</span>
+            <Link href="/privacy" className={styles.legalLink}>Privacy Policy</Link>
           </p>
           <p className={styles.built}>
             Built in Gloucestershire<span className="point point--sm" aria-hidden="true" />

@@ -70,6 +70,19 @@
   font-size: 13px;
   color: var(--muted);
 }
+.legalSep {
+  margin: 0 8px;
+  opacity: 0.5;
+}
+.legalLink {
+  color: var(--muted);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color var(--t-fast);
+}
+.legalLink:hover {
+  color: var(--paper);
+}
 
 .built {
   display: flex;
