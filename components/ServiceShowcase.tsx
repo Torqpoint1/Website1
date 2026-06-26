@@ -147,16 +147,6 @@ export function ServiceShowcase() {
       aria-label="What your work becomes"
     >
       <div className={styles.sticky}>
-        <div className={styles.intro}>
-          <p className="eyebrow">
-            <span className="point point--sm" aria-hidden="true" />
-            What your work becomes
-          </p>
-          <h2 className={styles.heading}>
-            One project. <span className={styles.forge}>Everywhere it should be.</span>
-          </h2>
-        </div>
-
         <div className={styles.stage}>
           {/* faint cards behind, for layered depth */}
           <div className={styles.ghost} aria-hidden="true" />
