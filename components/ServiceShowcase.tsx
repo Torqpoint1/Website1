@@ -163,9 +163,9 @@ export function ServiceShowcase() {
               </span>
             </h1>
             <p className={`${styles.lead} font-serif`}>
-              We turn your finished projects into posts, case studies and emails
-              that win the next job — so you look{' '}
-              <em>as good online as the work actually is.</em>
+              We turn the work you do into content and marketing that win the
+              next job — posts, case studies, emails, blogs, even your website —
+              so you look <em>as good online as the work actually is.</em>
             </p>
             <div className={styles.ctas}>
               <Link href="/contact" className="btn btn-primary">Start a project</Link>
