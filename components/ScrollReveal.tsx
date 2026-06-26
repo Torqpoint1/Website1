@@ -2,14 +2,23 @@
 
 import { useEffect, useRef } from 'react';
 
+type Direction = 'up' | 'left' | 'right' | 'scale';
+
 interface ScrollRevealProps {
   children: React.ReactNode;
   className?: string;
   stagger?: boolean;
   delay?: number;
+  direction?: Direction;
 }
 
-export function ScrollReveal({ children, className = '', stagger = false, delay = 0 }: ScrollRevealProps) {
+export function ScrollReveal({
+  children,
+  className = '',
+  stagger = false,
+  delay = 0,
+  direction = 'up',
+}: ScrollRevealProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -20,12 +29,13 @@ export function ScrollReveal({ children, className = '', stagger = false, delay 
     if (prefersReduced) return;
 
     const targets = stagger
-      ? Array.from(el.children) as HTMLElement[]
+      ? (Array.from(el.children) as HTMLElement[])
       : [el];
 
     targets.forEach((t, i) => {
       t.classList.add('will-animate');
-      (t as HTMLElement).style.transitionDelay = `${delay + i * 0.07}s`;
+      if (direction !== 'up') t.classList.add(`will-animate--${direction}`);
+      (t as HTMLElement).style.transitionDelay = `${delay + i * 0.085}s`;
     });
 
     const reveal = () => targets.forEach(t => t.classList.add('is-visible'));
@@ -39,21 +49,18 @@ export function ScrollReveal({ children, className = '', stagger = false, delay 
           }
         });
       },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      { threshold: 0.1, rootMargin: '0px 0px -6% 0px' }
     );
 
     observer.observe(el);
 
-    // Safety net: never leave content invisible. If the observer hasn't
-    // fired within 2.5s (e.g. element already on-screen but callback missed,
-    // or an odd webview), reveal anyway.
     const safety = setTimeout(reveal, 2500);
 
     return () => {
       observer.disconnect();
       clearTimeout(safety);
     };
-  }, [stagger, delay]);
+  }, [stagger, delay, direction]);
 
   return (
     <div ref={ref} className={className}>

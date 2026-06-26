@@ -56,7 +56,7 @@ export default function HomePage() {
       {/* ── What We Do ────────────────────────────────────── */}
       <section className={`section ${styles.whatWeDo}`} aria-labelledby="what-heading">
         <div className="container">
-          <ScrollReveal className="section-header" stagger>
+          <ScrollReveal className="section-header" stagger direction="left">
             <p className="index-label">
               <span className="index-label__num">01</span>
               <span className="point point--sm" aria-hidden="true" />
@@ -74,7 +74,7 @@ export default function HomePage() {
             </p>
           </ScrollReveal>
 
-          <ScrollReveal className={styles.serviceGrid} stagger>
+          <ScrollReveal className={styles.serviceGrid} stagger direction="scale">
             {services.map(({ name, desc }, i) => (
               <article key={name} className={`card ${styles.serviceCard}`}>
                 <div className={styles.cardTop}>
@@ -96,7 +96,7 @@ export default function HomePage() {
       {/* ── How It Works (dark band) ───────────────────────── */}
       <section className={styles.howItWorks} aria-labelledby="how-heading">
         <div className="container">
-          <ScrollReveal stagger>
+          <ScrollReveal stagger direction="left">
             <p className="index-label" style={{ color: 'var(--dark-eyebrow)' }}>
               <span className="index-label__num" style={{ color: 'var(--dark-body)' }}>02</span>
               <span className="point point--sm" aria-hidden="true" style={{ background: 'var(--dark-eyebrow)' }} />
@@ -124,14 +124,14 @@ export default function HomePage() {
       {/* ── CTA Band ──────────────────────────────────────── */}
       <section className={`cta-band cta-band--forge`} aria-label="Call to action">
         <div className="container">
-          <div className="cta-band__inner">
+          <ScrollReveal className="cta-band__inner" stagger direction="left">
             <p className="cta-band__statement">
               Let&rsquo;s make your work look as good as it is.
             </p>
             <Link href="/contact" className="btn btn-ghost-light">
               Book a call
             </Link>
-          </div>
+          </ScrollReveal>
         </div>
       </section>
     </>

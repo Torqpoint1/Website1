@@ -357,10 +357,17 @@ ul, ol { list-style: none; }
   opacity: 0;
   transform: translateY(28px);
 }
+.will-animate--left  { transform: translateX(-32px); }
+.will-animate--right { transform: translateX(32px); }
+.will-animate--scale { transform: scale(0.93) translateY(14px); }
+
 .is-visible {
   opacity: 1;
-  transform: translateY(0);
-  transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
+  transform: none;
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.will-animate--scale.is-visible {
+  transition: opacity 0.8s var(--ease-out), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── Marquee ────────────────────────────────────────────── */
@@ -414,6 +421,9 @@ ul, ol { list-style: none; }
   color: var(--muted);
 }
 
+/* ── Smooth scroll ──────────────────────────────────────── */
+html { scroll-behavior: smooth; }
+
 /* ── Reduced motion ─────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -422,7 +432,10 @@ ul, ol { list-style: none; }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .will-animate {
+  .will-animate,
+  .will-animate--left,
+  .will-animate--right,
+  .will-animate--scale {
     opacity: 1;
     transform: none;
   }
