@@ -22,14 +22,15 @@
   pointer-events: none;
 }
 
-/* Scroll-parallax warm glow behind the proof composition */
+/* Scroll-parallax warm glow behind the statement */
 .bgBlob {
   position: absolute;
-  right: -8%;
-  top: 8%;
-  width: clamp(320px, 44vw, 680px);
-  height: clamp(320px, 44vw, 680px);
-  background: radial-gradient(circle at 40% 40%, rgba(238,90,30,0.09) 0%, transparent 65%);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: clamp(420px, 60vw, 780px);
+  height: clamp(420px, 60vw, 780px);
+  background: radial-gradient(circle at 50% 50%, rgba(238, 90, 30, 0.08) 0%, transparent 65%);
   border-radius: 50%;
   pointer-events: none;
   will-change: transform;
@@ -37,25 +38,28 @@
 
 .inner { width: 100%; position: relative; }
 
-.grid {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(28px, 4vw, 60px);
-  align-items: center;
+.grid { width: 100%; }
+
+/* ── Centred statement ──────────────────────────────────── */
+.content {
+  max-width: 800px;
+  margin-inline: auto;
+  text-align: center;
 }
 
-/* ── Left content ───────────────────────────────────────── */
-.content { max-width: 660px; }
-
-.eyebrow { margin-bottom: 26px; }
+.eyebrow {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 26px;
+}
 
 .headline {
-  font-size: clamp(38px, 5.1vw, 74px);
+  font-size: clamp(40px, 6vw, 80px);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.04;
   color: var(--ink);
-  margin-bottom: 30px;
+  margin-bottom: 28px;
   text-wrap: balance;
 }
 
@@ -84,9 +88,10 @@
 }
 
 .lead {
-  font-size: clamp(18px, 2vw, 23px);
+  font-size: clamp(18px, 2.1vw, 24px);
   color: var(--slate);
-  max-width: 52ch;
+  max-width: 56ch;
+  margin-inline: auto;
   line-height: 1.6;
   margin-bottom: 40px;
   font-weight: 400;
@@ -97,146 +102,14 @@
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
-}
-
-/* ── Right: proof composition ───────────────────────────── */
-.proof {
-  position: relative;
-  min-height: 460px;
-  display: flex;
-  align-items: center;
   justify-content: center;
 }
-
-.artifact {
-  background: var(--surface);
-  border: 1px solid var(--surface-2);
-  border-radius: var(--r-lg);
-  box-shadow: 0 30px 60px -24px rgba(23, 26, 30, 0.18);
-}
-
-.artLabel {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--forge-text);
-}
-
-/* Parallax wrappers — JS translates these; artifacts rotate inside */
-.wrapSocial,
-.wrapCase {
-  position: absolute;
-  will-change: transform;
-  transition: transform 0.75s cubic-bezier(0.23, 1, 0.32, 1);
-}
-.wrapSocial { top: 8px;   right: 0;  z-index: 1; }
-.wrapCase   { bottom: 6px; left: 0;  z-index: 3; }
-
-/* Social post — rotated inside its parallax wrapper, auto-rocks */
-.artifactSocial {
-  width: 232px;
-  padding: 16px;
-  animation: socialRock 7s ease-in-out 1.8s infinite;
-}
-@keyframes socialRock {
-  0%, 100% { transform: rotate(2.5deg) translateY(0px); }
-  50%       { transform: rotate(2.5deg) translateY(-10px); }
-}
-.artHead { margin-bottom: 12px; }
-.artPhoto {
-  height: 116px;
-  border-radius: var(--r);
-  background: linear-gradient(135deg, var(--surface-2), #E4E2D9);
-  margin-bottom: 12px;
-  position: relative;
-  overflow: hidden;
-}
-.artPhoto::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(120px 80px at 70% 30%, rgba(238,90,30,0.10), transparent 70%);
-}
-.artCaption { display: flex; flex-direction: column; gap: 7px; }
-
-/* Case study — rotated inside its parallax wrapper, counter-rocks */
-.artifactCase {
-  width: 300px;
-  padding: 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  animation: caseRock 9s ease-in-out 2.4s infinite;
-}
-@keyframes caseRock {
-  0%, 100% { transform: rotate(-2deg) translateY(0px); }
-  50%       { transform: rotate(-2deg) translateY(-7px); }
-}
-.caseTitle {
-  font-size: 21px;
-  font-style: italic;
-  font-weight: 400;
-  line-height: 1.2;
-  letter-spacing: -0.01em;
-  color: var(--ink);
-}
-.caseBody { display: flex; flex-direction: column; gap: 8px; }
-.caseFoot {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-top: 4px;
-}
-.caseMeta {
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--forge-text);
-}
-.caseArrow { color: var(--forge); font-size: 14px; }
-
-/* Newsletter chip — gently floats */
-.chip {
-  position: absolute;
-  top: 36px;
-  left: 4px;
-  z-index: 4;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  background: var(--ink);
-  color: var(--dark-heading);
-  font-size: 12px;
-  font-weight: 600;
-  padding: 9px 14px;
-  border-radius: 100px;
-  box-shadow: 0 16px 32px -12px rgba(23, 26, 30, 0.35);
-  animation: chipFloat 4.2s ease-in-out 3s infinite;
-}
-.chip .point { background: var(--dark-eyebrow); }
-
-@keyframes chipFloat {
-  0%, 100% { transform: translateY(0); }
-  50%       { transform: translateY(-8px); }
-}
-
-/* Skeleton lines (shared) */
-.lineWide, .lineMid {
-  display: block;
-  height: 7px;
-  border-radius: 4px;
-  background: var(--surface-2);
-}
-.lineWide { width: 100%; }
-.lineMid  { width: 64%; }
 
 /* ── Scroll cue ─────────────────────────────────────────── */
 .scrollCue {
   position: absolute;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   bottom: clamp(-20px, -2vw, -8px);
   display: flex;
   align-items: center;
@@ -269,34 +142,13 @@
 }
 
 /* ── Responsive ─────────────────────────────────────────── */
-@media (max-width: 920px) {
-  .grid { grid-template-columns: 1fr; gap: clamp(48px, 9vw, 72px); }
-  .proof {
-    min-height: 380px;
-    max-width: 380px;
-    margin-inline: auto;
-    width: 100%;
-  }
-  .scrollCue { display: none; }
-}
-
 @media (max-width: 520px) {
-  .hero { min-height: auto; padding-bottom: clamp(40px, 12vw, 64px); }
-  .proof {
-    min-height: 320px;
-    max-width: 320px;
-  }
-  .artifactCase { width: 256px; padding: 20px; }
-  .artifactSocial { width: 188px; }
-  .caseTitle { font-size: 19px; }
+  .hero { min-height: auto; padding-bottom: clamp(48px, 14vw, 80px); }
+  .scrollCue { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .signaturePoint { animation: none; transform: scale(1); }
   .scrollLine::after { animation: none; display: none; }
-  .chip { animation: none; }
-  .artifactSocial { animation: none; transform: rotate(2.5deg); }
-  .artifactCase   { animation: none; transform: rotate(-2deg); }
-  .wrapSocial, .wrapCase { transition: none; }
   .bgBlob { display: none; }
 }
