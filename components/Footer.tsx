@@ -10,7 +10,7 @@ export function Footer() {
       <div className={`container ${styles.inner}`}>
         <div className={styles.top}>
           <div className={styles.brand}>
-            <Logo size="lg" />
+            <Logo size="lg" dark />
             <p className={styles.tagline}>
               Content that makes your work look as good as it is.{' '}
               <span className={styles.location}>Gloucestershire.</span>

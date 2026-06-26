@@ -1,0 +1,6 @@
+.wrap {
+  border-top: 1px solid var(--surface-2);
+  border-bottom: 1px solid var(--surface-2);
+  padding-block: clamp(20px, 2.4vw, 30px);
+  background: var(--paper);
+}

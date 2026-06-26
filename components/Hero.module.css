@@ -1,0 +1,270 @@
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: calc(var(--nav-h) + clamp(24px, 5vw, 56px));
+  padding-bottom: clamp(56px, 8vw, 96px);
+  overflow: hidden;
+}
+
+/* Faint oversized forge square, very low opacity, anchored bottom-right */
+.hero::before {
+  content: '';
+  position: absolute;
+  right: -6%;
+  bottom: -12%;
+  width: clamp(220px, 28vw, 420px);
+  height: clamp(220px, 28vw, 420px);
+  background: var(--forge);
+  opacity: 0.04;
+  border-radius: 6px;
+  pointer-events: none;
+}
+
+.inner { width: 100%; position: relative; }
+
+.grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(28px, 4vw, 60px);
+  align-items: center;
+}
+
+/* ── Left content ───────────────────────────────────────── */
+.content { max-width: 660px; }
+
+.eyebrow { margin-bottom: 26px; }
+
+.headline {
+  font-size: clamp(38px, 5.1vw, 74px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.04;
+  color: var(--ink);
+  margin-bottom: 30px;
+  text-wrap: balance;
+}
+
+.forge {
+  color: var(--forge);
+  position: relative;
+  white-space: nowrap;
+}
+
+/* The signature point — the forge square as the full stop.
+   Settles in last (delayed) as the brand moment. */
+.signaturePoint {
+  display: inline-block;
+  width: 0.13em;
+  height: 0.13em;
+  background: var(--forge);
+  margin-left: 0.04em;
+  vertical-align: baseline;
+  transform: scale(0);
+  transform-origin: center bottom;
+  animation: pointSettle 0.6s cubic-bezier(0.22, 1, 0.36, 1) 1.15s both;
+}
+@keyframes pointSettle {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.35); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.lead {
+  font-size: clamp(18px, 2vw, 23px);
+  color: var(--slate);
+  max-width: 52ch;
+  line-height: 1.6;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+.lead em { font-style: italic; color: var(--ink); }
+
+.ctas {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+/* ── Right: proof composition ───────────────────────────── */
+.proof {
+  position: relative;
+  min-height: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.artifact {
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  border-radius: var(--r-lg);
+  box-shadow: 0 30px 60px -24px rgba(23, 26, 30, 0.18);
+}
+
+.artLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-text);
+}
+
+/* Social post — sits behind, upper right */
+.artifactSocial {
+  position: absolute;
+  top: 8px;
+  right: 0;
+  width: 232px;
+  padding: 16px;
+  transform: rotate(2.5deg);
+  z-index: 1;
+}
+.artHead { margin-bottom: 12px; }
+.artPhoto {
+  height: 116px;
+  border-radius: var(--r);
+  background:
+    linear-gradient(135deg, var(--surface-2), #E4E2D9);
+  margin-bottom: 12px;
+  position: relative;
+  overflow: hidden;
+}
+.artPhoto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(120px 80px at 70% 30%, rgba(238,90,30,0.10), transparent 70%);
+}
+.artCaption { display: flex; flex-direction: column; gap: 7px; }
+
+/* Case study — front, lower left */
+.artifactCase {
+  position: absolute;
+  bottom: 6px;
+  left: 0;
+  width: 300px;
+  padding: 24px;
+  transform: rotate(-2deg);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.caseTitle {
+  font-size: 21px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.caseBody { display: flex; flex-direction: column; gap: 8px; }
+.caseFoot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+.caseMeta {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--forge-text);
+}
+.caseArrow { color: var(--forge); font-size: 14px; }
+
+/* Newsletter chip — floats, top left */
+.chip {
+  position: absolute;
+  top: 36px;
+  left: 4px;
+  z-index: 4;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--ink);
+  color: var(--dark-heading);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 9px 14px;
+  border-radius: 100px;
+  box-shadow: 0 16px 32px -12px rgba(23, 26, 30, 0.35);
+}
+.chip .point { background: var(--dark-eyebrow); }
+
+/* Skeleton lines (shared) */
+.lineWide, .lineMid {
+  display: block;
+  height: 7px;
+  border-radius: 4px;
+  background: var(--surface-2);
+}
+.lineWide { width: 100%; }
+.lineMid  { width: 64%; }
+
+/* ── Scroll cue ─────────────────────────────────────────── */
+.scrollCue {
+  position: absolute;
+  left: 0;
+  bottom: clamp(-20px, -2vw, -8px);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+.scrollLine {
+  width: 44px;
+  height: 1px;
+  background: var(--muted);
+  position: relative;
+  overflow: hidden;
+}
+.scrollLine::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--forge);
+  transform: translateX(-100%);
+  animation: scrollSweep 2.4s ease-in-out infinite;
+}
+@keyframes scrollSweep {
+  0%   { transform: translateX(-100%); }
+  50%  { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+/* ── Responsive ─────────────────────────────────────────── */
+@media (max-width: 920px) {
+  .grid { grid-template-columns: 1fr; gap: clamp(48px, 9vw, 72px); }
+  .proof {
+    min-height: 380px;
+    max-width: 380px;
+    margin-inline: auto;
+    width: 100%;
+  }
+  .scrollCue { display: none; }
+}
+
+@media (max-width: 520px) {
+  .hero { min-height: auto; padding-bottom: clamp(40px, 12vw, 64px); }
+  .proof {
+    min-height: 320px;
+    max-width: 320px;
+  }
+  .artifactCase { width: 256px; padding: 20px; }
+  .artifactSocial { width: 188px; }
+  .caseTitle { font-size: 19px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .signaturePoint { animation: none; transform: scale(1); }
+  .scrollLine::after { animation: none; display: none; }
+}

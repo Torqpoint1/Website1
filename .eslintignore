@@ -1,0 +1,10 @@
+# ESLint only lints JS/TS. CSS, build output and deps must never be parsed
+# as JavaScript (doing so produces bogus "Unexpected token" / "decorators"
+# parse errors — e.g. when a linter feeds .css files to the JS parser).
+*.css
+**/*.css
+node_modules/
+.next/
+out/
+next-env.d.ts
+public/

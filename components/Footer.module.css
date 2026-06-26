@@ -19,9 +19,6 @@
   gap: 24px;
 }
 
-/* Override logo colours for dark footer */
-.brand :global(.wordmark) { color: var(--dark-heading); }
-
 .tagline {
   font-size: 15px;
   color: var(--dark-body);

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { HeroEntrance } from '@/components/HeroEntrance';
+import { Hero } from '@/components/Hero';
+import { Marquee } from '@/components/Marquee';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import styles from './page.module.css';
 
@@ -47,39 +48,17 @@ export default function HomePage() {
   return (
     <>
       {/* ── Hero ──────────────────────────────────────────── */}
-      <section className={styles.hero} aria-label="Hero">
-        <div className={`container ${styles.heroInner}`}>
-          <HeroEntrance className={styles.heroContent}>
-            <p className={`eyebrow ${styles.heroEyebrow}`} data-hero>
-              <span className="point point--sm" aria-hidden="true" />
-              Content &amp; marketing · Gloucestershire
-            </p>
-            <h1 className={styles.heroHeadline} data-hero>
-              Your best work deserves better<br className={styles.br} /> than the{' '}
-              <span className={styles.forge}>camera roll.</span>
-            </h1>
-            <p className={`${styles.heroLead} font-serif`} data-hero>
-              We turn your finished projects into posts, case studies and emails
-              that win the next job — so you look{' '}
-              <em>as good online as the work actually is.</em>
-            </p>
-            <div className={styles.heroCtas} data-hero>
-              <Link href="/contact" className="btn btn-primary">
-                Start a project
-              </Link>
-              <Link href="/services" className="btn btn-ghost">
-                See what we do
-              </Link>
-            </div>
-          </HeroEntrance>
-        </div>
-      </section>
+      <Hero />
+
+      {/* ── Deliverables marquee ──────────────────────────── */}
+      <Marquee />
 
       {/* ── What We Do ────────────────────────────────────── */}
       <section className={`section ${styles.whatWeDo}`} aria-labelledby="what-heading">
         <div className="container">
           <ScrollReveal className="section-header" stagger>
-            <p className="eyebrow">
+            <p className="index-label">
+              <span className="index-label__num">01</span>
               <span className="point point--sm" aria-hidden="true" />
               What we do
             </p>
@@ -96,10 +75,15 @@ export default function HomePage() {
           </ScrollReveal>
 
           <ScrollReveal className={styles.serviceGrid} stagger>
-            {services.map(({ name, desc }) => (
+            {services.map(({ name, desc }, i) => (
               <article key={name} className={`card ${styles.serviceCard}`}>
-                <div className={styles.cardMarker} aria-hidden="true">
-                  <span className="point point--md" />
+                <div className={styles.cardTop}>
+                  <div className={styles.cardMarker} aria-hidden="true">
+                    <span className="point point--md" />
+                  </div>
+                  <span className={styles.cardIndex} aria-hidden="true">
+                    0{i + 1}
+                  </span>
                 </div>
                 <h3 className={styles.cardTitle}>{name}</h3>
                 <p className={styles.cardDesc}>{desc}</p>
@@ -113,7 +97,8 @@ export default function HomePage() {
       <section className={styles.howItWorks} aria-labelledby="how-heading">
         <div className="container">
           <ScrollReveal stagger>
-            <p className="eyebrow eyebrow--dark">
+            <p className="index-label" style={{ color: 'var(--dark-eyebrow)' }}>
+              <span className="index-label__num" style={{ color: 'var(--dark-body)' }}>02</span>
               <span className="point point--sm" aria-hidden="true" style={{ background: 'var(--dark-eyebrow)' }} />
               How it works
             </p>
