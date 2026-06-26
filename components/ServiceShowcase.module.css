@@ -1,7 +1,7 @@
 /* Tall container drives the pinned scroll-through. 5 cards → ~5 viewports. */
 .showcase {
   position: relative;
-  height: 500svh;
+  height: 460svh;
   background: var(--paper);
 }
 
@@ -22,8 +22,8 @@
 .stage {
   position: relative;
   width: 100%;
-  max-width: 340px;
-  min-height: clamp(280px, 40vh, 360px);
+  max-width: 350px;
+  min-height: clamp(380px, 56vh, 480px);
   display: grid;
   place-items: center;
 }
@@ -32,13 +32,13 @@
 .ghost {
   grid-area: 1 / 1;
   align-self: center;
-  width: 268px;
-  height: 250px;
+  width: 290px;
+  height: 330px;
   background: var(--surface);
   border: 1px solid var(--surface-2);
   border-radius: var(--r-lg);
   box-shadow: 0 24px 48px -28px rgba(23, 26, 30, 0.18);
-  transform: rotate(5deg) translate(40px, 26px);
+  transform: rotate(5deg) translate(40px, 28px);
   opacity: 0.6;
   z-index: 0;
 }
@@ -46,13 +46,13 @@
 .ghost2 {
   grid-area: 1 / 1;
   align-self: center;
-  width: 250px;
-  height: 224px;
+  width: 268px;
+  height: 296px;
   background: var(--surface);
   border: 1px solid var(--surface-2);
   border-radius: var(--r-lg);
   box-shadow: 0 24px 48px -30px rgba(23, 26, 30, 0.16);
-  transform: rotate(-5deg) translate(-38px, 20px);
+  transform: rotate(-5deg) translate(-38px, 22px);
   opacity: 0.42;
   z-index: 0;
 }
@@ -64,8 +64,8 @@
   align-self: center;
   display: flex;
   flex-direction: column;
-  gap: 14px;
-  padding: clamp(20px, 3.5vw, 26px);
+  gap: 18px;
+  padding: clamp(24px, 4.5vw, 32px);
   background: var(--surface);
   border: 1px solid var(--surface-2);
   border-radius: var(--r-lg);
@@ -121,10 +121,10 @@
 }
 
 /* ── Shared mock elements ───────────────────────────────── */
-.lines { display: flex; flex-direction: column; gap: 9px; }
+.lines { display: flex; flex-direction: column; gap: 12px; }
 .lineWide, .lineMid {
   display: block;
-  height: 8px;
+  height: 9px;
   border-radius: 4px;
   background: var(--surface-2);
 }
@@ -132,7 +132,7 @@
 .lineMid  { width: 62%; }
 
 .serifTitle {
-  font-size: clamp(20px, 3.2vw, 26px);
+  font-size: clamp(22px, 3.6vw, 28px);
   font-style: italic;
   font-weight: 400;
   line-height: 1.2;
@@ -141,7 +141,7 @@
 }
 
 .photo {
-  height: 104px;
+  height: 160px;
   border-radius: var(--r);
   background: linear-gradient(135deg, var(--surface-2), #E4E2D9);
   position: relative;
@@ -188,7 +188,7 @@
   background: var(--surface-2);
 }
 .siteHero {
-  height: 96px;
+  height: 132px;
   border-radius: var(--r);
   background: linear-gradient(135deg, var(--ink), #2A2F36);
   position: relative;
@@ -206,7 +206,7 @@
 .siteRow { display: flex; gap: 10px; }
 .siteBlock {
   flex: 1;
-  height: 54px;
+  height: 70px;
   border-radius: var(--r);
   background: var(--surface-2);
 }
