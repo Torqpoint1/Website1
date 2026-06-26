@@ -13,7 +13,7 @@ export function Hero() {
     const blob = blobRef.current;
     if (!blob || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const update = () => {
-      blob.style.transform = `translate(-50%, calc(-50% + ${window.scrollY * 0.18}px))`;
+      blob.style.transform = `translateY(${window.scrollY * 0.22}px)`;
     };
     window.addEventListener('scroll', update, { passive: true });
     return () => window.removeEventListener('scroll', update);

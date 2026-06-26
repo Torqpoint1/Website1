@@ -22,15 +22,14 @@
   pointer-events: none;
 }
 
-/* Scroll-parallax warm glow behind the statement */
+/* Scroll-parallax warm glow, anchored to the right to fill the space */
 .bgBlob {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: clamp(420px, 60vw, 780px);
-  height: clamp(420px, 60vw, 780px);
-  background: radial-gradient(circle at 50% 50%, rgba(238, 90, 30, 0.08) 0%, transparent 65%);
+  right: -8%;
+  top: 6%;
+  width: clamp(360px, 50vw, 720px);
+  height: clamp(360px, 50vw, 720px);
+  background: radial-gradient(circle at 50% 50%, rgba(238, 90, 30, 0.09) 0%, transparent 65%);
   border-radius: 50%;
   pointer-events: none;
   will-change: transform;
@@ -40,21 +39,17 @@
 
 .grid { width: 100%; }
 
-/* ── Centred statement ──────────────────────────────────── */
+/* ── Left-aligned statement ─────────────────────────────── */
 .content {
-  max-width: 800px;
-  margin-inline: auto;
-  text-align: center;
+  max-width: 720px;
 }
 
 .eyebrow {
-  display: flex;
-  justify-content: center;
   margin-bottom: 26px;
 }
 
 .headline {
-  font-size: clamp(40px, 6vw, 80px);
+  font-size: clamp(38px, 5.4vw, 76px);
   font-weight: 800;
   letter-spacing: -0.04em;
   line-height: 1.04;
@@ -90,8 +85,7 @@
 .lead {
   font-size: clamp(18px, 2.1vw, 24px);
   color: var(--slate);
-  max-width: 56ch;
-  margin-inline: auto;
+  max-width: 54ch;
   line-height: 1.6;
   margin-bottom: 40px;
   font-weight: 400;
@@ -102,14 +96,12 @@
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 /* ── Scroll cue ─────────────────────────────────────────── */
 .scrollCue {
   position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   bottom: clamp(-20px, -2vw, -8px);
   display: flex;
   align-items: center;
