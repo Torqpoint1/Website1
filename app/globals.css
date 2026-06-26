@@ -355,19 +355,19 @@ ul, ol { list-style: none; }
 /* ── Animations (will-animate pattern) ─────────────────── */
 .will-animate {
   opacity: 0;
-  transform: translateY(28px);
+  transform: translateY(64px);
 }
-.will-animate--left  { transform: translateX(-32px); }
-.will-animate--right { transform: translateX(32px); }
-.will-animate--scale { transform: scale(0.93) translateY(14px); }
+.will-animate--left  { transform: translateX(-56px); }
+.will-animate--right { transform: translateX(56px); }
+.will-animate--scale { transform: scale(0.86) translateY(24px); }
 
 .is-visible {
   opacity: 1;
   transform: none;
-  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  transition: opacity 0.95s var(--ease-out), transform 0.95s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .will-animate--scale.is-visible {
-  transition: opacity 0.8s var(--ease-out), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 1s var(--ease-out), transform 1s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ── Marquee ────────────────────────────────────────────── */

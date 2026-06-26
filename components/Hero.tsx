@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRef, useCallback } from 'react';
+import { useRef, useCallback, useEffect } from 'react';
 import { HeroEntrance } from './HeroEntrance';
 import styles from './Hero.module.css';
 
@@ -9,7 +9,20 @@ export function Hero() {
   const socialRef = useRef<HTMLDivElement>(null);
   const caseRef   = useRef<HTMLDivElement>(null);
   const proofRef  = useRef<HTMLDivElement>(null);
+  const blobRef   = useRef<HTMLDivElement>(null);
 
+  /* Scroll-driven parallax on the background blob */
+  useEffect(() => {
+    const blob = blobRef.current;
+    if (!blob || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const update = () => {
+      blob.style.transform = `translateY(${window.scrollY * 0.28}px)`;
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, []);
+
+  /* Mouse parallax on the proof artifacts */
   const onMouseMove = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     if (window.innerWidth < 920) return;
     const rect = proofRef.current?.getBoundingClientRect();
@@ -17,9 +30,9 @@ export function Hero() {
     const dx = (e.clientX - rect.left - rect.width  / 2) / rect.width;
     const dy = (e.clientY - rect.top  - rect.height / 2) / rect.height;
     if (socialRef.current)
-      socialRef.current.style.transform = `translate(${dx * 14}px, ${dy * 10}px)`;
+      socialRef.current.style.transform = `translate(${dx * 22}px, ${dy * 16}px)`;
     if (caseRef.current)
-      caseRef.current.style.transform   = `translate(${dx * -10}px, ${dy * -8}px)`;
+      caseRef.current.style.transform   = `translate(${dx * -16}px, ${dy * -12}px)`;
   }, []);
 
   const onMouseLeave = useCallback(() => {
@@ -29,6 +42,9 @@ export function Hero() {
 
   return (
     <section className={styles.hero} aria-label="Introduction">
+      {/* Scroll-parallax background blob */}
+      <div ref={blobRef} className={styles.bgBlob} aria-hidden="true" />
+
       <div className={`container ${styles.inner}`}>
         <HeroEntrance className={styles.grid}>
           {/* ── Left: the statement ─────────────────────── */}
@@ -70,7 +86,7 @@ export function Hero() {
             onMouseMove={onMouseMove}
             onMouseLeave={onMouseLeave}
           >
-            {/* Social post artifact — parallax layer A (slower) */}
+            {/* Social post artifact — parallax layer A + auto-rock */}
             <div ref={socialRef} className={styles.wrapSocial}>
               <div className={`${styles.artifact} ${styles.artifactSocial}`}>
                 <div className={styles.artHead}>
@@ -87,7 +103,7 @@ export function Hero() {
               </div>
             </div>
 
-            {/* Case study artifact — parallax layer B (counter-moves) */}
+            {/* Case study artifact — parallax layer B + counter-rock */}
             <div ref={caseRef} className={styles.wrapCase}>
               <div className={`${styles.artifact} ${styles.artifactCase}`}>
                 <span className={styles.artLabel}>

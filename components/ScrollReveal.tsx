@@ -35,7 +35,7 @@ export function ScrollReveal({
     targets.forEach((t, i) => {
       t.classList.add('will-animate');
       if (direction !== 'up') t.classList.add(`will-animate--${direction}`);
-      (t as HTMLElement).style.transitionDelay = `${delay + i * 0.085}s`;
+      (t as HTMLElement).style.transitionDelay = `${delay + i * 0.14}s`;
     });
 
     const reveal = () => targets.forEach(t => t.classList.add('is-visible'));
