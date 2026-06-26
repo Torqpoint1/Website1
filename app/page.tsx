@@ -14,16 +14,16 @@ export const metadata: Metadata = {
 
 const services = [
   {
-    name: 'Social posts',
-    desc: 'A month of scheduled posts built from your project photos — consistent, on-brand, and actually worth following.',
+    name: 'Win more work',
+    desc: 'Case studies and social posts that turn your finished jobs into proof — so prospects pick you over the quote down the road.',
   },
   {
-    name: 'Case studies',
-    desc: 'Your best projects, written up properly. A page that wins trust and doubles as a sales tool you can send to prospects.',
+    name: 'Stay front of mind',
+    desc: 'Regular email and social that keeps you in front of past customers and warm leads, so the next job comes back to you.',
   },
   {
-    name: 'Email & newsletters',
-    desc: 'Stay in front of past customers and quote-stage leads, so the work you\'ve already done keeps paying you back.',
+    name: 'Get found online',
+    desc: 'Blog articles, your Google Business profile and a proper website that help the right people find you when they\'re searching.',
   },
 ];
 
