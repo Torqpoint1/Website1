@@ -5,12 +5,18 @@ import styles from './ServiceShowcase.module.css';
 
 interface Card {
   label: string;
+  desc: string;
+  rot: number;
+  tx: number;
   render: () => React.ReactNode;
 }
 
 const cards: Card[] = [
   {
     label: 'Social post',
+    desc: 'A month of scheduled posts, built from your project photos.',
+    rot: -3,
+    tx: -14,
     render: () => (
       <>
         <div className={styles.photo} />
@@ -23,6 +29,9 @@ const cards: Card[] = [
   },
   {
     label: 'Case study',
+    desc: 'Your finished jobs, written up to win the next one.',
+    rot: 2.5,
+    tx: 16,
     render: () => (
       <>
         <p className={`${styles.serifTitle} font-serif`}>Your project, written up properly.</p>
@@ -31,15 +40,14 @@ const cards: Card[] = [
           <span className={styles.lineWide} />
           <span className={styles.lineMid} />
         </div>
-        <div className={styles.foot}>
-          <span className={styles.footLink}>Read case study</span>
-          <span className={styles.footArrow}>→</span>
-        </div>
       </>
     ),
   },
   {
     label: 'Email & newsletter',
+    desc: 'Keeps you in front of past customers and warm leads.',
+    rot: -2,
+    tx: -10,
     render: () => (
       <>
         <p className={styles.subject}>
@@ -48,34 +56,32 @@ const cards: Card[] = [
         </p>
         <div className={styles.lines}>
           <span className={styles.lineWide} />
-          <span className={styles.lineWide} />
           <span className={styles.lineMid} />
-        </div>
-        <div className={styles.foot}>
-          <span className={styles.footTag}>Written in your voice</span>
         </div>
       </>
     ),
   },
   {
     label: 'Blog article',
+    desc: 'Genuinely useful pieces that help you rank on Google.',
+    rot: 3,
+    tx: 12,
     render: () => (
       <>
         <p className={`${styles.serifTitle} font-serif`}>The five questions every customer asks first.</p>
         <div className={styles.lines}>
           <span className={styles.lineWide} />
           <span className={styles.lineWide} />
-          <span className={styles.lineWide} />
           <span className={styles.lineMid} />
-        </div>
-        <div className={styles.foot}>
-          <span className={styles.footTag}>Helps you rank on Google</span>
         </div>
       </>
     ),
   },
   {
     label: 'Website design & build',
+    desc: 'A fast, on-brand site that turns visitors into enquiries.',
+    rot: -2.5,
+    tx: -16,
     render: () => (
       <>
         <div className={styles.browser}>
@@ -146,9 +152,13 @@ export function ServiceShowcase() {
         </div>
 
         <div className={styles.stage}>
+          {/* faint card behind, for layered depth */}
+          <div className={styles.ghost} aria-hidden="true" />
+
           {cards.map((card, i) => (
             <article
               key={card.label}
+              style={{ '--rot': `${card.rot}deg`, '--tx': `${card.tx}px` } as React.CSSProperties}
               className={`${styles.card} ${
                 i === active ? styles.cardActive : i < active ? styles.cardPrev : styles.cardNext
               }`}
@@ -159,6 +169,7 @@ export function ServiceShowcase() {
                 {card.label}
               </span>
               <div className={styles.cardBody}>{card.render()}</div>
+              <p className={styles.desc}>{card.desc}</p>
             </article>
           ))}
         </div>
