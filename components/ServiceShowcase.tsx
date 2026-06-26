@@ -8,6 +8,7 @@ interface Card {
   desc: string;
   rot: number;
   tx: number;
+  w: number;
   render: () => React.ReactNode;
 }
 
@@ -17,6 +18,7 @@ const cards: Card[] = [
     desc: 'A month of scheduled posts, built from your project photos.',
     rot: -3,
     tx: -14,
+    w: 300,
     render: () => (
       <>
         <div className={styles.photo} />
@@ -32,6 +34,7 @@ const cards: Card[] = [
     desc: 'Your finished jobs, written up to win the next one.',
     rot: 2.5,
     tx: 16,
+    w: 262,
     render: () => (
       <>
         <p className={`${styles.serifTitle} font-serif`}>Your project, written up properly.</p>
@@ -48,6 +51,7 @@ const cards: Card[] = [
     desc: 'A fast, on-brand site that turns visitors into enquiries.',
     rot: -2.5,
     tx: -16,
+    w: 324,
     render: () => (
       <>
         <div className={styles.browser}>
@@ -69,6 +73,7 @@ const cards: Card[] = [
     desc: 'Keeps you in front of past customers and warm leads.',
     rot: 3,
     tx: 12,
+    w: 284,
     render: () => (
       <>
         <p className={styles.subject}>
@@ -87,6 +92,7 @@ const cards: Card[] = [
     desc: 'Genuinely useful pieces that help you rank on Google.',
     rot: -2,
     tx: -10,
+    w: 256,
     render: () => (
       <>
         <p className={`${styles.serifTitle} font-serif`}>The five questions every customer asks first.</p>
@@ -159,7 +165,7 @@ export function ServiceShowcase() {
           {cards.map((card, i) => (
             <article
               key={card.label}
-              style={{ '--rot': `${card.rot}deg`, '--tx': `${card.tx}px` } as React.CSSProperties}
+              style={{ '--rot': `${card.rot}deg`, '--tx': `${card.tx}px`, '--w': `${card.w}px` } as React.CSSProperties}
               className={`${styles.card} ${
                 i === active ? styles.cardActive : i < active ? styles.cardPrev : styles.cardNext
               }`}
