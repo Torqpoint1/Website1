@@ -95,6 +95,20 @@
   }
 }
 
+.supportNote {
+  margin-top: clamp(32px, 4vw, 48px);
+  padding: 20px 24px;
+  border-left: 3px solid var(--surface-2);
+  font-size: 14px;
+  color: var(--slate);
+  line-height: 1.65;
+  max-width: 68ch;
+}
+.supportNote strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
 /* ── Ways to work ─────────────────────────────────────── */
 .waysSection { background: var(--paper); }
 .forge { color: var(--forge); }
