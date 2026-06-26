@@ -31,16 +31,16 @@ const serviceList = [
     desc: 'Keep your local listing active and working for you.',
   },
   {
-    name: 'Photography & video',
-    desc: 'We can source professional photography and videography when a project deserves it.',
-  },
-  {
     name: 'Profiles & setup',
     desc: 'Get your social profiles and listings set up and looking the part.',
   },
   {
-    name: 'Something else',
-    desc: 'If it\'s content and it\'ll win you work, just ask — we\'ll quote it.',
+    name: 'Website design & build',
+    desc: 'Need a proper online home to go with your content? We oversee high-quality website builds — designed in your brand, built to win enquiries.',
+  },
+  {
+    name: 'Anything else',
+    desc: 'No content or marketing challenge is off the table. If it grows your business or builds your reputation, we\'ll make it happen.',
   },
 ];
 
@@ -75,10 +75,10 @@ export default function ServicesPage() {
               <span className={styles.ink}>nothing you don&rsquo;t.</span>
             </h1>
             <p className={styles.pageIntro}>
-              Some clients want the works, every month. Others want a single newsletter,
+              Some clients want the works, every month. Others want a single newsletter
               or three posts before a busy spell. Both are completely fine. There are no
-              rigid packages here — we build a quote around what you actually need, so
-              you never pay for anything you won&rsquo;t use.
+              rigid packages here — and if your challenge isn&rsquo;t on the list, just
+              ask. There&rsquo;s no content or marketing task we can&rsquo;t facilitate.
             </p>
           </ScrollReveal>
         </div>
@@ -104,6 +104,14 @@ export default function ServicesPage() {
                 </div>
               </article>
             ))}
+          </ScrollReveal>
+
+          <ScrollReveal>
+            <p className={styles.supportNote}>
+              <strong>Need professional photography or video?</strong> If getting the
+              most from your content requires a proper shoot, we can source and arrange
+              it through our network — just mention it when you get in touch.
+            </p>
           </ScrollReveal>
         </div>
       </section>

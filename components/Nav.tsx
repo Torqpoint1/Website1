@@ -51,6 +51,8 @@ export function Nav() {
     return () => window.removeEventListener('keydown', handleKey);
   }, [open]);
 
+  const isHome = pathname === '/';
+
   return (
     <>
       <header className={`${styles.nav} ${scrolled ? styles.scrolled : ''}`} role="banner">
@@ -59,6 +61,13 @@ export function Nav() {
 
           <nav className={styles.desktop} aria-label="Main navigation">
             <ul className={styles.links}>
+              {!isHome && (
+                <li>
+                  <Link href="/" className={styles.link}>
+                    Home
+                  </Link>
+                </li>
+              )}
               {navLinks.map(({ href, label }) => (
                 <li key={href}>
                   <Link
@@ -105,6 +114,18 @@ export function Nav() {
       >
         <nav aria-label="Mobile navigation">
           <ul className={styles.drawerLinks}>
+            {!isHome && (
+              <li>
+                <Link
+                  href="/"
+                  className={styles.drawerLink}
+                  tabIndex={open ? 0 : -1}
+                >
+                  <span className="point point--md" aria-hidden="true" />
+                  Home
+                </Link>
+              </li>
+            )}
             {navLinks.map(({ href, label }) => (
               <li key={href}>
                 <Link
