@@ -37,8 +37,8 @@
 .stage {
   position: relative;
   width: 100%;
-  max-width: 440px;
-  height: clamp(380px, 54vh, 480px);
+  max-width: 296px;
+  height: clamp(320px, 44vh, 390px);
 }
 
 /* Faint card sitting behind the stack — gives a hand-placed, layered look */
@@ -49,8 +49,20 @@
   border: 1px solid var(--surface-2);
   border-radius: var(--r-lg);
   box-shadow: 0 24px 48px -28px rgba(23, 26, 30, 0.18);
-  transform: rotate(4deg) translate(22px, 16px);
-  opacity: 0.55;
+  transform: rotate(5deg) translate(30px, 22px);
+  opacity: 0.6;
+  z-index: 0;
+}
+/* Second faint card, tilted the other way, for a richer stack */
+.ghost2 {
+  position: absolute;
+  inset: 0;
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  border-radius: var(--r-lg);
+  box-shadow: 0 24px 48px -30px rgba(23, 26, 30, 0.16);
+  transform: rotate(-5deg) translate(-28px, 16px);
+  opacity: 0.42;
   z-index: 0;
 }
 
@@ -136,7 +148,7 @@
 }
 
 .photo {
-  height: 130px;
+  height: 104px;
   border-radius: var(--r);
   background: linear-gradient(135deg, var(--surface-2), #E4E2D9);
   position: relative;
@@ -239,6 +251,6 @@
     transform: none !important;
     transition: none;
   }
-  .ghost { display: none; }
+  .ghost, .ghost2 { display: none; }
   .dots { display: none; }
 }

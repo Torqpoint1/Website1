@@ -44,40 +44,6 @@ const cards: Card[] = [
     ),
   },
   {
-    label: 'Email & newsletter',
-    desc: 'Keeps you in front of past customers and warm leads.',
-    rot: -2,
-    tx: -10,
-    render: () => (
-      <>
-        <p className={styles.subject}>
-          <span className={styles.subjectLabel}>Subject</span>
-          One job done, the next one lined up.
-        </p>
-        <div className={styles.lines}>
-          <span className={styles.lineWide} />
-          <span className={styles.lineMid} />
-        </div>
-      </>
-    ),
-  },
-  {
-    label: 'Blog article',
-    desc: 'Genuinely useful pieces that help you rank on Google.',
-    rot: 3,
-    tx: 12,
-    render: () => (
-      <>
-        <p className={`${styles.serifTitle} font-serif`}>The five questions every customer asks first.</p>
-        <div className={styles.lines}>
-          <span className={styles.lineWide} />
-          <span className={styles.lineWide} />
-          <span className={styles.lineMid} />
-        </div>
-      </>
-    ),
-  },
-  {
     label: 'Website design & build',
     desc: 'A fast, on-brand site that turns visitors into enquiries.',
     rot: -2.5,
@@ -94,6 +60,40 @@ const cards: Card[] = [
           <span className={styles.siteBlock} />
           <span className={styles.siteBlock} />
           <span className={styles.siteBlock} />
+        </div>
+      </>
+    ),
+  },
+  {
+    label: 'Email & newsletter',
+    desc: 'Keeps you in front of past customers and warm leads.',
+    rot: 3,
+    tx: 12,
+    render: () => (
+      <>
+        <p className={styles.subject}>
+          <span className={styles.subjectLabel}>Subject</span>
+          One job done, the next one lined up.
+        </p>
+        <div className={styles.lines}>
+          <span className={styles.lineWide} />
+          <span className={styles.lineMid} />
+        </div>
+      </>
+    ),
+  },
+  {
+    label: 'Blog article',
+    desc: 'Genuinely useful pieces that help you rank on Google.',
+    rot: -2,
+    tx: -10,
+    render: () => (
+      <>
+        <p className={`${styles.serifTitle} font-serif`}>The five questions every customer asks first.</p>
+        <div className={styles.lines}>
+          <span className={styles.lineWide} />
+          <span className={styles.lineWide} />
+          <span className={styles.lineMid} />
         </div>
       </>
     ),
@@ -152,8 +152,9 @@ export function ServiceShowcase() {
         </div>
 
         <div className={styles.stage}>
-          {/* faint card behind, for layered depth */}
+          {/* faint cards behind, for layered depth */}
           <div className={styles.ghost} aria-hidden="true" />
+          <div className={styles.ghost2} aria-hidden="true" />
 
           {cards.map((card, i) => (
             <article
