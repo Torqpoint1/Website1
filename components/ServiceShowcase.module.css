@@ -1,7 +1,7 @@
 /* Tall container drives the pinned scroll-through. 5 cards → ~5 viewports. */
 .showcase {
   position: relative;
-  height: 460svh;
+  height: 420svh;
   background: var(--paper);
 }
 
@@ -15,15 +15,15 @@
   justify-content: center;
   gap: clamp(24px, 4vh, 48px);
   overflow: hidden;
-  padding: calc(var(--nav-h) + 24px) 24px 48px;
+  padding: 24px;
 }
 
 /* ── Stage + cards ──────────────────────────────────────── */
 .stage {
   position: relative;
   width: 100%;
-  max-width: 350px;
-  min-height: clamp(380px, 56vh, 480px);
+  max-width: 352px;
+  min-height: clamp(420px, 58vh, 500px);
   display: grid;
   place-items: center;
 }
@@ -32,8 +32,8 @@
 .ghost {
   grid-area: 1 / 1;
   align-self: center;
-  width: 290px;
-  height: 330px;
+  width: 296px;
+  height: 392px;
   background: var(--surface);
   border: 1px solid var(--surface-2);
   border-radius: var(--r-lg);
@@ -46,8 +46,8 @@
 .ghost2 {
   grid-area: 1 / 1;
   align-self: center;
-  width: 268px;
-  height: 296px;
+  width: 272px;
+  height: 356px;
   background: var(--surface);
   border: 1px solid var(--surface-2);
   border-radius: var(--r-lg);
@@ -64,8 +64,8 @@
   align-self: center;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  padding: clamp(24px, 4.5vw, 32px);
+  gap: 24px;
+  padding: clamp(28px, 5.5vw, 40px);
   background: var(--surface);
   border: 1px solid var(--surface-2);
   border-radius: var(--r-lg);
@@ -113,18 +113,18 @@
 
 .desc {
   margin-top: 4px;
-  padding-top: 14px;
+  padding-top: 18px;
   border-top: 1px solid var(--surface-2);
-  font-size: 13.5px;
-  line-height: 1.5;
+  font-size: 15px;
+  line-height: 1.55;
   color: var(--slate);
 }
 
 /* ── Shared mock elements ───────────────────────────────── */
-.lines { display: flex; flex-direction: column; gap: 12px; }
+.lines { display: flex; flex-direction: column; gap: 16px; }
 .lineWide, .lineMid {
   display: block;
-  height: 9px;
+  height: 11px;
   border-radius: 4px;
   background: var(--surface-2);
 }
@@ -132,7 +132,7 @@
 .lineMid  { width: 62%; }
 
 .serifTitle {
-  font-size: clamp(22px, 3.6vw, 28px);
+  font-size: clamp(24px, 4.4vw, 33px);
   font-style: italic;
   font-weight: 400;
   line-height: 1.2;
@@ -140,8 +140,23 @@
   color: var(--ink);
 }
 
+/* Smaller cover image for text-led cards, to bulk their height */
+.cover {
+  height: 150px;
+  border-radius: var(--r);
+  background: linear-gradient(135deg, var(--surface-2), #E4E2D9);
+  position: relative;
+  overflow: hidden;
+}
+.cover::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(160px 90px at 72% 28%, rgba(238, 90, 30, 0.10), transparent 70%);
+}
+
 .photo {
-  height: 160px;
+  height: 224px;
   border-radius: var(--r);
   background: linear-gradient(135deg, var(--surface-2), #E4E2D9);
   position: relative;
@@ -170,7 +185,7 @@
   color: var(--muted);
 }
 
-.subject { font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.4; }
+.subject { font-size: 19px; font-weight: 600; color: var(--ink); line-height: 1.4; }
 .subjectLabel {
   display: block;
   font-size: 10px;
@@ -188,7 +203,7 @@
   background: var(--surface-2);
 }
 .siteHero {
-  height: 132px;
+  height: 184px;
   border-radius: var(--r);
   background: linear-gradient(135deg, var(--ink), #2A2F36);
   position: relative;
@@ -206,20 +221,10 @@
 .siteRow { display: flex; gap: 10px; }
 .siteBlock {
   flex: 1;
-  height: 70px;
+  height: 96px;
   border-radius: var(--r);
   background: var(--surface-2);
 }
-
-/* ── Progress dots ──────────────────────────────────────── */
-.dots { display: flex; gap: 10px; }
-.dot {
-  width: 8px; height: 8px;
-  border-radius: 50%;
-  background: var(--surface-2);
-  transition: background 0.4s var(--ease-out), transform 0.4s var(--ease-out);
-}
-.dotActive { background: var(--forge); transform: scale(1.3); }
 
 /* ── Reduced-motion / fallback: stack cards normally ────── */
 @media (prefers-reduced-motion: reduce) {
@@ -244,5 +249,4 @@
     transition: none;
   }
   .ghost, .ghost2 { display: none; }
-  .dots { display: none; }
 }
