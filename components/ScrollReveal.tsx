@@ -38,7 +38,10 @@ export function ScrollReveal({
       (t as HTMLElement).style.transitionDelay = `${delay + i * 0.14}s`;
     });
 
-    const reveal = () => targets.forEach(t => t.classList.add('is-visible'));
+    const reveal = () => {
+      targets.forEach(t => t.classList.add('is-visible'));
+      clearTimeout(safety);
+    };
 
     const observer = new IntersectionObserver(
       (entries) => {
@@ -49,16 +52,21 @@ export function ScrollReveal({
           }
         });
       },
-      { threshold: 0.1, rootMargin: '0px 0px -6% 0px' }
+      { threshold: 0.08, rootMargin: '0px 0px -5% 0px' }
     );
 
     observer.observe(el);
 
-    const safety = setTimeout(reveal, 2500);
+    // Safety timeout only for elements already visible on mount — prevents
+    // content that's in the initial viewport from getting stuck invisible.
+    // Below-fold elements stay hidden until scrolled into view (no timeout).
+    const rect = el.getBoundingClientRect();
+    const alreadyVisible = rect.top < window.innerHeight && rect.bottom > 0;
+    const safety = alreadyVisible ? setTimeout(reveal, 2500) : 0;
 
     return () => {
       observer.disconnect();
-      clearTimeout(safety);
+      if (safety) clearTimeout(safety);
     };
   }, [stagger, delay, direction]);
 

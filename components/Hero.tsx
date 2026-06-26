@@ -111,7 +111,7 @@ export function Hero() {
                   Case study
                 </span>
                 <p className={`${styles.caseTitle} font-serif`}>
-                  A kitchen, rebuilt from the ground up.
+                  Your project, written up properly.
                 </p>
                 <div className={styles.caseBody}>
                   <span className={styles.lineWide} />
