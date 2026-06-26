@@ -91,6 +91,17 @@
   font-size: 13px;
   color: var(--muted);
 }
+.builtLink {
+  color: var(--paper);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--forge);
+  transition: color var(--t-fast);
+}
+.builtLink:hover {
+  color: var(--forge);
+}
 
 @media (max-width: 768px) {
   .top {

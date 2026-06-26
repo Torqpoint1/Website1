@@ -184,7 +184,7 @@
 }
 /* Featured (dark) card: brighten list + sub-label for readable contrast */
 .wayCardFeatured .wayFeatures li {
-  color: var(--dark-body);
+  color: #ECEEF1;
 }
 .wayCardFeatured .waySubLabel {
   color: var(--dark-body);

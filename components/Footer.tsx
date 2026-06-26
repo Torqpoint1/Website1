@@ -68,7 +68,9 @@ export function Footer() {
             <Link href="/privacy" className={styles.legalLink}>Privacy Policy</Link>
           </p>
           <p className={styles.built}>
-            Built in Gloucestershire<span className="point point--sm" aria-hidden="true" />
+            Designed &amp; built in-house by{' '}
+            <Link href="/services" className={styles.builtLink}>Torqpoint</Link>
+            <span className="point point--sm" aria-hidden="true" />
           </p>
         </div>
       </div>
