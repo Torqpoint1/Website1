@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { Hero } from '@/components/Hero';
 import { Marquee } from '@/components/Marquee';
+import { ServiceShowcase } from '@/components/ServiceShowcase';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import styles from './page.module.css';
 
@@ -49,6 +50,9 @@ export default function HomePage() {
     <>
       {/* ── Hero ──────────────────────────────────────────── */}
       <Hero />
+
+      {/* ── Pinned scroll-through: what your work becomes ──── */}
+      <ServiceShowcase />
 
       {/* ── Deliverables marquee ──────────────────────────── */}
       <Marquee />

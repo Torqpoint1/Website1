@@ -1,0 +1,205 @@
+/* Tall container drives the pinned scroll-through. 5 cards → ~5 viewports. */
+.showcase {
+  position: relative;
+  height: 500svh;
+  background: var(--paper);
+}
+
+.sticky {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(24px, 4vh, 48px);
+  overflow: hidden;
+  padding: calc(var(--nav-h) + 24px) 24px 48px;
+}
+
+/* ── Intro ──────────────────────────────────────────────── */
+.intro {
+  text-align: center;
+  max-width: 30ch;
+}
+.heading {
+  font-size: clamp(26px, 4vw, 46px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.08;
+  color: var(--ink);
+  margin-top: 14px;
+}
+.forge { color: var(--forge); }
+
+/* ── Stage + cards ──────────────────────────────────────── */
+.stage {
+  position: relative;
+  width: 100%;
+  max-width: 440px;
+  height: clamp(320px, 46vh, 420px);
+}
+
+.card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: clamp(24px, 4vw, 32px);
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  border-radius: var(--r-lg);
+  box-shadow: 0 30px 60px -24px rgba(23, 26, 30, 0.22);
+  transition: opacity 0.6s var(--ease-out), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.cardActive { opacity: 1; transform: translateY(0) scale(1); z-index: 3; }
+.cardNext   { opacity: 0; transform: translateY(48px) scale(0.94); z-index: 1; pointer-events: none; }
+.cardPrev   { opacity: 0; transform: translateY(-48px) scale(0.94); z-index: 1; pointer-events: none; }
+
+.cardLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-text);
+}
+.cardBody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 1;
+}
+
+/* ── Shared mock elements ───────────────────────────────── */
+.lines { display: flex; flex-direction: column; gap: 9px; }
+.lineWide, .lineMid {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--surface-2);
+}
+.lineWide { width: 100%; }
+.lineMid  { width: 62%; }
+
+.serifTitle {
+  font-size: clamp(20px, 3.2vw, 26px);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.photo {
+  height: 130px;
+  border-radius: var(--r);
+  background: linear-gradient(135deg, var(--surface-2), #E4E2D9);
+  position: relative;
+  overflow: hidden;
+}
+.photo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(140px 90px at 70% 30%, rgba(238, 90, 30, 0.12), transparent 70%);
+}
+
+.foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+.footLink { font-size: 13px; font-weight: 700; color: var(--forge-text); }
+.footArrow { color: var(--forge); font-size: 15px; }
+.footTag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.subject { font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.4; }
+.subjectLabel {
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+/* Website mock */
+.browser { display: flex; gap: 6px; }
+.browserDot {
+  width: 9px; height: 9px; border-radius: 50%;
+  background: var(--surface-2);
+}
+.siteHero {
+  height: 96px;
+  border-radius: var(--r);
+  background: linear-gradient(135deg, var(--ink), #2A2F36);
+  position: relative;
+  overflow: hidden;
+}
+.siteHero::after {
+  content: '';
+  position: absolute;
+  right: 16px; bottom: 16px;
+  width: 40px; height: 40px;
+  background: var(--forge);
+  border-radius: 4px;
+  opacity: 0.85;
+}
+.siteRow { display: flex; gap: 10px; }
+.siteBlock {
+  flex: 1;
+  height: 54px;
+  border-radius: var(--r);
+  background: var(--surface-2);
+}
+
+/* ── Progress dots ──────────────────────────────────────── */
+.dots { display: flex; gap: 10px; }
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--surface-2);
+  transition: background 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+.dotActive { background: var(--forge); transform: scale(1.3); }
+
+/* ── Reduced-motion / fallback: stack cards normally ────── */
+@media (prefers-reduced-motion: reduce) {
+  .showcase { height: auto; }
+  .sticky {
+    position: static;
+    height: auto;
+    padding-block: clamp(64px, 10vw, 112px);
+  }
+  .stage {
+    position: static;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 460px;
+  }
+  .card {
+    position: relative;
+    inset: auto;
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none;
+  }
+  .dots { display: none; }
+}
