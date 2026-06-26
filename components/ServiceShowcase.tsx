@@ -22,14 +22,10 @@ const cards: Card[] = [
     render: () => (
       <>
         <p className={`${styles.serifTitle} font-serif`}>Your project, written up properly.</p>
-        <div className={styles.cover} />
         <div className={styles.lines}>
           <span className={styles.lineWide} />
+          <span className={styles.lineWide} />
           <span className={styles.lineMid} />
-        </div>
-        <div className={styles.foot}>
-          <span className={styles.footLink}>Read case study</span>
-          <span className={styles.footArrow}>→</span>
         </div>
       </>
     ),
@@ -46,9 +42,7 @@ const cards: Card[] = [
           <span className={styles.subjectLabel}>Subject</span>
           One job done, the next one lined up.
         </p>
-        <div className={styles.cover} />
         <div className={styles.lines}>
-          <span className={styles.lineWide} />
           <span className={styles.lineWide} />
           <span className={styles.lineMid} />
         </div>
@@ -86,13 +80,10 @@ const cards: Card[] = [
     render: () => (
       <>
         <p className={`${styles.serifTitle} font-serif`}>The five questions every customer asks first.</p>
-        <div className={styles.cover} />
         <div className={styles.lines}>
           <span className={styles.lineWide} />
+          <span className={styles.lineWide} />
           <span className={styles.lineMid} />
-        </div>
-        <div className={styles.foot}>
-          <span className={styles.footTag}>5 min read</span>
         </div>
       </>
     ),

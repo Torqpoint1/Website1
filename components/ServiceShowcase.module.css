@@ -1,7 +1,7 @@
 /* Tall container drives the pinned scroll-through. 5 cards → ~5 viewports. */
 .showcase {
   position: relative;
-  height: 420svh;
+  height: 280svh;
   background: var(--paper);
 }
 
@@ -13,7 +13,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: clamp(24px, 4vh, 48px);
   overflow: hidden;
   padding: 24px;
 }
@@ -22,8 +21,8 @@
 .stage {
   position: relative;
   width: 100%;
-  max-width: 352px;
-  min-height: clamp(420px, 58vh, 500px);
+  max-width: 340px;
+  min-height: clamp(280px, 40vh, 360px);
   display: grid;
   place-items: center;
 }
@@ -32,13 +31,13 @@
 .ghost {
   grid-area: 1 / 1;
   align-self: center;
-  width: 296px;
-  height: 392px;
+  width: 268px;
+  height: 250px;
   background: var(--surface);
   border: 1px solid var(--surface-2);
   border-radius: var(--r-lg);
   box-shadow: 0 24px 48px -28px rgba(23, 26, 30, 0.18);
-  transform: rotate(5deg) translate(40px, 28px);
+  transform: rotate(5deg) translate(40px, 26px);
   opacity: 0.6;
   z-index: 0;
 }
@@ -46,13 +45,13 @@
 .ghost2 {
   grid-area: 1 / 1;
   align-self: center;
-  width: 272px;
-  height: 356px;
+  width: 250px;
+  height: 224px;
   background: var(--surface);
   border: 1px solid var(--surface-2);
   border-radius: var(--r-lg);
   box-shadow: 0 24px 48px -30px rgba(23, 26, 30, 0.16);
-  transform: rotate(-5deg) translate(-38px, 22px);
+  transform: rotate(-5deg) translate(-38px, 20px);
   opacity: 0.42;
   z-index: 0;
 }
@@ -64,8 +63,8 @@
   align-self: center;
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  padding: clamp(28px, 5.5vw, 40px);
+  gap: 14px;
+  padding: clamp(20px, 3.5vw, 26px);
   background: var(--surface);
   border: 1px solid var(--surface-2);
   border-radius: var(--r-lg);
@@ -113,18 +112,18 @@
 
 .desc {
   margin-top: 4px;
-  padding-top: 18px;
+  padding-top: 14px;
   border-top: 1px solid var(--surface-2);
-  font-size: 15px;
-  line-height: 1.55;
+  font-size: 13.5px;
+  line-height: 1.5;
   color: var(--slate);
 }
 
 /* ── Shared mock elements ───────────────────────────────── */
-.lines { display: flex; flex-direction: column; gap: 16px; }
+.lines { display: flex; flex-direction: column; gap: 9px; }
 .lineWide, .lineMid {
   display: block;
-  height: 11px;
+  height: 8px;
   border-radius: 4px;
   background: var(--surface-2);
 }
@@ -132,7 +131,7 @@
 .lineMid  { width: 62%; }
 
 .serifTitle {
-  font-size: clamp(24px, 4.4vw, 33px);
+  font-size: clamp(20px, 3.2vw, 26px);
   font-style: italic;
   font-weight: 400;
   line-height: 1.2;
@@ -140,23 +139,8 @@
   color: var(--ink);
 }
 
-/* Smaller cover image for text-led cards, to bulk their height */
-.cover {
-  height: 150px;
-  border-radius: var(--r);
-  background: linear-gradient(135deg, var(--surface-2), #E4E2D9);
-  position: relative;
-  overflow: hidden;
-}
-.cover::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(160px 90px at 72% 28%, rgba(238, 90, 30, 0.10), transparent 70%);
-}
-
 .photo {
-  height: 224px;
+  height: 104px;
   border-radius: var(--r);
   background: linear-gradient(135deg, var(--surface-2), #E4E2D9);
   position: relative;
@@ -185,7 +169,7 @@
   color: var(--muted);
 }
 
-.subject { font-size: 19px; font-weight: 600; color: var(--ink); line-height: 1.4; }
+.subject { font-size: 16px; font-weight: 600; color: var(--ink); line-height: 1.4; }
 .subjectLabel {
   display: block;
   font-size: 10px;
@@ -203,7 +187,7 @@
   background: var(--surface-2);
 }
 .siteHero {
-  height: 184px;
+  height: 96px;
   border-radius: var(--r);
   background: linear-gradient(135deg, var(--ink), #2A2F36);
   position: relative;
@@ -221,7 +205,7 @@
 .siteRow { display: flex; gap: 10px; }
 .siteBlock {
   flex: 1;
-  height: 96px;
+  height: 54px;
   border-radius: var(--r);
   background: var(--surface-2);
 }
