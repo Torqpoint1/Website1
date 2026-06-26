@@ -1,0 +1,130 @@
+.pageHeader {
+  padding-top: calc(var(--nav-h) + clamp(48px, 8vw, 96px));
+  padding-bottom: clamp(48px, 6vw, 72px);
+  border-bottom: 1px solid var(--surface-2);
+}
+
+.pageTitle {
+  font-size: clamp(36px, 5.5vw, 68px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin-block: 20px;
+}
+
+.underline {
+  text-decoration: underline;
+  text-decoration-color: var(--forge);
+  text-underline-offset: 6px;
+  text-decoration-thickness: 3px;
+}
+
+.pageIntro {
+  font-size: clamp(16px, 1.8vw, 18px);
+  color: var(--slate);
+  max-width: 56ch;
+  line-height: 1.7;
+  margin-top: 20px;
+}
+
+/* ── Empty State ─────────────────────────────────────── */
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+  max-width: 480px;
+  padding-block: 32px;
+}
+
+.emptyIcon {
+  padding: 16px;
+  background: var(--surface-2);
+  border-radius: var(--r-lg);
+}
+
+.emptyTitle {
+  font-size: clamp(22px, 2.5vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+
+.emptyDesc {
+  font-size: 16px;
+  color: var(--slate);
+  line-height: 1.65;
+}
+
+/* ── Grid ────────────────────────────────────────────── */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.postCard {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.cardCover {
+  aspect-ratio: 16/9;
+  overflow: hidden;
+  background: var(--surface-2);
+}
+.cardCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+.postCard:hover .cardCover img {
+  transform: scale(1.04);
+}
+
+.cardCoverPlaceholder {
+  aspect-ratio: 16/9;
+  background: var(--surface-2);
+}
+
+.cardBody {
+  padding: clamp(24px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  flex: 1;
+}
+
+.cardTitle {
+  font-size: clamp(18px, 2vw, 22px);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+  transition: color var(--t-fast);
+  line-height: 1.2;
+}
+.postCard:hover .cardTitle { color: var(--forge); }
+
+.cardSummary {
+  font-size: 14px;
+  color: var(--slate);
+  line-height: 1.65;
+}
+
+.cardLink {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--forge-text);
+  margin-top: auto;
+  transition: color var(--t-fast);
+}
+.postCard:hover .cardLink { color: var(--forge); }
+
+@media (max-width: 640px) {
+  .grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,38 @@
+.logo {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 3px;
+  text-decoration: none;
+  line-height: 1;
+}
+
+.wordmark {
+  font-family: var(--font-sans);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+  line-height: 1;
+  transition: color var(--t-fast);
+}
+
+.dark .wordmark {
+  color: var(--dark-heading);
+}
+
+/* The forge square — sits on the baseline like a full stop */
+.point {
+  display: inline-block;
+  background: var(--forge);
+  flex-shrink: 0;
+  /* baseline-aligned via align-items: baseline on parent */
+}
+
+/* Sizes */
+.sm .wordmark { font-size: 16px; }
+.sm .point    { width: 4px; height: 4px; }
+
+.md .wordmark { font-size: 20px; }
+.md .point    { width: 5px; height: 5px; }
+
+.lg .wordmark { font-size: 28px; }
+.lg .point    { width: 6px; height: 6px; }
