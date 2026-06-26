@@ -6,7 +6,7 @@ const items = [
   'Email & newsletters',
   'Blog articles',
   'Google Business posts',
-  'Photography & video',
+  'Website design & build',
   'Profiles & setup',
 ];
 

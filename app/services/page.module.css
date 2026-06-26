@@ -182,6 +182,13 @@
   font-size: 14px;
   color: var(--slate);
 }
+/* Featured (dark) card: brighten list + sub-label for readable contrast */
+.wayCardFeatured .wayFeatures li {
+  color: var(--dark-body);
+}
+.wayCardFeatured .waySubLabel {
+  color: var(--dark-body);
+}
 
 .wayBtn {
   align-self: flex-start;
