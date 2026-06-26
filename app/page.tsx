@@ -30,18 +30,18 @@ const services = [
 const steps = [
   {
     n: '01',
-    title: 'Send us your work',
-    desc: 'A batch of photos and a few lines on the work. No shoots to schedule, no time away from running your business.',
+    title: 'Tell us what you need',
+    desc: 'Send a batch of photos and a few lines, or just tell us the goal. No shoots to schedule, no time away from running your business.',
   },
   {
     n: '02',
-    title: 'We research & write',
-    desc: 'We learn your business and turn the raw material into posts, a case study and an email — in your voice, not generic filler.',
+    title: 'We research & create',
+    desc: 'We learn your business and make it — posts, a case study, an email, even a whole website — in your voice, never generic filler.',
   },
   {
     n: '03',
-    title: 'You review, we publish',
-    desc: 'Two minutes to approve, then it goes out and gets scheduled. Repeat every month.',
+    title: 'You review, we deliver',
+    desc: 'A couple of minutes to approve, then it goes live. One-off or every month — whatever suits you.',
   },
 ];
 
