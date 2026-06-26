@@ -263,7 +263,7 @@
     width: 100%;
     max-width: var(--max-w);
     margin-inline: auto;
-    padding: var(--nav-h) var(--gutter) 24px;
+    padding: calc(var(--nav-h) - 12px) var(--gutter) 12px;
     height: 100%;
   }
 
@@ -273,14 +273,14 @@
     flex-direction: column;
     max-width: 600px;
   }
-  .eyebrow { margin-bottom: 30px; }
+  .eyebrow { margin-bottom: 36px; }
   .headline {
-    font-size: clamp(46px, 4.2vw, 70px);
+    font-size: clamp(46px, 4.2vw, 71px);
     font-weight: 800;
     letter-spacing: -0.04em;
-    line-height: 1.08;
+    line-height: 1.12;
     color: var(--ink);
-    margin-bottom: 30px;
+    margin-bottom: 36px;
     text-wrap: balance;
   }
   .forge { color: var(--forge); white-space: nowrap; }
@@ -294,8 +294,8 @@
   .lead {
     font-size: clamp(18px, 1.5vw, 22px);
     color: var(--slate);
-    line-height: 1.65;
-    margin-bottom: 36px;
+    line-height: 1.68;
+    margin-bottom: 40px;
     max-width: 46ch;
     font-weight: 400;
   }
@@ -305,7 +305,7 @@
   /* Right cards column */
   .stage {
     max-width: 460px;
-    min-height: clamp(440px, 60vh, 540px);
+    min-height: clamp(500px, 68vh, 600px);
     margin-inline: auto;
   }
 }
