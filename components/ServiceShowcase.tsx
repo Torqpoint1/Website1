@@ -14,22 +14,6 @@ interface Card {
 
 const cards: Card[] = [
   {
-    label: 'Social post',
-    desc: 'A month of scheduled posts, built from your project photos.',
-    rot: -3,
-    tx: -14,
-    w: 300,
-    render: () => (
-      <>
-        <div className={styles.photo} />
-        <div className={styles.lines}>
-          <span className={styles.lineWide} />
-          <span className={styles.lineMid} />
-        </div>
-      </>
-    ),
-  },
-  {
     label: 'Case study',
     desc: 'Your finished jobs, written up to win the next one.',
     rot: 2.5,
@@ -47,10 +31,29 @@ const cards: Card[] = [
     ),
   },
   {
+    label: 'Email & newsletter',
+    desc: 'Keeps you in front of past customers and warm leads.',
+    rot: -3,
+    tx: -14,
+    w: 284,
+    render: () => (
+      <>
+        <p className={styles.subject}>
+          <span className={styles.subjectLabel}>Subject</span>
+          One job done, the next one lined up.
+        </p>
+        <div className={styles.lines}>
+          <span className={styles.lineWide} />
+          <span className={styles.lineMid} />
+        </div>
+      </>
+    ),
+  },
+  {
     label: 'Website design & build',
     desc: 'A fast, on-brand site that turns visitors into enquiries.',
-    rot: -2.5,
-    tx: -16,
+    rot: 2.5,
+    tx: 14,
     w: 324,
     render: () => (
       <>
@@ -69,18 +72,16 @@ const cards: Card[] = [
     ),
   },
   {
-    label: 'Email & newsletter',
-    desc: 'Keeps you in front of past customers and warm leads.',
-    rot: 3,
-    tx: 12,
-    w: 284,
+    label: 'Blog article',
+    desc: 'Genuinely useful pieces that help you rank on Google.',
+    rot: -2,
+    tx: -12,
+    w: 256,
     render: () => (
       <>
-        <p className={styles.subject}>
-          <span className={styles.subjectLabel}>Subject</span>
-          One job done, the next one lined up.
-        </p>
+        <p className={`${styles.serifTitle} font-serif`}>The five questions every customer asks first.</p>
         <div className={styles.lines}>
+          <span className={styles.lineWide} />
           <span className={styles.lineWide} />
           <span className={styles.lineMid} />
         </div>
@@ -88,16 +89,15 @@ const cards: Card[] = [
     ),
   },
   {
-    label: 'Blog article',
-    desc: 'Genuinely useful pieces that help you rank on Google.',
-    rot: -2,
-    tx: -10,
-    w: 256,
+    label: 'Social post',
+    desc: 'A month of scheduled posts, built from your project photos.',
+    rot: 3,
+    tx: 16,
+    w: 300,
     render: () => (
       <>
-        <p className={`${styles.serifTitle} font-serif`}>The five questions every customer asks first.</p>
+        <div className={styles.photo} />
         <div className={styles.lines}>
-          <span className={styles.lineWide} />
           <span className={styles.lineWide} />
           <span className={styles.lineMid} />
         </div>
