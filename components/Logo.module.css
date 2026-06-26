@@ -36,3 +36,9 @@
 
 .lg .wordmark { font-size: 28px; }
 .lg .point    { width: 6px; height: 6px; }
+
+/* Larger logo on laptop/desktop */
+@media (min-width: 1024px) {
+  .md .wordmark { font-size: 25px; }
+  .md .point    { width: 6px; height: 6px; }
+}

@@ -8,6 +8,12 @@
   overflow: hidden;
 }
 
+/* On laptop the hero statement moves into the two-column showcase,
+   so the standalone hero is hidden. Mobile keeps this hero as-is. */
+@media (min-width: 1024px) {
+  .hero { display: none; }
+}
+
 /* Faint oversized forge square, very low opacity, anchored bottom-right */
 .hero::before {
   content: '';

@@ -70,6 +70,12 @@
   transform: scaleX(1);
 }
 
+/* Larger header on laptop/desktop */
+@media (min-width: 1024px) {
+  .link { font-size: 15.5px; padding: 8px 14px; }
+  .links { gap: 6px; }
+}
+
 /* Actions */
 .actions {
   display: flex;

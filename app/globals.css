@@ -46,6 +46,11 @@
   --font-serif:  'Fraunces', Georgia, serif;
 }
 
+/* Slightly larger header bar on laptop/desktop */
+@media (min-width: 1024px) {
+  :root { --nav-h: 88px; }
+}
+
 /* ── Reset ──────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 

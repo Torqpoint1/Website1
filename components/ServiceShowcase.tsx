@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useEffect, useRef, useState } from 'react';
 import styles from './ServiceShowcase.module.css';
 
@@ -147,12 +148,37 @@ export function ServiceShowcase() {
       aria-label="What your work becomes"
     >
       <div className={styles.sticky}>
-        <div className={styles.stage}>
-          {/* faint cards behind, for layered depth */}
-          <div className={styles.ghost} aria-hidden="true" />
-          <div className={styles.ghost2} aria-hidden="true" />
+        <div className={styles.deskGrid}>
+          {/* Desktop-only statement (left column). Hidden on mobile,
+              where the standalone Hero handles this instead. */}
+          <div className={styles.deskText}>
+            <p className={`eyebrow ${styles.eyebrow}`}>
+              <span className="point point--sm" aria-hidden="true" />
+              Content &amp; marketing · Gloucestershire
+            </p>
+            <h1 className={styles.headline}>
+              Your best work deserves better than the{' '}
+              <span className={styles.forge}>
+                camera roll<span className={styles.signaturePoint} aria-hidden="true" />
+              </span>
+            </h1>
+            <p className={`${styles.lead} font-serif`}>
+              We turn your finished projects into posts, case studies and emails
+              that win the next job — so you look{' '}
+              <em>as good online as the work actually is.</em>
+            </p>
+            <div className={styles.ctas}>
+              <Link href="/contact" className="btn btn-primary">Start a project</Link>
+              <Link href="/services" className="btn btn-ghost">See what we do</Link>
+            </div>
+          </div>
 
-          {cards.map((card, i) => (
+          <div className={styles.stage}>
+            {/* faint cards behind, for layered depth */}
+            <div className={styles.ghost} aria-hidden="true" />
+            <div className={styles.ghost2} aria-hidden="true" />
+
+            {cards.map((card, i) => (
             <article
               key={card.label}
               style={{ '--rot': `${card.rot}deg`, '--tx': `${card.tx}px`, '--w': `${card.w}px` } as React.CSSProperties}
@@ -168,7 +194,8 @@ export function ServiceShowcase() {
               <div className={styles.cardBody}>{card.render()}</div>
               <p className={styles.desc}>{card.desc}</p>
             </article>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     </section>
