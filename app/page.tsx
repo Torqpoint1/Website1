@@ -9,7 +9,7 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Torqpoint — Content & Marketing Studio, Gloucestershire',
   description:
-    'We turn your finished projects into posts, case studies and emails that win the next job. Content & marketing studio, Gloucestershire.',
+    'Torqpoint is a content & marketing studio in Gloucestershire. We turn the work you do into posts, case studies, emails, blogs and websites that win the next job.',
 };
 
 const services = [

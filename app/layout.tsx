@@ -9,7 +9,7 @@ export const metadata: Metadata = {
     template: '%s | Torqpoint',
   },
   description:
-    'We turn your finished projects into posts, case studies and emails that win the next job. Content & marketing studio based in Gloucestershire.',
+    'Torqpoint is a content & marketing studio in Gloucestershire. We turn the work you do into posts, case studies, emails, blogs and websites that win the next job.',
   metadataBase: new URL('https://torqpoint.com'),
   openGraph: {
     type: 'website',
