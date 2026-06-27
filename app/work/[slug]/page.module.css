@@ -1,0 +1,118 @@
+.hero {
+  padding-top: calc(var(--nav-h) + clamp(32px, 6vw, 64px));
+  padding-bottom: clamp(28px, 4vw, 44px);
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--slate);
+  margin-bottom: 28px;
+  transition: color var(--t-fast);
+}
+.back:hover { color: var(--forge); }
+
+/* Concept notice — clear and honest, not heavy */
+.conceptNotice {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+  background: rgba(238, 90, 30, 0.07);
+  border: 1px solid rgba(238, 90, 30, 0.22);
+  border-radius: var(--r);
+  padding: 14px 18px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--slate);
+  max-width: 70ch;
+  margin-bottom: 28px;
+}
+.conceptTag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--forge);
+  padding: 5px 10px;
+  border-radius: 100px;
+  flex-shrink: 0;
+}
+
+.meta {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--forge-text);
+  margin-bottom: 14px;
+}
+
+.title {
+  font-size: clamp(30px, 4.4vw, 52px);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1.12;
+  color: var(--ink);
+  max-width: 22ch;
+}
+
+.excerpt {
+  font-size: clamp(17px, 1.9vw, 21px);
+  line-height: 1.6;
+  color: var(--slate);
+  max-width: 60ch;
+  margin-top: 20px;
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 24px;
+}
+.tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--slate);
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  border-radius: 100px;
+  padding: 6px 14px;
+  transition: color var(--t-fast), border-color var(--t-fast);
+}
+.tag:hover {
+  color: var(--forge);
+  border-color: var(--forge);
+}
+
+/* Cover */
+.cover {
+  aspect-ratio: 16 / 9;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-bottom: clamp(8px, 2vw, 24px);
+}
+
+/* Gallery (placeholders until real photos are sourced) */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: clamp(40px, 6vw, 64px);
+  max-width: 70ch;
+}
+.galleryItem {
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r);
+  overflow: hidden;
+}
+
+@media (max-width: 640px) {
+  .gallery { grid-template-columns: 1fr 1fr; }
+}

@@ -12,6 +12,11 @@ export interface PostMeta {
   summary?: string;
   cover?: string;
   slug: string;
+  sector?: string;
+  location?: string;
+  concept?: boolean;
+  gallery?: string[];
+  services?: string[];
 }
 
 export interface Post extends PostMeta {
@@ -50,6 +55,11 @@ export function getPost(collection: string, slug: string): Post | null {
     client: data.client,
     summary: data.summary,
     cover: data.cover,
+    sector: data.sector,
+    location: data.location,
+    concept: data.concept === true,
+    gallery: Array.isArray(data.gallery) ? data.gallery : undefined,
+    services: Array.isArray(data.services) ? data.services : undefined,
     content,
   };
 }

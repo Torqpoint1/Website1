@@ -29,5 +29,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...journalPosts];
+  // Work / concept case studies
+  const workPosts = getAllPosts('work').map(post => ({
+    url: `${BASE_URL}/work/${post.slug}/`,
+    lastModified: post.date ? new Date(post.date) : new Date(),
+    changeFrequency: 'yearly' as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...journalPosts, ...workPosts];
 }

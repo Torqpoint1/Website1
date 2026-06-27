@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { getAllPosts, formatDate } from '@/lib/content';
+import { getAllPosts } from '@/lib/content';
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { WorkPlaceholder } from '@/components/WorkPlaceholder';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
   title: 'Work',
-  description: 'A growing record of projects we\'ve turned into content — case studies that win trust and send to prospects.',
+  description:
+    'Concept projects — sample work showing what we\'d create for a business like yours. Not real client case studies.',
 };
 
 export default function WorkPage() {
@@ -23,17 +25,19 @@ export default function WorkPage() {
               Work
             </p>
             <h1 className={styles.pageTitle}>
-              The work, <span className={styles.underline}>written up properly.</span>
+              Sample work, <span className={styles.underline}>written up properly.</span>
             </h1>
             <p className={styles.pageIntro}>
-              A growing record of projects we&rsquo;ve turned into content — and the
-              kind of thing your own case studies will look like.
+              We&rsquo;re a new studio, so we haven&rsquo;t published real client case
+              studies yet. Instead, here are <strong>concept projects</strong> — sample
+              work that shows exactly what we&rsquo;d create for a business like yours.
+              The businesses are made up; the thinking and the standard are real.
             </p>
           </ScrollReveal>
         </div>
       </div>
 
-      <section className={`section`} aria-label="Case studies">
+      <section className="section" aria-label="Concept case studies">
         <div className="container">
           {isEmpty ? (
             <ScrollReveal>
@@ -54,13 +58,11 @@ export default function WorkPage() {
           ) : (
             <ScrollReveal className={styles.grid} stagger>
               {posts.map(post => (
-                <Link key={post.slug} href={`/work/${post.slug}`} className={`card ${styles.postCard}`}>
-                  {post.cover && (
-                    <div className={styles.cardCover}>
-                      <img src={post.cover} alt="" loading="lazy" />
-                    </div>
-                  )}
-                  {!post.cover && <div className={styles.cardCoverPlaceholder} aria-hidden="true" />}
+                <Link key={post.slug} href={`/work/${post.slug}/`} className={`card ${styles.postCard}`}>
+                  <div className={styles.cardCover}>
+                    {post.concept && <span className={styles.conceptBadge}>Concept</span>}
+                    <WorkPlaceholder label={post.client ?? post.title} />
+                  </div>
                   <div className={styles.cardBody}>
                     {post.client && (
                       <p className="eyebrow">
@@ -68,10 +70,15 @@ export default function WorkPage() {
                         {post.client}
                       </p>
                     )}
+                    {(post.sector || post.location) && (
+                      <p className={styles.cardMeta}>
+                        {[post.sector, post.location].filter(Boolean).join(' · ')}
+                      </p>
+                    )}
                     <h2 className={styles.cardTitle}>{post.title}</h2>
                     {post.summary && <p className={styles.cardSummary}>{post.summary}</p>}
                     <span className={styles.cardLink} aria-hidden="true">
-                      Read case study →
+                      See the sample →
                     </span>
                   </div>
                 </Link>
@@ -86,7 +93,7 @@ export default function WorkPage() {
           <div className="container">
             <div className="cta-band__inner">
               <p className="cta-band__statement">
-                Want yours to be next?
+                Want work like this for your business?
               </p>
               <Link href="/contact" className="btn btn-ghost-light">
                 Start a project

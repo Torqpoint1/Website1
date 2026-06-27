@@ -356,6 +356,22 @@ ul, ol { list-style: none; }
   flex-shrink: 0;
   margin-top: 0.55em;
 }
+.prose blockquote {
+  margin: 1.4em 0;
+  padding: 20px 24px;
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  border-left: 3px solid var(--forge);
+  border-radius: var(--r);
+  font-size: 0.95em;
+}
+.prose blockquote p { margin-bottom: 0.8em; }
+.prose blockquote p:last-child { margin-bottom: 0; }
+.prose em { font-style: italic; }
+/* The concept disclaimer — the last italic line of each case study */
+.prose > p:last-child em {
+  color: var(--muted);
+}
 
 /* ── Animations (will-animate pattern) ─────────────────── */
 .will-animate {
