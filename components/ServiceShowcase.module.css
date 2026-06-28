@@ -31,13 +31,32 @@
   transform: translate(-50%, -50%);
   background: radial-gradient(
     ellipse at center,
-    rgba(238, 90, 30, 0.14) 0%,
-    rgba(238, 90, 30, 0.06) 36%,
+    rgba(238, 90, 30, 0.07) 0%,
+    rgba(238, 90, 30, 0.03) 38%,
     transparent 72%
   );
   pointer-events: none;
   z-index: 0;
 }
+
+/* Faint forge squares scattered in the paper — barely-there detail */
+.deco {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.deco span {
+  position: absolute;
+  display: block;
+  background: var(--forge);
+  border-radius: 8px;
+}
+.sq1 { width: clamp(180px, 32vw, 300px); aspect-ratio: 1; top: -7%; left: 3%; transform: rotate(14deg); opacity: 0.035; }
+.sq2 { width: clamp(220px, 40vw, 360px); aspect-ratio: 1; bottom: -14%; right: 2%; transform: rotate(-10deg); opacity: 0.04; }
+.sq3 { width: clamp(90px, 16vw, 140px); aspect-ratio: 1; top: 12%; right: 16%; transform: rotate(9deg); opacity: 0.05; }
+.sq4 { width: clamp(70px, 12vw, 110px); aspect-ratio: 1; bottom: 8%; left: 12%; transform: rotate(-6deg); opacity: 0.045; }
 
 /* On mobile the grid wrapper is transparent (cards centre as before)
    and the desktop statement column is hidden. */
