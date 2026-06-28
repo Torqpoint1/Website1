@@ -20,6 +20,25 @@
   padding: 8px 24px;
 }
 
+/* Very faint warm glow behind the cards so they don't float in plain paper */
+.sticky::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: clamp(520px, 96vw, 900px);
+  height: clamp(400px, 84vw, 580px);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse at center,
+    rgba(238, 90, 30, 0.14) 0%,
+    rgba(238, 90, 30, 0.06) 36%,
+    transparent 72%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
 /* On mobile the grid wrapper is transparent (cards centre as before)
    and the desktop statement column is hidden. */
 .deskGrid { display: contents; }
@@ -28,6 +47,7 @@
 /* ── Stage + cards ──────────────────────────────────────── */
 .stage {
   position: relative;
+  z-index: 1;
   width: 100%;
   max-width: 340px;
   min-height: clamp(280px, 40vh, 360px);
