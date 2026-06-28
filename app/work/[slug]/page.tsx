@@ -78,6 +78,8 @@ export default async function WorkPage({ params }: Props) {
         </div>
       </div>
 
+      <BrandAssets post={post} />
+
       <article className="section">
         <div className="container">
           <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
@@ -97,8 +99,6 @@ export default async function WorkPage({ params }: Props) {
           )}
         </div>
       </article>
-
-      <BrandAssets post={post} />
 
       <section className="cta-band cta-band--forge" aria-label="Call to action">
         <div className="container">
