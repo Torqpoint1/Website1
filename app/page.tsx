@@ -130,7 +130,11 @@ export default function HomePage() {
       </section>
 
       {/* ── Selected work (overlapping card stack) ─────────── */}
-      {studies.length > 0 && <WorkStack items={studies} />}
+      {studies.length > 0 && (
+        <ScrollReveal>
+          <WorkStack items={studies} />
+        </ScrollReveal>
+      )}
 
       {/* ── How It Works (dark band) ───────────────────────── */}
       <section className={styles.howItWorks} aria-labelledby="how-heading">
