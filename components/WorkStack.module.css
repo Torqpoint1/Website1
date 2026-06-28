@@ -1,6 +1,6 @@
 .work {
   padding-block: clamp(64px, 9vw, 120px);
-  background: var(--paper);
+  background: transparent;
   overflow-x: clip;
 }
 

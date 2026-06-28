@@ -4,6 +4,7 @@ import { Hero } from '@/components/Hero';
 import { Marquee } from '@/components/Marquee';
 import { ServiceShowcase } from '@/components/ServiceShowcase';
 import { WorkStack, type Study } from '@/components/WorkStack';
+import { PageDecor } from '@/components/PageDecor';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { getAllPosts } from '@/lib/content';
 
@@ -75,7 +76,10 @@ export default function HomePage() {
   });
 
   return (
-    <>
+    <div className={styles.page}>
+      {/* Continuous faint-square texture behind every white section */}
+      <PageDecor />
+
       {/* ── Hero ──────────────────────────────────────────── */}
       <Hero />
 
@@ -169,6 +173,6 @@ export default function HomePage() {
           </ScrollReveal>
         </div>
       </section>
-    </>
+    </div>
   );
 }

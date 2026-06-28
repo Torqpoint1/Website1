@@ -148,13 +148,6 @@ export function ServiceShowcase() {
       aria-label="What your work becomes"
     >
       <div className={styles.sticky}>
-        {/* Faint background shapes so the paper isn't plain */}
-        <div className={styles.deco} aria-hidden="true">
-          <span className={styles.sq1} />
-          <span className={styles.sq2} />
-          <span className={styles.sq3} />
-          <span className={styles.sq4} />
-        </div>
         <div className={styles.deskGrid}>
           {/* Desktop-only statement (left column). Hidden on mobile,
               where the standalone Hero handles this instead. */}

@@ -1,8 +1,15 @@
 .forge { color: var(--forge); }
 
+/* Page wrapper owns an isolated stacking context so the PageDecor layer
+   (z-index:-1) sits behind every section but above the body's paper. */
+.page {
+  position: relative;
+  isolation: isolate;
+}
+
 /* ── What We Do ─────────────────────────────────────────────── */
 .whatWeDo {
-  background: var(--paper);
+  background: transparent;
 }
 
 .serviceGrid {

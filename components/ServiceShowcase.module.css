@@ -2,7 +2,7 @@
 .showcase {
   position: relative;
   height: 200svh;
-  background: var(--paper);
+  background: transparent;
 }
 
 /* Pin a tight band anchored near the top so the card sits high and the
@@ -39,24 +39,8 @@
   z-index: 0;
 }
 
-/* Faint forge squares scattered in the paper — barely-there detail */
-.deco {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-.deco span {
-  position: absolute;
-  display: block;
-  background: var(--forge);
-  border-radius: 8px;
-}
-.sq1 { width: clamp(180px, 32vw, 300px); aspect-ratio: 1; top: -7%; left: 3%; transform: rotate(14deg); opacity: 0.022; }
-.sq2 { width: clamp(220px, 40vw, 360px); aspect-ratio: 1; bottom: -14%; right: 2%; transform: rotate(-10deg); opacity: 0.026; }
-.sq3 { width: clamp(90px, 16vw, 140px); aspect-ratio: 1; top: 12%; right: 16%; transform: rotate(9deg); opacity: 0.032; }
-.sq4 { width: clamp(70px, 12vw, 110px); aspect-ratio: 1; bottom: 8%; left: 12%; transform: rotate(-6deg); opacity: 0.03; }
+/* The page-wide PageDecor layer now supplies the faint forge squares as
+   one continuous backdrop, so the showcase no longer carries its own. */
 
 /* On mobile the grid wrapper is transparent (cards centre as before)
    and the desktop statement column is hidden. */

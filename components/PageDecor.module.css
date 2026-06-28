@@ -1,0 +1,30 @@
+/* Sits behind every section of the page (z-index:-1 inside the isolated
+   .page stacking context) so transparent white sections show it through
+   and dark sections quietly cover it. */
+.decor {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.decor span {
+  position: absolute;
+  display: block;
+  background: var(--forge);
+  border-radius: 10px;
+}
+
+/* top values are a share of the full page height, so the squares are
+   scattered the whole way down rather than per-section. Kept very faint
+   (~0.018–0.032) — felt more than seen. */
+.s1  { width: clamp(150px, 25vw, 270px); aspect-ratio: 1; top: 3%;  left: 4%;  transform: rotate(13deg);  opacity: 0.024; }
+.s2  { width: clamp(200px, 34vw, 340px); aspect-ratio: 1; top: 10%; right: 2%; transform: rotate(-9deg);  opacity: 0.02;  }
+.s3  { width: clamp(85px, 14vw, 130px);  aspect-ratio: 1; top: 17%; left: 15%; transform: rotate(8deg);   opacity: 0.03;  }
+.s4  { width: clamp(120px, 22vw, 230px); aspect-ratio: 1; top: 27%; right: 9%; transform: rotate(-12deg); opacity: 0.022; }
+.s5  { width: clamp(78px, 12vw, 116px);  aspect-ratio: 1; top: 36%; left: 6%;  transform: rotate(6deg);   opacity: 0.032; }
+.s6  { width: clamp(175px, 29vw, 290px); aspect-ratio: 1; top: 46%; right: 4%; transform: rotate(11deg);  opacity: 0.02;  }
+.s7  { width: clamp(95px, 16vw, 150px);  aspect-ratio: 1; top: 54%; left: 13%; transform: rotate(-7deg);  opacity: 0.028; }
+.s8  { width: clamp(68px, 10vw, 104px);  aspect-ratio: 1; top: 61%; right: 15%; transform: rotate(9deg);  opacity: 0.03;  }
+.s9  { width: clamp(150px, 25vw, 250px); aspect-ratio: 1; top: 67%; left: 3%;  transform: rotate(-10deg); opacity: 0.018; }
+.s10 { width: clamp(80px, 13vw, 120px);  aspect-ratio: 1; top: 73%; right: 12%; transform: rotate(5deg);  opacity: 0.026; }
