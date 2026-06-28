@@ -3,9 +3,19 @@ import Link from 'next/link';
 import { Hero } from '@/components/Hero';
 import { Marquee } from '@/components/Marquee';
 import { ServiceShowcase } from '@/components/ServiceShowcase';
-import { FeaturedWork } from '@/components/FeaturedWork';
+import { WorkStack, type Study } from '@/components/WorkStack';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { getAllPosts } from '@/lib/content';
+
+/* Per-brand card background + photo tint for the Selected work stack. */
+const BRAND_TINT: Record<string, { bg: string; tint: string }> = {
+  'foxglove-and-fern-wedding-florist':      { bg: '#F4ECEC', tint: 'rgba(150,70,90,.18)' },
+  'maeve-clarke-interiors-townhouse':       { bg: '#F1EEE4', tint: 'rgba(96,104,78,.18)' },
+  'the-old-cartshed-holiday-let':           { bg: '#F3EBDD', tint: 'rgba(150,80,28,.24)' },
+  'fieldhouse-landscapes-cotswold-garden':  { bg: '#EEF0E6', tint: 'rgba(58,92,52,.22)' },
+  'marsh-vale-bathrooms-wet-room':          { bg: '#EAEEF0', tint: 'rgba(52,82,96,.20)' },
+  'ashcroft-joinery-oak-staircase':         { bg: '#F2ECE2', tint: 'rgba(120,86,52,.20)' },
+};
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -48,17 +58,21 @@ const steps = [
 ];
 
 export default function HomePage() {
-  const featured = getAllPosts('work')
-    .filter(p => p.coverImage)
-    .map(p => ({
+  const studies: Study[] = getAllPosts('work').map(p => {
+    const town = p.location ? p.location.split(',')[0].trim() : '';
+    return {
       slug: p.slug,
-      client: p.client,
-      sector: p.sector,
-      location: p.location,
-      title: p.title,
-      summary: p.summary,
-      cover: p.coverImage as string,
-    }));
+      brand: p.client ?? p.title,
+      cat: [p.sector, town].filter(Boolean).join(' · '),
+      headline: p.title,
+      body: p.summary ?? '',
+      image: p.coverImage,
+      sampleHref: `/work/${p.slug}/`,
+      bg: BRAND_TINT[p.slug]?.bg ?? '#F3EFE7',
+      tint: BRAND_TINT[p.slug]?.tint ?? 'rgba(26,23,20,.12)',
+      isConcept: p.concept,
+    };
+  });
 
   return (
     <>
@@ -111,8 +125,8 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── Selected work (rotating spotlight) ─────────────── */}
-      {featured.length > 0 && <FeaturedWork items={featured} />}
+      {/* ── Selected work (overlapping card stack) ─────────── */}
+      {studies.length > 0 && <WorkStack items={studies} />}
 
       {/* ── How It Works (dark band) ───────────────────────── */}
       <section className={styles.howItWorks} aria-labelledby="how-heading">
