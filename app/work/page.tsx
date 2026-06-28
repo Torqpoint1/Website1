@@ -61,7 +61,11 @@ export default function WorkPage() {
                 <Link key={post.slug} href={`/work/${post.slug}/`} className={`card ${styles.postCard}`}>
                   <div className={styles.cardCover}>
                     {post.concept && <span className={styles.conceptBadge}>Concept</span>}
-                    <WorkPlaceholder label={post.client ?? post.title} />
+                    {post.coverImage ? (
+                      <img src={post.coverImage} alt="" className={styles.cardCoverImg} loading="lazy" />
+                    ) : (
+                      <WorkPlaceholder label={post.client ?? post.title} />
+                    )}
                   </div>
                   <div className={styles.cardBody}>
                     {post.client && (

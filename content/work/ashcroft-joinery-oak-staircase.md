@@ -6,11 +6,11 @@ location: "Stroud, Gloucestershire"
 concept: true
 date: "2026-02-10"
 slug: "ashcroft-joinery-oak-staircase"
-cover: "/work/ashcroft-joinery/cover.jpg"
+cover: "/work/ashcroft-joinery/case-hero.jpg"
 gallery:
-  - "/work/ashcroft-joinery/before.jpg"
-  - "/work/ashcroft-joinery/detail-joint.jpg"
-  - "/work/ashcroft-joinery/finished-wide.jpg"
+  - "/work/ashcroft-joinery/staircase-full.jpg"
+  - "/work/ashcroft-joinery/joint-detail.jpg"
+  - "/work/ashcroft-joinery/site-hero.jpg"
 services:
   - "Case studies"
   - "Social posts"

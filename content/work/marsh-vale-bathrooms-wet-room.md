@@ -6,11 +6,11 @@ location: "Cheltenham, Gloucestershire"
 concept: true
 date: "2026-03-09"
 slug: "marsh-vale-bathrooms-wet-room"
-cover: "/work/marsh-vale-bathrooms/cover.jpg"
+cover: "/work/marsh-vale-bathrooms/wetroom-wide.jpg"
 gallery:
-  - "/work/marsh-vale-bathrooms/before.jpg"
-  - "/work/marsh-vale-bathrooms/tiling.jpg"
-  - "/work/marsh-vale-bathrooms/after.jpg"
+  - "/work/marsh-vale-bathrooms/wetroom-wide.jpg"
+  - "/work/marsh-vale-bathrooms/blog-hero.jpg"
+  - "/work/marsh-vale-bathrooms/email-hero.jpg"
 services:
   - "Case studies"
   - "Blog articles"

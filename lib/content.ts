@@ -17,6 +17,10 @@ export interface PostMeta {
   concept?: boolean;
   gallery?: string[];
   services?: string[];
+  /** cover path if the image actually exists in /public, else undefined */
+  coverImage?: string;
+  /** gallery paths filtered to those that actually exist in /public */
+  galleryImages?: string[];
 }
 
 export interface Post extends PostMeta {
@@ -47,6 +51,13 @@ export function getPost(collection: string, slug: string): Post | null {
 
   const raw = fs.readFileSync(filepath, 'utf-8');
   const { data, content } = matter(raw);
+
+  const publicDir = path.join(process.cwd(), 'public');
+  const exists = (p?: string) =>
+    typeof p === 'string' && fs.existsSync(path.join(publicDir, p.replace(/^\//, '')));
+
+  const gallery = Array.isArray(data.gallery) ? (data.gallery as string[]) : undefined;
+
   return {
     slug,
     title: data.title ?? 'Untitled',
@@ -58,8 +69,10 @@ export function getPost(collection: string, slug: string): Post | null {
     sector: data.sector,
     location: data.location,
     concept: data.concept === true,
-    gallery: Array.isArray(data.gallery) ? data.gallery : undefined,
+    gallery,
     services: Array.isArray(data.services) ? data.services : undefined,
+    coverImage: exists(data.cover) ? data.cover : undefined,
+    galleryImages: gallery?.filter(exists),
     content,
   };
 }

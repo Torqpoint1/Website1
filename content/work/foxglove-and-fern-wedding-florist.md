@@ -8,9 +8,9 @@ date: "2026-04-16"
 slug: "foxglove-and-fern-wedding-florist"
 cover: "/work/foxglove-and-fern/cover.jpg"
 gallery:
-  - "/work/foxglove-and-fern/ceremony-arch.jpg"
+  - "/work/foxglove-and-fern/site-hero.jpg"
   - "/work/foxglove-and-fern/bouquet-detail.jpg"
-  - "/work/foxglove-and-fern/tablescape.jpg"
+  - "/work/foxglove-and-fern/email-hero.jpg"
 services:
   - "Case studies"
   - "Social posts"

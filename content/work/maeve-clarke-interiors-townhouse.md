@@ -6,11 +6,11 @@ location: "Cheltenham, Gloucestershire"
 concept: true
 date: "2026-03-20"
 slug: "maeve-clarke-interiors-townhouse"
-cover: "/work/maeve-clarke-interiors/cover.jpg"
+cover: "/work/maeve-clarke-interiors/site-hero.jpg"
 gallery:
   - "/work/maeve-clarke-interiors/living-room.jpg"
-  - "/work/maeve-clarke-interiors/detail-styling.jpg"
-  - "/work/maeve-clarke-interiors/dining.jpg"
+  - "/work/maeve-clarke-interiors/styling-detail.jpg"
+  - "/work/maeve-clarke-interiors/grid-4.jpg"
 services:
   - "Case studies"
   - "Website design & build"

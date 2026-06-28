@@ -6,11 +6,10 @@ location: "Near Stow-on-the-Wold, Gloucestershire"
 concept: true
 date: "2026-04-02"
 slug: "the-old-cartshed-holiday-let"
-cover: "/work/the-old-cartshed/cover.jpg"
+cover: "/work/the-old-cartshed/interior-dusk.jpg"
 gallery:
-  - "/work/the-old-cartshed/interior.jpg"
-  - "/work/the-old-cartshed/exterior-evening.jpg"
-  - "/work/the-old-cartshed/local-area.jpg"
+  - "/work/the-old-cartshed/email-hero.jpg"
+  - "/work/the-old-cartshed/gbp-photo.jpg"
 services:
   - "Social posts"
   - "Email & newsletters"

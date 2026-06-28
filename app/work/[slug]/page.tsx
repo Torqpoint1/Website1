@@ -69,7 +69,11 @@ export default async function WorkPage({ params }: Props) {
 
       <div className="container">
         <div className={styles.cover}>
-          <WorkPlaceholder label={post.client} />
+          {post.coverImage ? (
+            <img src={post.coverImage} alt="" className={styles.coverImg} />
+          ) : (
+            <WorkPlaceholder label={post.client} />
+          )}
         </div>
       </div>
 
@@ -78,10 +82,14 @@ export default async function WorkPage({ params }: Props) {
           <div className="prose" dangerouslySetInnerHTML={{ __html: html }} />
 
           {post.gallery && post.gallery.length > 0 && (
-            <div className={styles.gallery} aria-hidden="true">
-              {post.gallery.map((_, i) => (
+            <div className={styles.gallery}>
+              {post.gallery.map((g, i) => (
                 <div key={i} className={styles.galleryItem}>
-                  <WorkPlaceholder />
+                  {post.galleryImages?.includes(g) ? (
+                    <img src={g} alt="" className={styles.galleryImg} loading="lazy" />
+                  ) : (
+                    <WorkPlaceholder />
+                  )}
                 </div>
               ))}
             </div>

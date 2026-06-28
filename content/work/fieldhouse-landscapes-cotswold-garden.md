@@ -6,11 +6,11 @@ location: "Cirencester, Gloucestershire"
 concept: true
 date: "2026-02-24"
 slug: "fieldhouse-landscapes-cotswold-garden"
-cover: "/work/fieldhouse-landscapes/cover.jpg"
+cover: "/work/fieldhouse-landscapes/after.jpg"
 gallery:
   - "/work/fieldhouse-landscapes/before.jpg"
-  - "/work/fieldhouse-landscapes/mid-build.jpg"
   - "/work/fieldhouse-landscapes/after.jpg"
+  - "/work/fieldhouse-landscapes/gbp-photo.jpg"
 services:
   - "Case studies"
   - "Social posts"
