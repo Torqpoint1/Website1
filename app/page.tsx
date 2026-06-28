@@ -3,7 +3,9 @@ import Link from 'next/link';
 import { Hero } from '@/components/Hero';
 import { Marquee } from '@/components/Marquee';
 import { ServiceShowcase } from '@/components/ServiceShowcase';
+import { FeaturedWork } from '@/components/FeaturedWork';
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { getAllPosts } from '@/lib/content';
 import styles from './page.module.css';
 
 export const metadata: Metadata = {
@@ -46,6 +48,18 @@ const steps = [
 ];
 
 export default function HomePage() {
+  const featured = getAllPosts('work')
+    .filter(p => p.coverImage)
+    .map(p => ({
+      slug: p.slug,
+      client: p.client,
+      sector: p.sector,
+      location: p.location,
+      title: p.title,
+      summary: p.summary,
+      cover: p.coverImage as string,
+    }));
+
   return (
     <>
       {/* ── Hero ──────────────────────────────────────────── */}
@@ -96,6 +110,9 @@ export default function HomePage() {
           </ScrollReveal>
         </div>
       </section>
+
+      {/* ── Selected work (rotating spotlight) ─────────────── */}
+      {featured.length > 0 && <FeaturedWork items={featured} />}
 
       {/* ── How It Works (dark band) ───────────────────────── */}
       <section className={styles.howItWorks} aria-labelledby="how-heading">
