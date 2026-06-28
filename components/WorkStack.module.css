@@ -121,7 +121,7 @@
   align-items: center;
   gap: 18px;
   max-width: 880px;
-  margin: 22px auto 0;
+  margin: clamp(28px, 5vw, 48px) auto 0;
 }
 .dots { display: flex; gap: 8px; margin-right: auto; }
 .dot {
