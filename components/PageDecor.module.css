@@ -19,7 +19,7 @@
    scattered the whole way down rather than per-section. Original forge-square
    strength (~0.035–0.05), scaled by size — smaller squares read stronger. */
 .s1  { width: clamp(150px, 25vw, 270px); aspect-ratio: 1; top: 3%;  left: 4%;  transform: rotate(13deg);  opacity: 0.04;  }
-.s2  { width: clamp(200px, 34vw, 340px); aspect-ratio: 1; top: 10%; right: 2%; transform: rotate(-9deg);  opacity: 0.035; }
+.s2  { width: clamp(200px, 34vw, 340px); aspect-ratio: 1; top: 4%;  right: 5%; transform: rotate(-9deg);  opacity: 0.035; }
 .s3  { width: clamp(85px, 14vw, 130px);  aspect-ratio: 1; top: 17%; left: 15%; transform: rotate(8deg);   opacity: 0.048; }
 .s4  { width: clamp(120px, 22vw, 230px); aspect-ratio: 1; top: 27%; right: 9%; transform: rotate(-12deg); opacity: 0.042; }
 .s5  { width: clamp(78px, 12vw, 116px);  aspect-ratio: 1; top: 36%; left: 6%;  transform: rotate(6deg);   opacity: 0.05;  }
