@@ -1,5 +1,6 @@
 import type { Post } from '@/lib/content';
 import { WorkPlaceholder } from '@/components/WorkPlaceholder';
+import { assetHas } from './AssetPhoto';
 import styles from './FoxgloveAssets.module.css';
 
 /* Foxglove & Fern — concept brand assets.
@@ -22,10 +23,7 @@ function Photo({ name, label, has, className }: { name: string; label: string; h
 export function FoxgloveAssets({ post }: { post: Post }) {
   // A photo slot fills when its file exists in /public (degrades to a
   // styled placeholder otherwise).
-  const ok = (n: string) =>
-    post.galleryImages?.some(g => g.endsWith(`${n}.jpg`)) ||
-    post.coverImage?.endsWith(`${n}.jpg`) ||
-    false;
+  const ok = (n: string) => assetHas(post, n);
 
   return (
     <section className={styles.fox} aria-label="Sample brand assets for Foxglove & Fern">

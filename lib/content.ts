@@ -21,6 +21,9 @@ export interface PostMeta {
   coverImage?: string;
   /** gallery paths filtered to those that actually exist in /public */
   galleryImages?: string[];
+  /** every image path that exists in this post's image folder (derived
+      from the cover's directory), used by brand-asset components */
+  assetImages?: string[];
 }
 
 export interface Post extends PostMeta {
@@ -58,6 +61,20 @@ export function getPost(collection: string, slug: string): Post | null {
 
   const gallery = Array.isArray(data.gallery) ? (data.gallery as string[]) : undefined;
 
+  // List every image that exists in this post's image folder (the cover's
+  // directory), so brand-asset components can fill any slot by name.
+  let assetImages: string[] | undefined;
+  if (typeof data.cover === 'string') {
+    const webDir = data.cover.replace(/\/[^/]+$/, ''); // e.g. /work/maeve-clarke-interiors
+    const absDir = path.join(publicDir, webDir.replace(/^\//, ''));
+    if (fs.existsSync(absDir)) {
+      assetImages = fs
+        .readdirSync(absDir)
+        .filter(f => /\.(jpe?g|png|webp|avif)$/i.test(f))
+        .map(f => `${webDir}/${f}`);
+    }
+  }
+
   return {
     slug,
     title: data.title ?? 'Untitled',
@@ -73,6 +90,7 @@ export function getPost(collection: string, slug: string): Post | null {
     services: Array.isArray(data.services) ? data.services : undefined,
     coverImage: exists(data.cover) ? data.cover : undefined,
     galleryImages: gallery?.filter(exists),
+    assetImages,
     content,
   };
 }
