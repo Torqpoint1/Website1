@@ -1,0 +1,339 @@
+/* Foxglove & Fern — scoped brand styles. All custom properties and type
+   live under .fox so they never leak into the Torqpoint chrome. */
+.fox {
+  --ink: #26222A;
+  --claret: #6E2C3E;
+  --sage: #94A189;
+  --stem: #46563F;
+  --chalk: #F4EEE4;
+  --line: #E4DBCD;
+  --fox-display: 'Cormorant Garamond', Georgia, serif;
+  --fox-body: 'Jost', system-ui, sans-serif;
+
+  background: var(--chalk);
+  color: var(--ink);
+  font-family: var(--fox-body);
+  padding: clamp(56px, 8vw, 104px) 0;
+  margin-top: clamp(48px, 7vw, 88px);
+}
+
+.inner {
+  width: 100%;
+  max-width: 920px;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.kicker {
+  font-family: var(--fox-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--stem);
+  margin: clamp(40px, 6vw, 72px) 0 22px;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.kicker:first-child { margin-top: 0; }
+.kicker span {
+  font-family: var(--fox-display);
+  font-style: italic;
+  font-size: 17px;
+  letter-spacing: 0;
+  color: var(--claret);
+}
+
+/* ── Identity ─────────────────────────────────────────── */
+.identity {
+  border: 1px solid var(--line);
+  background: #FBF8F2;
+  border-radius: 4px;
+  padding: clamp(36px, 6vw, 64px) clamp(24px, 4vw, 48px);
+  text-align: center;
+}
+.monogram { width: 46px; height: 54px; color: var(--claret); margin-bottom: 22px; }
+.wordmark {
+  font-family: var(--fox-display);
+  font-size: clamp(32px, 5vw, 48px);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1;
+}
+.amp { color: var(--claret); font-style: italic; }
+.tagline {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-top: 14px;
+}
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: clamp(16px, 3vw, 32px);
+  margin-top: 36px;
+  list-style: none;
+}
+.swatches li {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--stem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+.swatches li span {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+.typePair {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid var(--line);
+  padding-top: 16px;
+  margin-top: 28px;
+}
+.typePair:nth-of-type(1) { margin-top: 36px; }
+.typeDisplay { font-family: var(--fox-display); font-size: 34px; color: var(--claret); }
+.typeBody { font-family: var(--fox-body); font-size: 26px; letter-spacing: 0.12em; color: var(--ink); }
+.typeLabel {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--stem);
+}
+
+/* ── Carousel ─────────────────────────────────────────── */
+.carousel {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+.slide {
+  border: 1px solid var(--line);
+  background: #FBF8F2;
+  border-radius: 4px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  aspect-ratio: 4 / 5;
+  position: relative;
+}
+.slidePhoto { width: 100%; flex: 1; object-fit: cover; min-height: 0; }
+.slot { width: 100%; flex: 1; min-height: 0; }
+.slideCaption {
+  padding: 16px 44px 18px 18px;
+  background: #FBF8F2;
+  position: relative;
+}
+.slideLabel {
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--sage);
+  margin-bottom: 8px;
+}
+.slideQuote {
+  font-family: var(--fox-display);
+  font-size: clamp(17px, 2.2vw, 21px);
+  line-height: 1.2;
+  color: var(--ink);
+}
+.slideQuote em, .slideHeadline em { color: var(--claret); }
+.slideBody {
+  font-family: var(--fox-display);
+  font-size: clamp(16px, 2vw, 19px);
+  line-height: 1.3;
+  color: var(--ink);
+}
+.slideNum {
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
+  font-family: var(--fox-display);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--sage);
+}
+.slideText {
+  background: var(--claret);
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 24px;
+}
+.slideTextInner { margin: auto 0; }
+.slideText .slideBody { color: #F4EEE4; }
+.slideCta {
+  margin-top: 16px;
+  font-family: var(--fox-body);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(244, 238, 228, 0.8);
+}
+.slideMark {
+  font-family: var(--fox-display);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: rgba(244, 238, 228, 0.85);
+  position: absolute;
+  bottom: 16px;
+  left: 0; right: 0;
+  text-align: center;
+}
+.slideText .slideNum { color: rgba(244, 238, 228, 0.7); }
+
+/* ── Email ────────────────────────────────────────────── */
+.email {
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  overflow: hidden;
+  max-width: 560px;
+}
+.emailSubject {
+  background: #EFE8DC;
+  padding: 13px 22px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--stem);
+}
+.emailBody { background: #FBF8F2; padding: clamp(24px, 4vw, 40px); }
+.emailBrand {
+  font-family: var(--fox-display);
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.emailHero {
+  width: 100%;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+  border-radius: 3px;
+  display: block;
+  margin-bottom: 24px;
+}
+.emailHeadline {
+  font-family: var(--fox-display);
+  font-size: clamp(22px, 3vw, 28px);
+  font-weight: 500;
+  line-height: 1.18;
+  margin-bottom: 18px;
+}
+.emailText {
+  font-size: 14px;
+  line-height: 1.7;
+  color: #4A444B;
+  margin-bottom: 14px;
+}
+.emailBtn {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--claret);
+  border-bottom: 1px solid var(--claret);
+  padding-bottom: 4px;
+}
+.emailFoot {
+  margin-top: 28px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  font-size: 11px;
+  color: var(--sage);
+}
+
+/* ── Website hero ─────────────────────────────────────── */
+.site {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 30px 60px -30px rgba(38, 34, 42, 0.25);
+}
+.browser {
+  background: #EFE8DC;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line);
+}
+.url {
+  display: block;
+  max-width: 60%;
+  background: #FBF8F2;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  padding: 6px 16px;
+  font-size: 12px;
+  color: var(--stem);
+}
+.siteHero { position: relative; min-height: clamp(320px, 46vw, 480px); }
+.siteHeroPhoto, .siteHero .slot { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.siteOverlay {
+  position: relative;
+  z-index: 1;
+  padding: clamp(32px, 5vw, 64px);
+  background: linear-gradient(90deg, rgba(38, 34, 42, 0.6) 0%, rgba(38, 34, 42, 0.15) 70%, transparent 100%);
+  min-height: inherit;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #F8F4EC;
+}
+.siteWordmark { font-family: var(--fox-display); font-size: 22px; }
+.siteWordmark .amp { color: #E7B9C4; }
+.siteLabel {
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(248, 244, 236, 0.8);
+  margin: 18px 0 14px;
+}
+.siteHeadline {
+  font-family: var(--fox-display);
+  font-size: clamp(28px, 4.4vw, 46px);
+  font-weight: 500;
+  line-height: 1.08;
+  max-width: 16ch;
+}
+.siteHeadline em { color: #E7B9C4; }
+.siteText {
+  font-size: 14px;
+  line-height: 1.7;
+  color: rgba(248, 244, 236, 0.85);
+  max-width: 42ch;
+  margin: 18px 0 26px;
+}
+.siteBtn {
+  align-self: flex-start;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #F8F4EC;
+  border: 1px solid rgba(248, 244, 236, 0.6);
+  padding: 12px 22px;
+  border-radius: 2px;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 760px) {
+  .carousel {
+    grid-auto-flow: column;
+    grid-auto-columns: 78%;
+    grid-template-columns: none;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 8px;
+  }
+  .slide { scroll-snap-align: center; }
+  .typePair { flex-direction: column; align-items: flex-start; gap: 8px; }
+}

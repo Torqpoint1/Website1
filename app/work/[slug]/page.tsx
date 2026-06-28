@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getPost, getAllPosts } from '@/lib/content';
 import { WorkPlaceholder } from '@/components/WorkPlaceholder';
+import { BrandAssets } from '@/components/work-assets/BrandAssets';
 import { marked } from 'marked';
 import styles from './page.module.css';
 
@@ -96,6 +97,8 @@ export default async function WorkPage({ params }: Props) {
           )}
         </div>
       </article>
+
+      <BrandAssets post={post} />
 
       <section className="cta-band cta-band--forge" aria-label="Call to action">
         <div className="container">
