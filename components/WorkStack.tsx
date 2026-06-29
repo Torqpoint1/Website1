@@ -35,7 +35,7 @@ function tf(rel: number): React.CSSProperties {
   }
   const k = Math.min(1, -rel);
   return {
-    transform: `translate3d(${-k * 128}%,0,0) scale(${1 - k * 0.05}) rotate(${-k * 3}deg)`,
+    transform: `translate3d(${-k * 104}%,0,0) scale(${1 - k * 0.04})`,
     opacity: 1 - k,
     zIndex: 1200,
     filter: 'brightness(1)',
