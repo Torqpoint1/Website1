@@ -164,7 +164,7 @@
 @media (max-width: 560px) {
   /* Slimmer, more upright card on phones, centred in the stage; the next
      card fans out on the right so the stack still reads. */
-  .card { width: 80%; left: 10%; }
+  .card { width: 80%; left: 6%; }
   .controls { gap: 12px; }
   .dots { gap: 6px; }
   .dot { width: 18px; }
