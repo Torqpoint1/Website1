@@ -30,9 +30,9 @@
   width: min(880px, 100%);
   height: 100%;
   border: 1px solid rgba(26, 23, 20, 0.12);
-  border-radius: 22px;
+  border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 30px 70px -40px rgba(26, 23, 20, 0.6);
+  box-shadow: 0 22px 50px -34px rgba(26, 23, 20, 0.5);
   transform-origin: left center;
   will-change: transform, opacity;
   user-select: none;
@@ -41,7 +41,7 @@
 .inner {
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: 38% 62%;
+  grid-template-rows: 46% 54%;
   height: 100%;
 }
 
@@ -65,7 +65,7 @@
   border-radius: 100px;
 }
 
-.meta { padding: 28px 26px; display: flex; flex-direction: column; }
+.meta { padding: 26px 24px; display: flex; flex-direction: column; }
 .brand {
   font-weight: 700;
   font-size: 13px;
@@ -95,7 +95,7 @@
   color: var(--slate);
   margin-top: 14px;
   display: -webkit-box;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
