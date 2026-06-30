@@ -164,6 +164,17 @@
   .serviceChip:hover { transform: none; }
 }
 
+/* ── FAQ (03) ─────────────────────────────────────────────────── */
+.faqSection { background: var(--paper); }
+.faqIntro {
+  font-size: clamp(16px, 1.8vw, 18px);
+  color: var(--slate);
+  line-height: 1.6;
+  margin-top: 16px;
+  max-width: 52ch;
+}
+.faqWrap { margin-top: clamp(32px, 4vw, 48px); }
+
 /* ── How It Works ────────────────────────────────────────────── */
 .howItWorks {
   background: var(--ink);
