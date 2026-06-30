@@ -110,6 +110,10 @@
 .sample:hover { color: var(--forge); }
 
 @media (min-width: 820px) {
+  /* Centre the stage (the card is left-anchored within it) so the front
+     card sits in the middle of the screen, aligned with the controls below,
+     instead of being pushed to the left edge. */
+  .stage { max-width: 880px; margin-inline: auto; }
   .inner { grid-template-columns: 1.06fr 0.94fr; grid-template-rows: 1fr; }
   .meta { padding: 44px 44px; justify-content: center; }
   .body { -webkit-line-clamp: 4; }
