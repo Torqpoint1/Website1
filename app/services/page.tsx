@@ -97,6 +97,9 @@ export default function ServicesPage() {
         <div className="container">
           <ScrollReveal>
             <h2 id="menu-heading" className={styles.menuHeading}>What we can do for you</h2>
+            <p className={styles.menuHint}>
+              Click any service to see how it works, what you get and the proof behind it.
+            </p>
           </ScrollReveal>
           <ScrollReveal className={styles.serviceMenu} stagger>
             {serviceList.map(({ name, slug, desc }) => (
@@ -111,6 +114,9 @@ export default function ServicesPage() {
                       <span className={styles.menuItemArrow} aria-hidden="true">→</span>
                     </h3>
                     <p className={styles.menuItemDesc}>{desc}</p>
+                    <span className={styles.menuItemMore}>
+                      Find out more <span aria-hidden="true">→</span>
+                    </span>
                   </div>
                 </div>
               </Link>

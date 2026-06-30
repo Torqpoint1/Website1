@@ -8,6 +8,8 @@ interface ScrollRevealProps {
   children: React.ReactNode;
   className?: string;
   stagger?: boolean;
+  /** Seconds between each staggered child. Lower = gentler, tighter cascade. */
+  staggerStep?: number;
   delay?: number;
   direction?: Direction;
 }
@@ -16,6 +18,7 @@ export function ScrollReveal({
   children,
   className = '',
   stagger = false,
+  staggerStep = 0.14,
   delay = 0,
   direction = 'up',
 }: ScrollRevealProps) {
@@ -35,7 +38,7 @@ export function ScrollReveal({
     targets.forEach((t, i) => {
       t.classList.add('will-animate');
       if (direction !== 'up') t.classList.add(`will-animate--${direction}`);
-      (t as HTMLElement).style.transitionDelay = `${delay + i * 0.14}s`;
+      (t as HTMLElement).style.transitionDelay = `${delay + i * staggerStep}s`;
     });
 
     const reveal = () => {
@@ -68,7 +71,7 @@ export function ScrollReveal({
       observer.disconnect();
       if (safety) clearTimeout(safety);
     };
-  }, [stagger, delay, direction]);
+  }, [stagger, staggerStep, delay, direction]);
 
   return (
     <div ref={ref} className={className}>

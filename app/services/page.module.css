@@ -30,6 +30,12 @@
   font-weight: 700;
   letter-spacing: -0.025em;
   color: var(--ink);
+  margin-bottom: 8px;
+}
+.menuHint {
+  font-size: 15px;
+  color: var(--slate);
+  line-height: 1.6;
   margin-bottom: 32px;
 }
 
@@ -127,11 +133,28 @@
   line-height: 1.6;
 }
 
+/* Persistent affordance so it's obvious the card is a link, even at rest */
+.menuItemMore {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 12px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--forge-text);
+  transition: color var(--t-fast), gap var(--t-fast);
+}
+.menuItemMore span { transition: transform var(--t-fast); }
+.menuItem:hover .menuItemMore,
+.menuItem:focus-visible .menuItemMore { color: var(--forge); gap: 9px; }
+
 @media (prefers-reduced-motion: reduce) {
   .menuItem,
   .menuItem::after,
   .menuMarker .point,
-  .menuItemArrow { transition: none; }
+  .menuItemArrow,
+  .menuItemMore,
+  .menuItemMore span { transition: none; }
   .menuItem:hover,
   .menuItem:focus-visible { transform: none; }
 }

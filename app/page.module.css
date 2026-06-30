@@ -119,6 +119,13 @@
   flex-wrap: wrap;
   gap: 12px;
 }
+/* Gentler entrance than the site default: a small rise, softer + quicker. */
+.serviceChips :global(.will-animate) {
+  transform: translateY(10px);
+}
+.serviceChips :global(.is-visible) {
+  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
 .serviceChip {
   display: inline-flex;
   align-items: center;
