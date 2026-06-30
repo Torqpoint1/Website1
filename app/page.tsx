@@ -7,6 +7,7 @@ import { WorkStack, type Study } from '@/components/WorkStack';
 import { PageDecor } from '@/components/PageDecor';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { getAllPosts } from '@/lib/content';
+import { SERVICE_ORDER, SERVICES } from '@/lib/services';
 
 /* Per-brand card background + photo tint for the Selected work stack. */
 const BRAND_TINT: Record<string, { bg: string; tint: string }> = {
@@ -126,6 +127,25 @@ export default function HomePage() {
               </article>
             ))}
           </ScrollReveal>
+
+          {/* Clickable shortcut into every individual service page */}
+          <div className={styles.serviceLinks}>
+            <ScrollReveal className={styles.serviceLinksHead} stagger direction="left">
+              <h3 className={styles.serviceLinksTitle}>What we can do for you</h3>
+              <Link href="/services" className={styles.serviceLinksAll}>
+                See all services <span aria-hidden="true">→</span>
+              </Link>
+            </ScrollReveal>
+            <ScrollReveal className={styles.serviceChips} stagger>
+              {SERVICE_ORDER.map(slug => (
+                <Link key={slug} href={`/services/${slug}`} className={styles.serviceChip}>
+                  <span className="point point--sm" aria-hidden="true" />
+                  {SERVICES[slug].name}
+                  <span className={styles.chipArrow} aria-hidden="true">→</span>
+                </Link>
+              ))}
+            </ScrollReveal>
+          </div>
         </div>
       </section>
 
