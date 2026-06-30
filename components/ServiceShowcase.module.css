@@ -286,7 +286,9 @@
     width: 100%;
     max-width: var(--max-w);
     margin-inline: auto;
-    padding: calc(var(--nav-h) - 12px) var(--gutter) 12px;
+    /* Heavier bottom padding lifts the optically-centred content up a touch,
+       so it no longer sits below the middle of the screen on load. */
+    padding: calc(var(--nav-h) - 12px) var(--gutter) 52px;
     height: 100%;
   }
 

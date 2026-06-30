@@ -424,6 +424,11 @@ ul, ol { list-style: none; }
   from { transform: translateX(0); }
   to   { transform: translateX(-50%); }
 }
+/* Dial the deliverables marquee back on laptop/desktop — 40px reads too big
+   on a wide screen. Mobile/tablet sizing is untouched. */
+@media (min-width: 1024px) {
+  .marquee__item { font-size: clamp(28px, 2.2vw, 32px); }
+}
 
 /* ── Editorial index marker (01 / Label) ───────────────── */
 .index-label {
