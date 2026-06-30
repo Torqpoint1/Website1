@@ -12,34 +12,42 @@ export const metadata: Metadata = {
 const serviceList = [
   {
     name: 'Social posts',
+    slug: 'social-posts',
     desc: 'One post or a month\'s worth — written, formatted and scheduled.',
   },
   {
     name: 'Case studies',
+    slug: 'case-studies',
     desc: 'Your finished jobs written up to win trust and send to prospects.',
   },
   {
     name: 'Email & newsletters',
+    slug: 'email-newsletters',
     desc: 'A single send, or a regular newsletter to past customers and leads.',
   },
   {
     name: 'Blog articles',
+    slug: 'blog-articles',
     desc: 'Written properly, in your voice — and they help you show up on Google.',
   },
   {
     name: 'Google Business posts',
+    slug: 'google-business-posts',
     desc: 'Keep your local listing active and working for you.',
   },
   {
     name: 'Profiles & setup',
+    slug: 'profiles-setup',
     desc: 'Get your social profiles and listings set up and looking the part.',
   },
   {
     name: 'Website design & build',
+    slug: 'website-design-build',
     desc: 'Need a proper online home to go with your content? We oversee high-quality website builds — designed in your brand, built to win enquiries.',
   },
   {
     name: 'Anything else',
+    slug: 'anything-else',
     desc: 'No content or marketing challenge is off the table. If it grows your business or builds your reputation, we\'ll make it happen.',
   },
 ];
@@ -91,18 +99,21 @@ export default function ServicesPage() {
             <h2 id="menu-heading" className={styles.menuHeading}>What we can do for you</h2>
           </ScrollReveal>
           <ScrollReveal className={styles.serviceMenu} stagger>
-            {serviceList.map(({ name, desc }) => (
-              <article key={name} className={styles.menuItem}>
+            {serviceList.map(({ name, slug, desc }) => (
+              <Link key={name} href={`/services/${slug}`} className={styles.menuItem}>
                 <div className={styles.menuItemInner}>
                   <div className={styles.menuMarker}>
                     <span className="point point--md" aria-hidden="true" />
                   </div>
                   <div>
-                    <h3 className={styles.menuItemName}>{name}</h3>
+                    <h3 className={styles.menuItemName}>
+                      {name}
+                      <span className={styles.menuItemArrow} aria-hidden="true">→</span>
+                    </h3>
                     <p className={styles.menuItemDesc}>{desc}</p>
                   </div>
                 </div>
-              </article>
+              </Link>
             ))}
           </ScrollReveal>
 

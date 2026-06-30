@@ -13,6 +13,22 @@ interface Props {
 
 export const dynamicParams = false;
 
+/** Map case-study service tags to their dedicated service pages. */
+const SERVICE_SLUGS: Record<string, string> = {
+  'Social posts': 'social-posts',
+  'Case studies': 'case-studies',
+  'Email & newsletters': 'email-newsletters',
+  'Blog articles': 'blog-articles',
+  'Google Business posts': 'google-business-posts',
+  'Profiles & setup': 'profiles-setup',
+  'Website design & build': 'website-design-build',
+};
+
+function serviceHref(name: string): string {
+  const slug = SERVICE_SLUGS[name];
+  return slug ? `/services/${slug}` : '/services';
+}
+
 export async function generateStaticParams() {
   return getAllPosts('work').map(p => ({ slug: p.slug }));
 }
@@ -60,7 +76,7 @@ export default async function WorkPage({ params }: Props) {
             <ul className={styles.tags} aria-label="What we made">
               {post.services.map(s => (
                 <li key={s}>
-                  <Link href="/services" className={styles.tag}>{s}</Link>
+                  <Link href={serviceHref(s)} className={styles.tag}>{s}</Link>
                 </li>
               ))}
             </ul>
