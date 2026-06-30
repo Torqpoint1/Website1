@@ -81,4 +81,11 @@
 @media (max-width: 760px) {
   .typePair { flex-direction: column; align-items: flex-start; gap: 8px; }
   .siteNav { display: none; }
+
+  /* On narrow screens the fixed 16/10 hero is too short to hold a centred
+     overlay and an absolute top bar without them overlapping. Let the hero
+     grow to its content and stack the top bar above the overlay in flow. */
+  .siteHero { aspect-ratio: auto; flex-direction: column; min-height: 340px; }
+  .siteTop { position: relative; padding-bottom: 8px; }
+  .siteOverlay { margin: 0; padding-top: 8px; }
 }
