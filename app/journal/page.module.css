@@ -81,6 +81,17 @@
 
 .postMeta {
   padding-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.postCategory {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-text);
 }
 
 .postDate {

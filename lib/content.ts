@@ -12,6 +12,12 @@ export interface PostMeta {
   summary?: string;
   cover?: string;
   slug: string;
+  /** journal: short kicker/category shown above the title */
+  category?: string;
+  /** journal: SEO meta description (falls back to excerpt) */
+  description?: string;
+  /** journal: SEO target keywords */
+  keywords?: string[];
   sector?: string;
   location?: string;
   concept?: boolean;
@@ -83,6 +89,9 @@ export function getPost(collection: string, slug: string): Post | null {
     client: data.client,
     summary: data.summary,
     cover: data.cover,
+    category: data.category,
+    description: data.description,
+    keywords: Array.isArray(data.keywords) ? data.keywords : undefined,
     sector: data.sector,
     location: data.location,
     concept: data.concept === true,

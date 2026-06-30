@@ -54,6 +54,7 @@ export default function JournalPage() {
               {posts.map(post => (
                 <Link key={post.slug} href={`/journal/${post.slug}`} className={styles.postRow}>
                   <div className={styles.postMeta}>
+                    {post.category && <span className={styles.postCategory}>{post.category}</span>}
                     {post.date && <time className={styles.postDate} dateTime={post.date}>{formatDate(post.date)}</time>}
                   </div>
                   <div className={styles.postMain}>
