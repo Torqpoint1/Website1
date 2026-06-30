@@ -163,19 +163,28 @@
 
 @media (max-width: 560px) {
   /* Slimmer, more upright card on phones, centred in the stage; the next
-     card fans out on the right so the stack still reads. Taller card +
-     more room for the meta so the summary doesn't get clipped. */
-  /* Reallocate the old empty meta space to a larger image, keeping the
-     text area just big enough for the longest summary. */
-  .stage { height: clamp(548px, 72vh, 568px); }
-  .card { width: 80%; left: 6%; }
-  .inner { grid-template-rows: 35% 65%; }
-  .meta { padding: 18px 20px; }
-  .headline { font-size: 19px; margin-top: 12px; max-width: none; }
-  .body { -webkit-line-clamp: 10; font-size: 13.5px; line-height: 1.48; margin-top: 10px; }
-  /* Let the link follow the text instead of pinning to the bottom, so
-     short cards don't leave a big gap above "See the sample". */
-  .sample { margin-top: 14px; padding-top: 0; }
+     card fans out on the right so the stack still reads. A larger image up
+     top, a consistent spacing rhythm in the meta, and the "See the sample"
+     link pinned to the bottom as a divided footer so every card lines up
+     the same as you swipe. */
+  .stage { height: clamp(536px, 70vh, 560px); }
+  .card { width: 80%; left: 6%; border-radius: 16px; }
+  /* Image flexes to fill whatever the text doesn't use, so the text always
+     hugs its content — no clipping and no dead space — and every card is the
+     same height with the link sitting on a consistent baseline. */
+  .inner { grid-template-rows: 1fr auto; }
+  .media { min-height: 150px; }
+  .meta { padding: 20px 22px 22px; }
+  .brand { font-size: 12px; }
+  .cat { font-size: 13px; margin-top: 8px; }
+  .headline { font-size: 19px; line-height: 1.18; margin-top: 13px; max-width: none; }
+  .body {
+    -webkit-line-clamp: 11;
+    font-size: 13.5px;
+    line-height: 1.55;
+    margin-top: 12px;
+  }
+  .sample { margin-top: 16px; padding-top: 0; font-size: 14px; }
   .controls { gap: 12px; }
   .dots { gap: 6px; }
   .dot { width: 18px; }
