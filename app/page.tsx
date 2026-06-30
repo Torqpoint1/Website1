@@ -65,20 +65,28 @@ const steps = [
    page text and FAQPage JSON-LD never drift. */
 const faqs = [
   {
-    q: 'Have you actually done this for anyone?',
-    a: 'Torqpoint is new, and we’d rather say that than pretend otherwise. The work in our portfolio is concept projects — built to show exactly how we approach a job and what we’d make for you. What you get for backing someone early is founder pricing and the kind of attention a fully-booked studio can’t offer. We’re not juggling fifty accounts. Yours gets done properly.',
+    q: 'What kinds of businesses do you work with?',
+    a: 'Trades and small businesses where the work itself is the selling point — landscapers, joiners, builders, bathroom and kitchen fitters, interior designers, holiday lets, florists. If you do work people would be impressed by in person but rarely see online, you’re exactly who we’re built for.',
+  },
+  {
+    q: 'How is this different from hiring someone to run my social media?',
+    a: 'A social media manager fills a feed. We build a system. Every job you finish becomes a case study, a set of posts, an email to past customers, maybe a piece that ranks on Google — one piece of work feeding every channel that brings the next enquiry. We’re not here to keep you posting for the sake of it. We’re here to turn the work you’ve already done into work that comes back.',
   },
   {
     q: 'Do I need to organise a photo shoot or take time out of my week?',
     a: 'No — that’s the whole point. You send a batch of photos from your phone and a few lines about the job, or just tell us the goal, and we do the rest. No shoot to schedule, no day off site, no learning curve. If you can send a text, you can work with us.',
   },
   {
-    q: 'Am I tied into a contract?',
-    a: 'No lock-in. Work with us for a single case study, or have us produce content every month — whichever suits. Everything’s quoted up front, so you see the number before you commit to anything, and you can stop the moment it stops being worth it.',
+    q: 'My photos are just phone snaps — is that good enough?',
+    a: 'Usually, yes. A good job shot on a modern phone is plenty to work with, and a lot of the craft is making everyday photos look considered. When a project really deserves it, we can arrange a photographer or videographer too — but you never need professional shots to get started.',
   },
   {
     q: 'Will it actually sound like me, or like AI filler?',
     a: 'Like you. We research your business first — how you talk, what you care about, who you’re trying to reach — and write in that voice. AI is a tool we use to move fast, not a shortcut to generic filler. Anything that could’ve been written about any business isn’t good enough to send you.',
+  },
+  {
+    q: 'Am I tied into a contract?',
+    a: 'No lock-in. Work with us for a single case study, or have us produce content every month — whichever suits. Everything’s quoted up front, so you see the number before you commit to anything, and you can stop the moment it stops being worth it.',
   },
 ];
 
