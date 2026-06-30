@@ -66,7 +66,7 @@ const steps = [
 const faqs = [
   {
     q: 'What kinds of businesses do you work with?',
-    a: 'Trades, makers and project-based businesses where the work itself is the selling point — landscapers, joiners, builders, bathroom and kitchen fitters, interior designers, holiday lets, florists, studios and agencies. Whether you run steady day-to-day jobs or deliver bigger one-off projects, if you do work people would be impressed by in person but rarely see online, you’re exactly who we’re built for.',
+    a: 'Trades and construction, home and interiors, hospitality, creative and design, professional services — any business where the work itself is the selling point. Whether you run steady day-to-day jobs or deliver bigger one-off projects, if you do work people would be impressed by in person but rarely see online, you’re exactly who we’re built for.',
   },
   {
     q: 'How is this different from hiring someone to run my social media?',
