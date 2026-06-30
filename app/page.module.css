@@ -82,6 +82,81 @@
   .serviceGrid { grid-template-columns: 1fr; }
 }
 
+/* ── Clickable service shortcuts ─────────────────────────────── */
+.serviceLinks {
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: clamp(28px, 3.5vw, 40px);
+  border-top: 1px solid var(--surface-2);
+}
+
+.serviceLinksHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px 24px;
+  margin-bottom: clamp(20px, 2.5vw, 28px);
+}
+.serviceLinksTitle {
+  font-size: clamp(13px, 1.4vw, 15px);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-text);
+}
+.serviceLinksAll {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--slate);
+  transition: color var(--t-fast);
+}
+.serviceLinksAll span { transition: transform var(--t-fast); display: inline-block; }
+.serviceLinksAll:hover { color: var(--forge); }
+.serviceLinksAll:hover span { transform: translateX(3px); }
+
+.serviceChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.serviceChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 18px;
+  border: 1px solid var(--surface-2);
+  border-radius: 100px;
+  background: var(--surface);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
+  transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast), transform var(--t-fast);
+}
+.serviceChip:hover {
+  color: var(--forge);
+  border-color: var(--forge);
+  background: rgba(238, 90, 30, 0.05);
+  transform: translateY(-2px);
+}
+.serviceChip:focus-visible {
+  outline: 3px solid var(--forge);
+  outline-offset: 3px;
+}
+.chipArrow {
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--t-fast), transform var(--t-fast);
+}
+.serviceChip:hover .chipArrow,
+.serviceChip:focus-visible .chipArrow { opacity: 1; transform: translateX(0); }
+
+@media (prefers-reduced-motion: reduce) {
+  .serviceChip,
+  .chipArrow,
+  .serviceLinksAll span { transition: none; }
+  .serviceChip:hover { transform: none; }
+}
+
 /* ── How It Works ────────────────────────────────────────────── */
 .howItWorks {
   background: var(--ink);
