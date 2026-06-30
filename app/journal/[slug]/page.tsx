@@ -20,7 +20,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return {};
   return {
     title: post.title,
-    description: post.excerpt,
+    description: post.description ?? post.excerpt,
+    keywords: post.keywords,
   };
 }
 
@@ -38,6 +39,7 @@ export default async function JournalPostPage({ params }: Props) {
             <span aria-hidden="true">←</span> Back to journal
           </Link>
           <div className={styles.heroMeta}>
+            {post.category && <span className={styles.category}>{post.category}</span>}
             {post.date && (
               <time className={styles.date} dateTime={post.date}>{formatDate(post.date)}</time>
             )}

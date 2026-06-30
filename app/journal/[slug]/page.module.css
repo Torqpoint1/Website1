@@ -20,7 +20,24 @@
 .back:hover { color: var(--forge); }
 
 .heroMeta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
   margin-bottom: 16px;
+}
+
+.category {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-text);
+}
+.category::after {
+  content: '·';
+  margin-left: 12px;
+  color: var(--surface-2);
 }
 
 .date {
