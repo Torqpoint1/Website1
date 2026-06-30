@@ -136,7 +136,7 @@ export default function HomePage() {
                 See all services <span aria-hidden="true">→</span>
               </Link>
             </ScrollReveal>
-            <ScrollReveal className={styles.serviceChips} stagger>
+            <ScrollReveal className={styles.serviceChips} stagger staggerStep={0.05}>
               {SERVICE_ORDER.map(slug => (
                 <Link key={slug} href={`/services/${slug}`} className={styles.serviceChip}>
                   <span className="point point--sm" aria-hidden="true" />
