@@ -40,7 +40,11 @@
 }
 
 .menuItem {
+  display: block;
+  position: relative;
   border-bottom: 1px solid var(--surface-2);
+  text-decoration: none;
+  transition: background var(--t-fast), transform var(--t-fast);
 }
 .menuItem:nth-child(odd) {
   border-right: 1px solid var(--surface-2);
@@ -48,6 +52,32 @@
 }
 .menuItem:nth-child(even) {
   padding-left: clamp(24px, 3vw, 48px);
+}
+
+/* Bottom hairline draws in from the left on hover/focus */
+.menuItem::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  height: 2px;
+  width: 100%;
+  background: var(--forge);
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.25s var(--ease-out);
+}
+.menuItem:hover,
+.menuItem:focus-visible {
+  background: rgba(238, 90, 30, 0.04);
+  transform: translateY(-2px);
+  outline: none;
+}
+.menuItem:hover::after,
+.menuItem:focus-visible::after { transform: scaleX(1); }
+.menuItem:focus-visible {
+  outline: 3px solid var(--forge);
+  outline-offset: -3px;
 }
 
 .menuItemInner {
@@ -64,11 +94,15 @@
 .menuMarker .point {
   transition: transform 0.22s cubic-bezier(0.22,1,0.36,1);
 }
-.menuItem:hover .menuMarker .point {
-  transform: rotate(45deg);
+.menuItem:hover .menuMarker .point,
+.menuItem:focus-visible .menuMarker .point {
+  transform: rotate(45deg) scale(1.12);
 }
 
 .menuItemName {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   font-size: clamp(16px, 1.6vw, 18px);
   font-weight: 700;
   letter-spacing: -0.02em;
@@ -76,12 +110,30 @@
   margin-bottom: 6px;
   transition: color var(--t-fast);
 }
-.menuItem:hover .menuItemName { color: var(--forge); }
+.menuItem:hover .menuItemName,
+.menuItem:focus-visible .menuItemName { color: var(--forge); }
+
+.menuItemArrow {
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity var(--t-fast), transform var(--t-fast);
+}
+.menuItem:hover .menuItemArrow,
+.menuItem:focus-visible .menuItemArrow { opacity: 1; transform: translateX(0); }
 
 .menuItemDesc {
   font-size: 14px;
   color: var(--slate);
   line-height: 1.6;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .menuItem,
+  .menuItem::after,
+  .menuMarker .point,
+  .menuItemArrow { transition: none; }
+  .menuItem:hover,
+  .menuItem:focus-visible { transform: none; }
 }
 
 @media (max-width: 640px) {

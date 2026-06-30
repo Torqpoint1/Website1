@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getAllPosts } from '@/lib/content';
+import { SERVICE_ORDER } from '@/lib/services';
 
 const BASE_URL = 'https://torqpoint.com';
 
@@ -21,6 +22,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority,
   }));
 
+  // Service detail pages
+  const servicePages = SERVICE_ORDER.map(slug => ({
+    url: `${BASE_URL}/services/${slug}/`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
   // Journal posts
   const journalPosts = getAllPosts('journal').map(post => ({
     url: `${BASE_URL}/journal/${post.slug}/`,
@@ -37,5 +46,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticPages, ...journalPosts, ...workPosts];
+  return [...staticPages, ...servicePages, ...journalPosts, ...workPosts];
 }
