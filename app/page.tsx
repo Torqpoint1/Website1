@@ -6,6 +6,7 @@ import { ServiceShowcase } from '@/components/ServiceShowcase';
 import { WorkStack, type Study } from '@/components/WorkStack';
 import { PageDecor } from '@/components/PageDecor';
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { FaqAccordion } from '@/components/services/Faq';
 import { getAllPosts } from '@/lib/content';
 import { SERVICE_ORDER, SERVICES } from '@/lib/services';
 
@@ -58,6 +59,38 @@ const steps = [
     desc: 'A couple of minutes to approve, then it goes live. One-off or every month — whatever suits you.',
   },
 ];
+
+/* Homepage FAQ — the cost question is intentionally held back until real
+   pricing is set. Schema below is generated from this same copy so the
+   page text and FAQPage JSON-LD never drift. */
+const faqs = [
+  {
+    q: 'Have you actually done this for anyone?',
+    a: 'Torqpoint is new, and we’d rather say that than pretend otherwise. The work in our portfolio is concept projects — built to show exactly how we approach a job and what we’d make for you. What you get for backing someone early is founder pricing and the kind of attention a fully-booked studio can’t offer. We’re not juggling fifty accounts. Yours gets done properly.',
+  },
+  {
+    q: 'Do I need to organise a photo shoot or take time out of my week?',
+    a: 'No — that’s the whole point. You send a batch of photos from your phone and a few lines about the job, or just tell us the goal, and we do the rest. No shoot to schedule, no day off site, no learning curve. If you can send a text, you can work with us.',
+  },
+  {
+    q: 'Am I tied into a contract?',
+    a: 'No lock-in. Work with us for a single case study, or have us produce content every month — whichever suits. Everything’s quoted up front, so you see the number before you commit to anything, and you can stop the moment it stops being worth it.',
+  },
+  {
+    q: 'Will it actually sound like me, or like AI filler?',
+    a: 'Like you. We research your business first — how you talk, what you care about, who you’re trying to reach — and write in that voice. AI is a tool we use to move fast, not a shortcut to generic filler. Anything that could’ve been written about any business isn’t good enough to send you.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map(f => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 
 export default function HomePage() {
   const studies: Study[] = getAllPosts('work').map(p => {
@@ -182,6 +215,33 @@ export default function HomePage() {
             ))}
           </ScrollReveal>
         </div>
+      </section>
+
+      {/* ── FAQ (03) ──────────────────────────────────────── */}
+      <section className={`section ${styles.faqSection}`} aria-labelledby="faq-heading">
+        <div className="container">
+          <ScrollReveal className="section-header" stagger direction="left">
+            <p className="index-label">
+              <span className="index-label__num">03</span>
+              <span className="point point--sm" aria-hidden="true" />
+              FAQ
+            </p>
+            <h2 id="faq-heading">
+              Good questions, <span className={styles.forge}>straight answers.</span>
+            </h2>
+            <p className={styles.faqIntro}>
+              The things people want to know before they get in touch.
+            </p>
+          </ScrollReveal>
+
+          <ScrollReveal className={styles.faqWrap}>
+            <FaqAccordion items={faqs} />
+          </ScrollReveal>
+        </div>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+        />
       </section>
 
       {/* ── CTA Band ──────────────────────────────────────── */}
