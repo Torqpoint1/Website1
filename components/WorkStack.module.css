@@ -165,13 +165,17 @@
   /* Slimmer, more upright card on phones, centred in the stage; the next
      card fans out on the right so the stack still reads. Taller card +
      more room for the meta so the summary doesn't get clipped. */
-  .stage { height: clamp(500px, 66vh, 575px); }
+  /* Reallocate the old empty meta space to a larger image, keeping the
+     text area just big enough for the longest summary. */
+  .stage { height: clamp(548px, 72vh, 568px); }
   .card { width: 80%; left: 6%; }
-  .inner { grid-template-rows: 27% 73%; }
+  .inner { grid-template-rows: 35% 65%; }
   .meta { padding: 18px 20px; }
-  .headline { font-size: 19px; margin-top: 12px; }
+  .headline { font-size: 19px; margin-top: 12px; max-width: none; }
   .body { -webkit-line-clamp: 10; font-size: 13.5px; line-height: 1.48; margin-top: 10px; }
-  .sample { padding-top: 14px; }
+  /* Let the link follow the text instead of pinning to the bottom, so
+     short cards don't leave a big gap above "See the sample". */
+  .sample { margin-top: 14px; padding-top: 0; }
   .controls { gap: 12px; }
   .dots { gap: 6px; }
   .dot { width: 18px; }
