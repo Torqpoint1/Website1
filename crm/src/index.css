@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-paper text-graphite font-display;
+  }
+
+  ::selection {
+    @apply bg-forge text-paper;
+  }
+}
+
+@layer components {
+  /* “The point” — the single Forge square. Used as active-nav marker,
+     section marker and loading state throughout. */
+  .point {
+    @apply inline-block h-2 w-2 shrink-0 bg-forge;
+  }
+
+  .point-lg {
+    @apply inline-block h-3 w-3 shrink-0 bg-forge;
+  }
+
+  .label-caps {
+    @apply text-[11px] font-semibold uppercase tracking-[0.14em];
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 bg-graphite px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-forge disabled:opacity-40 disabled:hover:bg-graphite;
+  }
+
+  .btn-forge {
+    @apply inline-flex items-center justify-center gap-2 bg-forge px-5 py-2.5 text-sm font-semibold text-paper transition-opacity hover:opacity-90 disabled:opacity-40;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 border border-graphite/20 bg-transparent px-5 py-2.5 text-sm font-semibold text-graphite transition-colors hover:border-graphite;
+  }
+
+  .field {
+    @apply w-full border border-graphite/20 bg-white px-3.5 py-2.5 text-sm text-graphite outline-none transition-colors placeholder:text-slate/50 focus:border-forge;
+  }
+
+  .card {
+    @apply border border-line bg-white shadow-card;
+  }
+}
+
+@keyframes point-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.55);
+    opacity: 0.6;
+  }
+}
+
+.point-loading {
+  animation: point-pulse 0.9s ease-in-out infinite;
+}
