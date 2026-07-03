@@ -96,3 +96,36 @@ export async function logSystemActivity(accountId: string, body: string) {
     .insert({ account_id: accountId, type: 'system', body });
   if (error) throw error;
 }
+
+/**
+ * Removes an account and everything under it. Contacts, deals, projects,
+ * activities, quotes, invoices and retainers cascade in the database;
+ * follow-up tasks reference by id without a foreign key, so they are
+ * cleaned up explicitly first.
+ */
+export async function deleteAccount(accountId: string): Promise<void> {
+  const [deals, projects] = await Promise.all([
+    db().from('deals').select('id').eq('account_id', accountId),
+    db().from('projects').select('id').eq('account_id', accountId),
+  ]);
+  if (deals.error) throw deals.error;
+  if (projects.error) throw projects.error;
+
+  const taskTargets: { type: string; ids: string[] }[] = [
+    { type: 'account', ids: [accountId] },
+    { type: 'deal', ids: (deals.data ?? []).map((d) => d.id) },
+    { type: 'project', ids: (projects.data ?? []).map((p) => p.id) },
+  ];
+  for (const t of taskTargets) {
+    if (t.ids.length === 0) continue;
+    const { error } = await db()
+      .from('tasks')
+      .delete()
+      .eq('related_type', t.type)
+      .in('related_id', t.ids);
+    if (error) throw error;
+  }
+
+  const { error } = await db().from('accounts').delete().eq('id', accountId);
+  if (error) throw error;
+}

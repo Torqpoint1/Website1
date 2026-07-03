@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState, type FormEvent } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { db } from '../lib/supabase';
-import { logSystemActivity, moveDealStage } from '../lib/actions';
+import { deleteAccount, logSystemActivity, moveDealStage } from '../lib/actions';
 import { money, shortDate, timeAgo, isOverdue } from '../lib/format';
 import {
   ACCOUNT_STATUSES,
@@ -92,6 +92,72 @@ export default function AccountDetail() {
         </div>
         <ActivityLog accountId={account.id} activities={activities} onChanged={load} />
       </div>
+
+      <DangerZone account={account} />
+    </div>
+  );
+}
+
+/* ---------- delete account ---------- */
+
+function DangerZone({ account }: { account: Account }) {
+  const [confirming, setConfirming] = useState(false);
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
+
+  async function confirmDelete() {
+    setBusy(true);
+    setError(null);
+    try {
+      await deleteAccount(account.id);
+      navigate('/accounts');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not delete.');
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="mt-16 border-t border-line pt-6">
+      <button
+        type="button"
+        onClick={() => setConfirming(true)}
+        className="label-caps text-slate transition-colors hover:text-forge"
+      >
+        Delete this account…
+      </button>
+
+      {confirming && (
+        <Modal title="Delete account" onClose={() => setConfirming(false)}>
+          <div className="flex flex-col gap-4">
+            <p className="text-sm leading-relaxed text-slate">
+              This removes{' '}
+              <span className="font-semibold text-graphite">{account.name}</span>{' '}
+              and everything logged under it — contacts, deals, activity,
+              follow-ups, the lot. There's no undo.
+            </p>
+            {error && <p className="text-sm text-forge">{error}</p>}
+            <div className="flex gap-3">
+              <button
+                type="button"
+                onClick={confirmDelete}
+                disabled={busy}
+                className="btn-forge flex-1"
+              >
+                {busy ? 'Deleting…' : 'Delete for good'}
+              </button>
+              <button
+                type="button"
+                onClick={() => setConfirming(false)}
+                className="btn-ghost"
+              >
+                Keep it
+              </button>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 }
