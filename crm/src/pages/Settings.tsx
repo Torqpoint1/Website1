@@ -1,6 +1,7 @@
 import { useEffect, useState, type FormEvent } from 'react';
 import { db } from '../lib/supabase';
 import { getSettings } from '../lib/money';
+import { downloadBackup } from '../lib/backup';
 import type { CompanySettings } from '../lib/types';
 import PointLoader from '../components/PointLoader';
 
@@ -169,7 +170,56 @@ export default function Settings() {
           </button>
         </div>
       </form>
+
+      <BackupSection />
     </div>
+  );
+}
+
+function BackupSection() {
+  const [state, setState] = useState<'idle' | 'busy' | 'done' | 'error'>('idle');
+  const [detail, setDetail] = useState('');
+
+  async function run() {
+    setState('busy');
+    try {
+      const { rows } = await downloadBackup();
+      setDetail(`${rows.toLocaleString('en-GB')} records saved`);
+      setState('done');
+    } catch (err) {
+      setDetail(err instanceof Error ? err.message : 'Export failed.');
+      setState('error');
+    }
+  }
+
+  return (
+    <section className="mt-14 rounded-xl border border-line bg-white p-5">
+      <div className="flex items-center gap-2.5 pb-3">
+        <span className="point" aria-hidden />
+        <h2 className="label-caps text-slate">Backup</h2>
+      </div>
+      <p className="max-w-xl pb-4 text-sm leading-relaxed text-slate">
+        Downloads everything — clients, contacts, deals, projects,
+        deliverables, follow-ups, the full activity history, quotes, invoices,
+        retainers and these settings — as one dated file. Tap it monthly and
+        keep the file somewhere safe; it's your copy of the business, whatever
+        happens.
+      </p>
+      <div className="flex flex-wrap items-center gap-3">
+        <button
+          type="button"
+          onClick={run}
+          disabled={state === 'busy'}
+          className="btn-primary"
+        >
+          {state === 'busy' ? 'Gathering everything…' : 'Download backup'}
+        </button>
+        {state === 'done' && (
+          <span className="text-sm font-semibold text-graphite">✓ {detail}</span>
+        )}
+        {state === 'error' && <span className="text-sm text-forge">{detail}</span>}
+      </div>
+    </section>
   );
 }
 
