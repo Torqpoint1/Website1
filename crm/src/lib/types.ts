@@ -223,6 +223,8 @@ export interface Expense {
   category: ExpenseCategory;
   amount: number;
   receipt_path: string | null;
+  recurring?: boolean;
+  recurring_source?: string | null;
   created_at: string;
 }
 

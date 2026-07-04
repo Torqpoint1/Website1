@@ -4,7 +4,7 @@ import { db } from '../lib/supabase';
 import { createInvoiceFromProject, flagOverdueInvoices } from '../lib/money';
 import { runTheMonth, type RunResult } from '../lib/retainers';
 import { money, shortDate } from '../lib/format';
-import type { Invoice, Project, Quote, Retainer } from '../lib/types';
+import type { Deal, Expense, Invoice, Project, Quote, Retainer } from '../lib/types';
 import PointLoader from '../components/PointLoader';
 import EmptyState from '../components/EmptyState';
 import ExpensesTab from '../components/ExpensesTab';
@@ -14,6 +14,9 @@ export default function Money() {
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [retainers, setRetainers] = useState<Retainer[]>([]);
   const [readyProjects, setReadyProjects] = useState<Project[]>([]);
+  const [expenses, setExpenses] = useState<Expense[]>([]);
+  const [expensesReady, setExpensesReady] = useState(true);
+  const [openDeals, setOpenDeals] = useState<Deal[]>([]);
   const [tab, setTab] = useState<'invoices' | 'quotes' | 'expenses'>('invoices');
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
@@ -23,7 +26,7 @@ export default function Money() {
   const load = useCallback(async () => {
     try {
       await flagOverdueInvoices();
-      const [inv, qts, rts, prj] = await Promise.all([
+      const [inv, qts, rts, prj, exp, dls] = await Promise.all([
         db()
           .from('invoices')
           .select('*, account:accounts(name)')
@@ -37,13 +40,27 @@ export default function Money() {
           .from('projects')
           .select('*, account:accounts(name)')
           .eq('ready_to_invoice', true),
+        db()
+          .from('expenses')
+          .select('*')
+          .order('expense_date', { ascending: false }),
+        db().from('deals').select('*').eq('status', 'open'),
       ]);
-      const err = inv.error ?? qts.error ?? rts.error ?? prj.error;
+      const err = inv.error ?? qts.error ?? rts.error ?? prj.error ?? dls.error;
       if (err) throw err;
       setInvoices(inv.data as Invoice[]);
       setQuotes(qts.data as Quote[]);
       setRetainers(rts.data as Retainer[]);
       setReadyProjects(prj.data as Project[]);
+      setOpenDeals((dls.data ?? []) as Deal[]);
+      if (exp.error) {
+        // Table missing until the expenses paste is run — metrics show £0.
+        if (exp.error.code === '42P01') setExpensesReady(false);
+        else throw exp.error;
+      } else {
+        setExpenses((exp.data ?? []) as Expense[]);
+        setExpensesReady(true);
+      }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not load money.');
     }
@@ -65,18 +82,80 @@ export default function Money() {
     .filter((i) => i.status === 'overdue')
     .reduce((s, i) => s + Number(i.total), 0);
 
-  const paidThisYear = invoices.filter(
-    (i) =>
-      i.status === 'paid' &&
-      i.paid_date &&
-      new Date(i.paid_date).getFullYear() === new Date().getFullYear(),
+  // --- The numbers (cash basis: paid invoices in, logged expenses out) ---
+  const now = new Date();
+  const paid = invoices.filter((i) => i.status === 'paid' && i.paid_date);
+  const inMonth = (d: string, ref: Date) => {
+    const x = new Date(d);
+    return x.getFullYear() === ref.getFullYear() && x.getMonth() === ref.getMonth();
+  };
+  const inYear = (d: string) => new Date(d).getFullYear() === now.getFullYear();
+  const sumInv = (list: Invoice[]) => list.reduce((s, i) => s + Number(i.total), 0);
+  const sumExp = (list: Expense[]) => list.reduce((s, e) => s + Number(e.amount), 0);
+
+  const turnover = {
+    month: sumInv(paid.filter((i) => inMonth(i.paid_date!, now))),
+    year: sumInv(paid.filter((i) => inYear(i.paid_date!))),
+    all: sumInv(paid),
+  };
+  const spent = {
+    month: sumExp(expenses.filter((e) => inMonth(e.expense_date, now))),
+    year: sumExp(expenses.filter((e) => inYear(e.expense_date))),
+    all: sumExp(expenses),
+  };
+  const profit = {
+    month: turnover.month - spent.month,
+    year: turnover.year - spent.year,
+    all: turnover.all - spent.all,
+  };
+
+  const lastSixMonths = Array.from({ length: 6 }, (_, i) => {
+    const ref = new Date(now.getFullYear(), now.getMonth() - i, 1);
+    const inn = sumInv(paid.filter((x) => inMonth(x.paid_date!, ref)));
+    const out = sumExp(expenses.filter((x) => inMonth(x.expense_date, ref)));
+    return {
+      label: ref.toLocaleDateString('en-GB', { month: 'short', year: '2-digit' }),
+      inn,
+      out,
+    };
+  });
+
+  const paidThisYear = paid.filter((i) => inYear(i.paid_date!));
+  const retainerRevenue = sumInv(
+    paidThisYear.filter((i) => i.pricing_type === 'retainer'),
   );
-  const retainerRevenue = paidThisYear
-    .filter((i) => i.pricing_type === 'retainer')
-    .reduce((s, i) => s + Number(i.total), 0);
-  const oneOffRevenue = paidThisYear
-    .filter((i) => i.pricing_type !== 'retainer')
-    .reduce((s, i) => s + Number(i.total), 0);
+  const oneOffRevenue = sumInv(
+    paidThisYear.filter((i) => i.pricing_type !== 'retainer'),
+  );
+
+  const avgInvoice = paid.length > 0 ? turnover.all / paid.length : 0;
+  const byMonth = new Map<string, number>();
+  for (const i of paid) {
+    const key = i.paid_date!.slice(0, 7);
+    byMonth.set(key, (byMonth.get(key) ?? 0) + Number(i.total));
+  }
+  const bestMonthEntry = [...byMonth.entries()].sort((a, b) => b[1] - a[1])[0];
+  const bestMonth = bestMonthEntry
+    ? {
+        label: new Date(`${bestMonthEntry[0]}-01`).toLocaleDateString('en-GB', {
+          month: 'short',
+          year: 'numeric',
+        }),
+        value: bestMonthEntry[1],
+      }
+    : null;
+  const decidedQuotes = quotes.filter(
+    (q) => q.status === 'accepted' || q.status === 'declined',
+  );
+  const winRate =
+    decidedQuotes.length > 0
+      ? Math.round(
+          (quotes.filter((q) => q.status === 'accepted').length /
+            decidedQuotes.length) *
+            100,
+        )
+      : null;
+  const pipelineValue = openDeals.reduce((s, d) => s + Number(d.value ?? 0), 0);
 
   async function invoiceProject(p: Project) {
     const id = await createInvoiceFromProject(p);
@@ -115,14 +194,134 @@ export default function Money() {
       {/* Headline numbers */}
       <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
         <Stat label="MRR" value={money(mrr)} accent />
+        <Stat
+          label="Profit this month"
+          value={money(profit.month)}
+          alert={profit.month < 0}
+          sub={`${money(turnover.month)} in · ${money(spent.month)} out`}
+        />
         <Stat label="Money owed" value={money(owedTotal)} />
         <Stat label="Overdue" value={money(overdueTotal)} alert={overdueTotal > 0} />
-        <Stat
-          label={`Paid ${new Date().getFullYear()} · retainer / one-off`}
-          value={`${money(retainerRevenue)} / ${money(oneOffRevenue)}`}
-          small
-        />
       </div>
+
+      {/* The numbers */}
+      <section className="pt-10">
+        <div className="flex items-center gap-2.5 pb-4">
+          <span className="point" aria-hidden />
+          <h2 className="label-caps text-slate">The numbers</h2>
+        </div>
+        <div className="grid gap-4 lg:grid-cols-2">
+          <div className="card overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-line text-left">
+                  <th className="px-4 py-2.5 font-normal text-slate"></th>
+                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                    Turnover
+                  </th>
+                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                    Expenses
+                  </th>
+                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                    Profit
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {(
+                  [
+                    ['This month', turnover.month, spent.month, profit.month],
+                    ['This year', turnover.year, spent.year, profit.year],
+                    ['All time', turnover.all, spent.all, profit.all],
+                  ] as const
+                ).map(([label, inn, out, net]) => (
+                  <tr key={label} className="border-b border-line last:border-0">
+                    <td className="px-4 py-2.5 font-semibold">{label}</td>
+                    <td className="px-4 py-2.5 text-right">{money(inn)}</td>
+                    <td className="px-4 py-2.5 text-right">{money(out)}</td>
+                    <td
+                      className={`px-4 py-2.5 text-right font-editorial text-base ${
+                        net < 0 ? 'text-forge' : ''
+                      }`}
+                    >
+                      {money(net)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="card overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-line text-left">
+                  <th className="label-caps px-4 py-2.5 font-semibold text-slate">
+                    Last 6 months
+                  </th>
+                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                    In
+                  </th>
+                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                    Out
+                  </th>
+                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                    Profit
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {lastSixMonths.map((m) => (
+                  <tr key={m.label} className="border-b border-line last:border-0">
+                    <td className="px-4 py-2.5 font-semibold">{m.label}</td>
+                    <td className="px-4 py-2.5 text-right">{money(m.inn)}</td>
+                    <td className="px-4 py-2.5 text-right">{money(m.out)}</td>
+                    <td
+                      className={`px-4 py-2.5 text-right font-editorial text-base ${
+                        m.inn - m.out < 0 ? 'text-forge' : ''
+                      }`}
+                    >
+                      {money(m.inn - m.out)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-5">
+          <Stat small label="Average invoice" value={money(avgInvoice)} />
+          <Stat
+            small
+            label="Best month"
+            value={bestMonth ? money(bestMonth.value) : '—'}
+            sub={bestMonth?.label}
+          />
+          <Stat
+            small
+            label="Quote win rate"
+            value={winRate != null ? `${winRate}%` : '—'}
+            sub={
+              decidedQuotes.length > 0
+                ? `${decidedQuotes.length} decided`
+                : 'no decided quotes yet'
+            }
+          />
+          <Stat small label="Open pipeline" value={money(pipelineValue)} />
+          <Stat
+            small
+            label={`Paid ${now.getFullYear()} · retainer / one-off`}
+            value={`${money(retainerRevenue)} / ${money(oneOffRevenue)}`}
+          />
+        </div>
+        {!expensesReady && (
+          <p className="pt-3 text-sm text-slate">
+            Expense figures show £0 until the expenses table is switched on —
+            see the Expenses tab below.
+          </p>
+        )}
+      </section>
 
       {/* Retainers + Run the month */}
       <section className="pt-10">
@@ -301,7 +500,13 @@ export default function Money() {
             </ul>
           ))}
 
-        {tab === 'expenses' && <ExpensesTab />}
+        {tab === 'expenses' && (
+          <ExpensesTab
+            expenses={expenses}
+            needsSetup={!expensesReady}
+            onChanged={load}
+          />
+        )}
       </section>
     </div>
   );
@@ -313,23 +518,26 @@ function Stat({
   accent,
   alert,
   small,
+  sub,
 }: {
   label: string;
   value: string;
   accent?: boolean;
   alert?: boolean;
   small?: boolean;
+  sub?: string;
 }) {
   return (
     <div className="bg-white px-4 py-4">
       <p className="label-caps text-slate">{label}</p>
       <p
         className={`pt-1 font-editorial ${small ? 'text-xl' : 'text-3xl'} ${
-          alert ? 'text-forge' : accent ? 'text-graphite' : 'text-graphite'
+          alert ? 'text-forge' : 'text-graphite'
         }`}
       >
         {value}
       </p>
+      {sub && <p className="pt-0.5 text-xs text-slate">{sub}</p>}
       {accent && <span className="mt-2 block h-1 w-6 bg-forge" aria-hidden />}
     </div>
   );
