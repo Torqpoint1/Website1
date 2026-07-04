@@ -693,10 +693,10 @@ function TasksSection({
   return (
     <section>
       <SectionHead label="Follow-ups" />
-      <form onSubmit={submit} className="flex gap-2 pb-3">
+      <form onSubmit={submit} className="flex flex-wrap gap-2 pb-3">
         <input
           required
-          className="field flex-1"
+          className="field min-w-40 flex-1"
           placeholder="e.g. Chase the quote"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
@@ -704,11 +704,11 @@ function TasksSection({
         <input
           type="date"
           aria-label="Due date"
-          className="field w-auto"
+          className="field w-auto shrink-0"
           value={dueDate}
           onChange={(e) => setDueDate(e.target.value)}
         />
-        <button type="submit" className="btn-primary px-4">
+        <button type="submit" className="btn-primary shrink-0 px-4">
           Add
         </button>
       </form>

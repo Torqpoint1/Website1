@@ -17,6 +17,7 @@ export default function Money() {
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [expensesReady, setExpensesReady] = useState(true);
   const [openDeals, setOpenDeals] = useState<Deal[]>([]);
+  const [clientCount, setClientCount] = useState(0);
   const [tab, setTab] = useState<'invoices' | 'quotes' | 'expenses'>('invoices');
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
@@ -26,7 +27,7 @@ export default function Money() {
   const load = useCallback(async () => {
     try {
       await flagOverdueInvoices();
-      const [inv, qts, rts, prj, exp, dls] = await Promise.all([
+      const [inv, qts, rts, prj, exp, dls, cls] = await Promise.all([
         db()
           .from('invoices')
           .select('*, account:accounts(name)')
@@ -45,6 +46,10 @@ export default function Money() {
           .select('*')
           .order('expense_date', { ascending: false }),
         db().from('deals').select('*').eq('status', 'open'),
+        db()
+          .from('accounts')
+          .select('id', { count: 'exact', head: true })
+          .in('status', ['active', 'one_off']),
       ]);
       const err = inv.error ?? qts.error ?? rts.error ?? prj.error ?? dls.error;
       if (err) throw err;
@@ -53,6 +58,7 @@ export default function Money() {
       setRetainers(rts.data as Retainer[]);
       setReadyProjects(prj.data as Project[]);
       setOpenDeals((dls.data ?? []) as Deal[]);
+      setClientCount(cls.count ?? 0);
       if (exp.error) {
         // Table missing until the expenses paste is run — metrics show £0.
         if (exp.error.code === '42P01') setExpensesReady(false);
@@ -290,7 +296,7 @@ export default function Money() {
           </div>
         </div>
 
-        <div className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-5">
+        <div className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
           <Stat small label="Average invoice" value={money(avgInvoice)} />
           <Stat
             small
@@ -309,6 +315,11 @@ export default function Money() {
             }
           />
           <Stat small label="Open pipeline" value={money(pipelineValue)} />
+          <Stat
+            small
+            label="Active clients"
+            value={String(clientCount)}
+          />
           <Stat
             small
             label={`Paid ${now.getFullYear()} · retainer / one-off`}

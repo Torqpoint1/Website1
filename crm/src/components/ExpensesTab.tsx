@@ -100,16 +100,25 @@ export default function ExpensesTab({
 
   return (
     <div>
-      <div className="flex flex-wrap items-center justify-between gap-3 pb-4">
-        <p className="text-sm text-slate">
-          <span className="font-editorial text-2xl text-graphite">
-            {money(sum(thisMonth))}
-          </span>{' '}
-          this month ·{' '}
-          <span className="font-semibold text-graphite">{money(sum(thisYear))}</span>{' '}
-          in {now.getFullYear()}
-        </p>
-        <button type="button" onClick={() => setAdding(true)} className="btn-forge">
+      <div className="flex items-center justify-between gap-3 pb-4">
+        <div>
+          <p className="label-caps text-slate">Spent</p>
+          <p className="text-sm text-slate">
+            <span className="font-editorial text-2xl text-graphite">
+              {money(sum(thisMonth))}
+            </span>{' '}
+            this month ·{' '}
+            <span className="font-semibold text-graphite">
+              {money(sum(thisYear))}
+            </span>{' '}
+            in {now.getFullYear()}
+          </p>
+        </div>
+        <button
+          type="button"
+          onClick={() => setAdding(true)}
+          className="btn-forge shrink-0"
+        >
           <span className="h-1.5 w-1.5 bg-paper" aria-hidden />
           Add expense
         </button>
