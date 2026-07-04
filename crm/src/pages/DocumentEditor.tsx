@@ -230,7 +230,7 @@ export default function DocumentEditor({ kind }: { kind: Kind }) {
   return (
     <div className="mx-auto max-w-3xl px-5 py-8 sm:px-8 lg:py-12">
       <Link to="/money" className="label-caps text-slate hover:text-graphite">
-        ← Money
+        ← Finance
       </Link>
 
       <div className="flex flex-wrap items-center justify-between gap-4 pt-4 pb-8">

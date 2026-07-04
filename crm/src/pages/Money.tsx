@@ -7,13 +7,14 @@ import { money, shortDate } from '../lib/format';
 import type { Invoice, Project, Quote, Retainer } from '../lib/types';
 import PointLoader from '../components/PointLoader';
 import EmptyState from '../components/EmptyState';
+import ExpensesTab from '../components/ExpensesTab';
 
 export default function Money() {
   const [invoices, setInvoices] = useState<Invoice[] | null>(null);
   const [quotes, setQuotes] = useState<Quote[]>([]);
   const [retainers, setRetainers] = useState<Retainer[]>([]);
   const [readyProjects, setReadyProjects] = useState<Project[]>([]);
-  const [tab, setTab] = useState<'invoices' | 'quotes'>('invoices');
+  const [tab, setTab] = useState<'invoices' | 'quotes' | 'expenses'>('invoices');
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
   const [runResult, setRunResult] = useState<RunResult | null>(null);
@@ -99,7 +100,7 @@ export default function Money() {
   return (
     <div className="mx-auto max-w-5xl px-5 py-8 sm:px-8 lg:py-12">
       <div className="flex flex-wrap items-center justify-between gap-4 pb-8">
-        <h1 className="font-editorial text-4xl tracking-tight">Money</h1>
+        <h1 className="font-editorial text-4xl tracking-tight">Finance</h1>
         <div className="flex gap-2">
           <Link to="/money/quotes/new" className="btn-ghost">
             New quote
@@ -219,6 +220,7 @@ export default function Money() {
             [
               ['invoices', `Invoices (${invoices.length})`],
               ['quotes', `Quotes (${quotes.length})`],
+              ['expenses', 'Expenses'],
             ] as const
           ).map(([key, label]) => (
             <button
@@ -298,6 +300,8 @@ export default function Money() {
               ))}
             </ul>
           ))}
+
+        {tab === 'expenses' && <ExpensesTab />}
       </section>
     </div>
   );

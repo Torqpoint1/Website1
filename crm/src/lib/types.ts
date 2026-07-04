@@ -203,6 +203,48 @@ export interface Retainer {
   account?: { name: string } | null;
 }
 
+export type ExpenseCategory =
+  | 'software'
+  | 'equipment'
+  | 'travel'
+  | 'marketing'
+  | 'subcontractors'
+  | 'office'
+  | 'phone_internet'
+  | 'insurance'
+  | 'training'
+  | 'other';
+
+export interface Expense {
+  id: string;
+  expense_date: string;
+  supplier: string;
+  description: string | null;
+  category: ExpenseCategory;
+  amount: number;
+  receipt_path: string | null;
+  created_at: string;
+}
+
+export const EXPENSE_CATEGORIES: { key: ExpenseCategory; label: string }[] = [
+  { key: 'software', label: 'Software & subscriptions' },
+  { key: 'equipment', label: 'Equipment' },
+  { key: 'travel', label: 'Travel & mileage' },
+  { key: 'marketing', label: 'Marketing & ads' },
+  { key: 'subcontractors', label: 'Subcontractors' },
+  { key: 'office', label: 'Office & supplies' },
+  { key: 'phone_internet', label: 'Phone & internet' },
+  { key: 'insurance', label: 'Insurance' },
+  { key: 'training', label: 'Training' },
+  { key: 'other', label: 'Other' },
+];
+
+export const EXPENSE_CATEGORY_LABELS: Record<ExpenseCategory, string> =
+  Object.fromEntries(EXPENSE_CATEGORIES.map((c) => [c.key, c.label])) as Record<
+    ExpenseCategory,
+    string
+  >;
+
 export type AssetKind = 'file' | 'link' | 'location';
 
 export interface Asset {

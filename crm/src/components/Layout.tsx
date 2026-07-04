@@ -7,7 +7,7 @@ const NAV = [
   { to: '/pipeline', label: 'Pipeline', short: 'Pipeline', icon: 'pipeline', end: false },
   { to: '/accounts', label: 'Leads & Clients', short: 'Clients', icon: 'clients', end: false },
   { to: '/projects', label: 'Projects', short: 'Projects', icon: 'projects', end: false },
-  { to: '/money', label: 'Money', short: 'Money', icon: 'money', end: false },
+  { to: '/money', label: 'Finance', short: 'Finance', icon: 'money', end: false },
   { to: '/calendar', label: 'Calendar', short: 'Calendar', icon: 'calendar', end: false },
 ] as const;
 

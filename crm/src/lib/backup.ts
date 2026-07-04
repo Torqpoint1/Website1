@@ -11,6 +11,8 @@ const TABLES = [
   'quotes',
   'invoices',
   'retainers',
+  'expenses',
+  'assets',
   'company_settings',
 ] as const;
 
@@ -26,7 +28,15 @@ export async function buildBackup() {
   };
   for (const table of TABLES) {
     const { data, error } = await db().from(table).select('*');
-    if (error) throw new Error(`Could not export ${table}: ${error.message}`);
+    if (error) {
+      // A table that doesn't exist yet (feature not switched on) is fine —
+      // note it and keep going rather than failing the whole backup.
+      if (error.code === '42P01') {
+        backup[table] = [];
+        continue;
+      }
+      throw new Error(`Could not export ${table}: ${error.message}`);
+    }
     backup[table] = data ?? [];
   }
   return backup;
