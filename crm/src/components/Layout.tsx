@@ -2,9 +2,12 @@ import { NavLink, Outlet } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
 const NAV = [
-  { to: '/', label: 'Dashboard', end: true },
-  { to: '/pipeline', label: 'Pipeline', end: false },
-  { to: '/accounts', label: 'Leads & Clients', end: false },
+  { to: '/', label: 'Dashboard', short: 'Home', end: true },
+  { to: '/pipeline', label: 'Pipeline', short: 'Pipeline', end: false },
+  { to: '/accounts', label: 'Leads & Clients', short: 'Clients', end: false },
+  { to: '/projects', label: 'Projects', short: 'Projects', end: false },
+  { to: '/money', label: 'Money', short: 'Money', end: false },
+  { to: '/calendar', label: 'Calendar', short: 'Calendar', end: false },
 ];
 
 function navClasses(isActive: boolean) {
@@ -43,11 +46,21 @@ export default function Layout() {
               </NavLink>
             ))}
           </nav>
-          <div className="mt-auto px-6 pb-6">
+          <div className="mt-auto flex flex-col gap-3 px-6 pb-6">
+            <NavLink
+              to="/settings"
+              className={({ isActive }) =>
+                `label-caps transition-colors ${
+                  isActive ? 'text-paper' : 'text-paper/50 hover:text-paper'
+                }`
+              }
+            >
+              Settings
+            </NavLink>
             <button
               type="button"
               onClick={() => supabase?.auth.signOut()}
-              className="label-caps text-paper/50 transition-colors hover:text-paper"
+              className="label-caps text-left text-paper/50 transition-colors hover:text-paper"
             >
               Sign out
             </button>
@@ -63,13 +76,18 @@ export default function Layout() {
           </span>
           <span className="point" aria-hidden />
         </div>
-        <button
-          type="button"
-          onClick={() => supabase?.auth.signOut()}
-          className="label-caps text-paper/60"
-        >
-          Sign out
-        </button>
+        <div className="flex items-center gap-4">
+          <NavLink to="/settings" className="label-caps text-paper/60">
+            Settings
+          </NavLink>
+          <button
+            type="button"
+            onClick={() => supabase?.auth.signOut()}
+            className="label-caps text-paper/60"
+          >
+            Sign out
+          </button>
+        </div>
       </header>
 
       <main className="min-w-0 flex-1 pb-24 lg:pb-0">
@@ -82,7 +100,7 @@ export default function Layout() {
           <NavLink key={item.to} to={item.to} end={item.end} className="flex-1">
             {({ isActive }) => (
               <span
-                className={`flex flex-col items-center gap-1.5 py-3 text-[11px] font-semibold ${
+                className={`flex flex-col items-center gap-1.5 py-3 text-[10px] font-semibold ${
                   isActive ? 'text-paper' : 'text-paper/50'
                 }`}
               >
@@ -90,7 +108,7 @@ export default function Layout() {
                   className={`h-1.5 w-1.5 ${isActive ? 'bg-forge' : 'bg-transparent'}`}
                   aria-hidden
                 />
-                {item.label}
+                {item.short}
               </span>
             )}
           </NavLink>

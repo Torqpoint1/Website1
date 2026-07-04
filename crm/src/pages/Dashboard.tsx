@@ -11,6 +11,8 @@ import {
 import PointLoader from '../components/PointLoader';
 import AddLeadModal from '../components/AddLeadModal';
 import EmptyState from '../components/EmptyState';
+import AIPanel from '../components/AIPanel';
+import { buildWeekContext } from '../lib/ai';
 
 interface DashboardData {
   mrr: number;
@@ -23,6 +25,7 @@ export default function Dashboard() {
   const [data, setData] = useState<DashboardData | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [showAddLead, setShowAddLead] = useState(false);
+  const [showBriefing, setShowBriefing] = useState(false);
 
   const load = useCallback(async () => {
     try {
@@ -96,10 +99,15 @@ export default function Dashboard() {
             zero.
           </p>
         </div>
-        <button type="button" onClick={() => setShowAddLead(true)} className="btn-forge">
-          <span className="h-1.5 w-1.5 bg-paper" aria-hidden />
-          New lead
-        </button>
+        <div className="flex gap-2">
+          <button type="button" onClick={() => setShowBriefing(true)} className="btn-ghost">
+            Run my week
+          </button>
+          <button type="button" onClick={() => setShowAddLead(true)} className="btn-forge">
+            <span className="h-1.5 w-1.5 bg-paper" aria-hidden />
+            New lead
+          </button>
+        </div>
       </div>
 
       {/* Pipeline snapshot */}
@@ -221,6 +229,14 @@ export default function Dashboard() {
 
       {showAddLead && (
         <AddLeadModal onClose={() => setShowAddLead(false)} onCreated={load} />
+      )}
+      {showBriefing && (
+        <AIPanel
+          title="Run my week"
+          action="run_my_week"
+          getContext={buildWeekContext}
+          onClose={() => setShowBriefing(false)}
+        />
       )}
     </div>
   );

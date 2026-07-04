@@ -16,13 +16,13 @@ Anthropic API via Vercel functions (Layer 5) · Google Calendar (Layer 6)
 
 | Layer | What | Status |
 | --- | --- | --- |
-| 1 | Core CRM: accounts, contacts, pipeline, activity log, dashboard shell | ✅ Built — awaiting Supabase connection + Luke's test |
-| 2 | Projects & deliverables | — |
-| 3 | Money & documents (quotes, invoices, PDFs, MRR) | — |
-| 4 | Retainers & "Run the month" | — |
-| 5 | AI layer | — |
-| 6 | Google Calendar sync | — |
-| 7 | Website enquiry → lead | — |
+| 1 | Core CRM: accounts, contacts, pipeline, activity log, dashboard shell | ✅ Live — tested by Luke |
+| 2 | Projects & deliverables (board + calendar views, ready-to-invoice) | ✅ Built |
+| 3 | Money & documents (quote/invoice builders, PDFs, MRR, overdue, settings) | ✅ Built |
+| 4 | Retainers & "Run the month" | ✅ Built |
+| 5 | AI layer (Vercel fn `api/ai.ts`, Claude Sonnet, web search for research) | ✅ Built — needs `ANTHROPIC_API_KEY` env var |
+| 6 | Calendar screen + Google Calendar ICS feed (`api/calendar.ts`) | ✅ Built — needs `SUPABASE_SERVICE_ROLE_KEY` + `CALENDAR_FEED_TOKEN` env vars |
+| 7 | Website enquiry → lead | Deliberately last — needs Luke's approval to touch the site |
 
 ## Setup (the approval taps)
 

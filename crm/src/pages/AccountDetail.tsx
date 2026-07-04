@@ -16,10 +16,15 @@ import {
   type Deal,
   type FollowUpTask,
   type PipelineStage,
+  type Project,
+  type Retainer,
 } from '../lib/types';
 import PointLoader from '../components/PointLoader';
 import StagePill from '../components/StagePill';
 import Modal from '../components/Modal';
+import RetainerSection from '../components/RetainerSection';
+import AIPanel from '../components/AIPanel';
+import { buildAccountContext, type AIAction } from '../lib/ai';
 
 export default function AccountDetail() {
   const { id } = useParams<{ id: string }>();
@@ -28,11 +33,13 @@ export default function AccountDetail() {
   const [deals, setDeals] = useState<Deal[]>([]);
   const [activities, setActivities] = useState<Activity[]>([]);
   const [tasks, setTasks] = useState<FollowUpTask[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
+  const [retainer, setRetainer] = useState<Retainer | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     if (!id) return;
-    const [acc, cts, dls, acts, tks] = await Promise.all([
+    const [acc, cts, dls, acts, tks, prjs, rtn] = await Promise.all([
       db().from('accounts').select('*').eq('id', id).single(),
       db().from('contacts').select('*').eq('account_id', id).order('name'),
       db()
@@ -51,8 +58,21 @@ export default function AccountDetail() {
         .eq('related_type', 'account')
         .eq('related_id', id)
         .order('due_date', { ascending: true, nullsFirst: false }),
+      db()
+        .from('projects')
+        .select('*')
+        .eq('account_id', id)
+        .order('created_at', { ascending: false }),
+      db()
+        .from('retainers')
+        .select('*')
+        .eq('account_id', id)
+        .order('created_at', { ascending: false })
+        .limit(1)
+        .maybeSingle(),
     ]);
-    const firstError = acc.error ?? cts.error ?? dls.error ?? acts.error ?? tks.error;
+    const firstError =
+      acc.error ?? cts.error ?? dls.error ?? acts.error ?? tks.error ?? prjs.error ?? rtn.error;
     if (firstError) {
       setError(firstError.message);
       return;
@@ -62,6 +82,8 @@ export default function AccountDetail() {
     setDeals((dls.data ?? []) as Deal[]);
     setActivities((acts.data ?? []) as Activity[]);
     setTasks((tks.data ?? []) as FollowUpTask[]);
+    setProjects((prjs.data ?? []) as Project[]);
+    setRetainer((rtn.data as Retainer) ?? null);
   }, [id]);
 
   useEffect(() => {
@@ -79,6 +101,8 @@ export default function AccountDetail() {
 
       <Header account={account} onChanged={load} />
 
+      <AISection account={account} onChanged={load} />
+
       <div className="grid gap-10 pt-10 lg:grid-cols-[1fr_minmax(0,1.2fr)]">
         <div className="flex min-w-0 flex-col gap-10">
           <ContactsSection
@@ -88,6 +112,13 @@ export default function AccountDetail() {
           />
           <ResearchNotes account={account} onSaved={load} />
           <DealsSection account={account} deals={deals} onChanged={load} />
+          <ProjectsSection projects={projects} />
+          <RetainerSection
+            accountId={account.id}
+            accountName={account.name}
+            retainer={retainer}
+            onChanged={load}
+          />
           <TasksSection accountId={account.id} tasks={tasks} onChanged={load} />
         </div>
         <ActivityLog accountId={account.id} activities={activities} onChanged={load} />
@@ -157,6 +188,70 @@ function DangerZone({ account }: { account: Account }) {
             </div>
           </div>
         </Modal>
+      )}
+    </div>
+  );
+}
+
+/* ---------- AI actions ---------- */
+
+const AI_ACTIONS: { key: AIAction; label: string; title: string }[] = [
+  { key: 'summarise', label: 'Summarise', title: 'Summary' },
+  { key: 'draft_outreach', label: 'Draft outreach', title: 'Outreach draft' },
+  { key: 'draft_followup', label: 'Draft follow-up', title: 'Follow-up draft' },
+  { key: 'next_move', label: 'Next move', title: 'Suggested next move' },
+  { key: 'chase_draft', label: 'Chase draft', title: 'Chase draft' },
+  { key: 'lead_research', label: 'Research (web)', title: 'Lead research' },
+];
+
+function AISection({
+  account,
+  onChanged,
+}: {
+  account: Account;
+  onChanged: () => void;
+}) {
+  const [open, setOpen] = useState<(typeof AI_ACTIONS)[number] | null>(null);
+
+  async function saveResearch(text: string) {
+    const existing = account.research_notes?.trim();
+    await db()
+      .from('accounts')
+      .update({
+        research_notes: existing ? `${existing}\n\n---\n\n${text}` : text,
+      })
+      .eq('id', account.id);
+    await logSystemActivity(account.id, 'AI research added to notes');
+    onChanged();
+  }
+
+  return (
+    <div className="mt-8 border border-line bg-white px-4 py-3.5">
+      <div className="flex flex-wrap items-center gap-2">
+        <span className="flex items-center gap-2 pr-2">
+          <span className="point" aria-hidden />
+          <span className="label-caps text-slate">Ask Claude</span>
+        </span>
+        {AI_ACTIONS.map((a) => (
+          <button
+            key={a.key}
+            type="button"
+            onClick={() => setOpen(a)}
+            className="border border-graphite/20 px-3 py-1.5 text-xs font-semibold text-graphite transition-colors hover:border-forge hover:text-forge"
+          >
+            {a.label}
+          </button>
+        ))}
+      </div>
+      {open && (
+        <AIPanel
+          title={open.title}
+          action={open.key}
+          getContext={() => buildAccountContext(account.id)}
+          onClose={() => setOpen(null)}
+          insertLabel={open.key === 'lead_research' ? 'Save to research notes' : undefined}
+          onInsert={open.key === 'lead_research' ? saveResearch : undefined}
+        />
       )}
     </div>
   );
@@ -511,6 +606,46 @@ function DealsSection({
             </div>
           </form>
         </Modal>
+      )}
+    </section>
+  );
+}
+
+/* ---------- projects ---------- */
+
+function ProjectsSection({ projects }: { projects: Project[] }) {
+  return (
+    <section>
+      <div className="flex items-center justify-between pb-3">
+        <div className="flex items-center gap-2.5">
+          <span className="point" aria-hidden />
+          <h2 className="label-caps text-slate">Projects</h2>
+        </div>
+        <Link to="/projects" className="label-caps text-forge">
+          All projects →
+        </Link>
+      </div>
+      {projects.length === 0 ? (
+        <p className="text-sm text-slate">
+          No projects yet — create one from the Projects screen when a deal lands.
+        </p>
+      ) : (
+        <ul className="card divide-y divide-line">
+          {projects.map((p) => (
+            <li key={p.id}>
+              <Link
+                to={`/projects/${p.id}`}
+                className="flex items-center gap-3 px-4 py-3 transition-colors hover:bg-paper"
+              >
+                <span className="min-w-0 flex-1 truncate font-semibold">{p.name}</span>
+                {p.ready_to_invoice && (
+                  <span className="label-caps text-forge">To invoice</span>
+                )}
+                <span className="label-caps text-slate">{p.status}</span>
+              </Link>
+            </li>
+          ))}
+        </ul>
       )}
     </section>
   );
