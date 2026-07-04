@@ -23,6 +23,7 @@ import PointLoader from '../components/PointLoader';
 import StagePill from '../components/StagePill';
 import Modal from '../components/Modal';
 import RetainerSection from '../components/RetainerSection';
+import FilesSection from '../components/FilesSection';
 import AIPanel from '../components/AIPanel';
 import { buildAccountContext, type AIAction } from '../lib/ai';
 
@@ -119,6 +120,7 @@ export default function AccountDetail() {
             retainer={retainer}
             onChanged={load}
           />
+          <FilesSection accountId={account.id} />
           <TasksSection accountId={account.id} tasks={tasks} onChanged={load} />
         </div>
         <ActivityLog accountId={account.id} activities={activities} onChanged={load} />

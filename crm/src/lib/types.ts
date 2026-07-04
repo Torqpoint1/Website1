@@ -203,6 +203,18 @@ export interface Retainer {
   account?: { name: string } | null;
 }
 
+export type AssetKind = 'file' | 'link' | 'location';
+
+export interface Asset {
+  id: string;
+  account_id: string;
+  project_id: string | null;
+  name: string;
+  storage_path: string;
+  type: string | null; // 'link' · 'location' · a mime type for uploads
+  uploaded_at: string;
+}
+
 export interface CompanySettings {
   id: string;
   business_name: string;
