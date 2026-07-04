@@ -200,8 +200,8 @@ function Board({
   }
 
   return (
-    <div className="-mx-5 overflow-x-auto px-5 pb-4 sm:-mx-8 sm:px-8">
-      <div className="grid min-w-[64rem] grid-cols-5 gap-4">
+    <div className="pb-4 lg:-mx-8 lg:overflow-x-auto lg:px-8">
+      <div className="grid grid-cols-1 gap-4 lg:min-w-[64rem] lg:grid-cols-5">
         {DELIVERABLE_STATUSES.map((stage) => {
           const items = deliverables.filter((d) => d.status === stage.key);
           return (
@@ -219,7 +219,7 @@ function Board({
                 const d = deliverables.find((x) => x.id === id);
                 if (d) move(d, stage.key);
               }}
-              className={`flex min-h-[55vh] flex-col rounded-xl border transition-colors ${
+              className={`flex flex-col rounded-xl border transition-colors lg:min-h-[55vh] ${
                 dragOver === stage.key
                   ? 'border-forge bg-forge/5'
                   : 'border-line bg-paper-2/60'

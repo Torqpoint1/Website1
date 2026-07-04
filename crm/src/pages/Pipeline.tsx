@@ -66,8 +66,9 @@ export default function Pipeline() {
         </button>
       </div>
 
-      <div className="-mx-5 overflow-x-auto px-5 pb-4 sm:-mx-8 sm:px-8">
-        <div className="grid min-w-[64rem] grid-cols-5 gap-4">
+      {/* Stages stack vertically on phones; kanban columns from lg up */}
+      <div className="pb-4 lg:-mx-8 lg:overflow-x-auto lg:px-8">
+        <div className="grid grid-cols-1 gap-4 lg:min-w-[64rem] lg:grid-cols-5">
           {PIPELINE_STAGES.map((stage) => {
             const stageDeals = deals.filter((d) => d.pipeline_stage === stage.key);
             const total = stageDeals.reduce((s, d) => s + Number(d.value ?? 0), 0);
@@ -86,7 +87,7 @@ export default function Pipeline() {
                   const deal = deals.find((d) => d.id === id);
                   if (deal) move(deal, stage.key);
                 }}
-                className={`flex min-h-[60vh] flex-col rounded-xl border transition-colors ${
+                className={`flex flex-col rounded-xl border transition-colors lg:min-h-[60vh] ${
                   dragOver === stage.key
                     ? 'border-forge bg-forge/5'
                     : 'border-line bg-paper-2/60'

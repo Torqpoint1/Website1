@@ -11,6 +11,7 @@ import {
 import PointLoader from '../components/PointLoader';
 import AddLeadModal from '../components/AddLeadModal';
 import EmptyState from '../components/EmptyState';
+import StagePill from '../components/StagePill';
 import AIPanel from '../components/AIPanel';
 import { buildWeekContext } from '../lib/ai';
 
@@ -109,42 +110,87 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Pipeline snapshot */}
+      {/* Pipeline — who's in play and what it's worth */}
       <section className="pb-10">
-        <div className="flex items-center gap-2.5 pb-4">
-          <span className="point" aria-hidden />
-          <h2 className="label-caps text-slate">Pipeline</h2>
+        <div className="flex items-center justify-between pb-4">
+          <div className="flex items-center gap-2.5">
+            <span className="point" aria-hidden />
+            <h2 className="label-caps text-slate">Pipeline</h2>
+          </div>
+          <Link to="/pipeline" className="label-caps text-forge">
+            Open pipeline →
+          </Link>
         </div>
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
-          {PIPELINE_STAGES.filter((s) => s.key !== 'lost').map((stage) => {
-            const stageDeals =
-              stage.key === 'won'
-                ? [] // won deals leave the open pipeline
-                : data.openDeals.filter((d) => d.pipeline_stage === stage.key);
-            return (
-              <Link
-                key={stage.key}
-                to="/pipeline"
-                className="bg-white px-4 py-4 transition-colors hover:bg-paper"
+
+        {data.openDeals.length === 0 ? (
+          <EmptyState
+            title="Nothing in play."
+            hint="Add a lead and it lands here — the dashboard shows every open deal and what it's worth."
+            action={
+              <button
+                type="button"
+                onClick={() => setShowAddLead(true)}
+                className="btn-forge"
               >
-                <p className="label-caps text-slate">{stage.label}</p>
-                <p className="pt-1 font-editorial text-3xl text-graphite">
-                  {stage.key === 'won' ? '—' : stageDeals.length}
-                </p>
-                {stage.key !== 'won' && (
-                  <p className="text-xs text-slate">
-                    {money(stageDeals.reduce((s, d) => s + Number(d.value ?? 0), 0))}
-                  </p>
-                )}
-              </Link>
-            );
-          })}
-        </div>
-        <p className="pt-3 text-sm text-slate">
-          {data.openDeals.length} open{' '}
-          {data.openDeals.length === 1 ? 'deal' : 'deals'} worth{' '}
-          <span className="font-semibold text-graphite">{money(pipelineValue)}</span>
-        </p>
+                Add a lead
+              </button>
+            }
+          />
+        ) : (
+          <>
+            <p className="pb-3 text-sm text-slate">
+              <span className="font-editorial text-2xl text-graphite">
+                {money(pipelineValue)}
+              </span>{' '}
+              across {data.openDeals.length} open{' '}
+              {data.openDeals.length === 1 ? 'deal' : 'deals'}
+              {' · '}
+              {PIPELINE_STAGES.filter(
+                (s) => s.key !== 'won' && s.key !== 'lost',
+              )
+                .map(
+                  (s) =>
+                    `${
+                      data.openDeals.filter((d) => d.pipeline_stage === s.key)
+                        .length
+                    } ${s.label.toLowerCase()}`,
+                )
+                .join(' · ')}
+            </p>
+            <ul className="card divide-y divide-line">
+              {[...data.openDeals]
+                .sort((a, b) => Number(b.value ?? 0) - Number(a.value ?? 0))
+                .slice(0, 5)
+                .map((deal) => (
+                  <li key={deal.id}>
+                    <Link
+                      to={`/accounts/${deal.account_id}`}
+                      className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-3 transition-colors hover:bg-paper"
+                    >
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-sm font-semibold">
+                          {deal.account?.name ?? 'Unknown'}
+                        </p>
+                        <p className="truncate text-xs text-slate">{deal.title}</p>
+                      </div>
+                      <span className="font-editorial text-lg">
+                        {deal.pricing_type === 'retainer' && deal.monthly_amount != null
+                          ? `${money(deal.monthly_amount)}/mo`
+                          : money(deal.value)}
+                      </span>
+                      <StagePill stage={deal.pipeline_stage} />
+                    </Link>
+                  </li>
+                ))}
+            </ul>
+            {data.openDeals.length > 5 && (
+              <p className="pt-2 text-xs text-slate">
+                Showing the 5 biggest — {data.openDeals.length - 5} more on the
+                pipeline.
+              </p>
+            )}
+          </>
+        )}
       </section>
 
       <div className="grid gap-10 lg:grid-cols-2">

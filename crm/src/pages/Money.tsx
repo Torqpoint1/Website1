@@ -197,141 +197,51 @@ export default function Money() {
         </div>
       </div>
 
-      {/* Headline numbers */}
-      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
-        <Stat label="MRR" value={money(mrr)} accent />
-        <Stat
-          label="Profit this month"
-          value={money(profit.month)}
-          alert={profit.month < 0}
-          sub={`${money(turnover.month)} in · ${money(spent.month)} out`}
-        />
-        <Stat label="Money owed" value={money(owedTotal)} />
-        <Stat label="Overdue" value={money(overdueTotal)} alert={overdueTotal > 0} />
-      </div>
-
-      {/* The numbers */}
-      <section className="pt-10">
+      {/* 1 — This month, the numbers that matter right now */}
+      <section>
         <div className="flex items-center gap-2.5 pb-4">
           <span className="point" aria-hidden />
-          <h2 className="label-caps text-slate">The numbers</h2>
+          <h2 className="label-caps text-slate">
+            {now.toLocaleDateString('en-GB', { month: 'long' })} so far
+          </h2>
         </div>
-        <div className="grid gap-4 lg:grid-cols-2">
-          <div className="card overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-line text-left">
-                  <th className="px-4 py-2.5 font-normal text-slate"></th>
-                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
-                    Turnover
-                  </th>
-                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
-                    Expenses
-                  </th>
-                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
-                    Profit
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {(
-                  [
-                    ['This month', turnover.month, spent.month, profit.month],
-                    ['This year', turnover.year, spent.year, profit.year],
-                    ['All time', turnover.all, spent.all, profit.all],
-                  ] as const
-                ).map(([label, inn, out, net]) => (
-                  <tr key={label} className="border-b border-line last:border-0">
-                    <td className="px-4 py-2.5 font-semibold">{label}</td>
-                    <td className="px-4 py-2.5 text-right">{money(inn)}</td>
-                    <td className="px-4 py-2.5 text-right">{money(out)}</td>
-                    <td
-                      className={`px-4 py-2.5 text-right font-editorial text-base ${
-                        net < 0 ? 'text-forge' : ''
-                      }`}
-                    >
-                      {money(net)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
+          <Stat
+            label="Profit"
+            value={money(profit.month)}
+            alert={profit.month < 0}
+            accent
+          />
+          <Stat label="Turnover" value={money(turnover.month)} sub="invoices paid" />
+          <Stat label="Expenses" value={money(spent.month)} sub="money out" />
+          <Stat label="MRR" value={money(mrr)} sub="active retainers" />
+        </div>
+      </section>
 
-          <div className="card overflow-x-auto">
-            <table className="w-full text-sm">
-              <thead>
-                <tr className="border-b border-line text-left">
-                  <th className="label-caps px-4 py-2.5 font-semibold text-slate">
-                    Last 6 months
-                  </th>
-                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
-                    In
-                  </th>
-                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
-                    Out
-                  </th>
-                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
-                    Profit
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {lastSixMonths.map((m) => (
-                  <tr key={m.label} className="border-b border-line last:border-0">
-                    <td className="px-4 py-2.5 font-semibold">{m.label}</td>
-                    <td className="px-4 py-2.5 text-right">{money(m.inn)}</td>
-                    <td className="px-4 py-2.5 text-right">{money(m.out)}</td>
-                    <td
-                      className={`px-4 py-2.5 text-right font-editorial text-base ${
-                        m.inn - m.out < 0 ? 'text-forge' : ''
-                      }`}
-                    >
-                      {money(m.inn - m.out)}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+      {/* 2 — What's owed to you */}
+      <section className="pt-8">
+        <div className="flex items-center gap-2.5 pb-4">
+          <span className="point" aria-hidden />
+          <h2 className="label-caps text-slate">Owed to you</h2>
         </div>
-
-        <div className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
-          <Stat small label="Average invoice" value={money(avgInvoice)} />
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
           <Stat
-            small
-            label="Best month"
-            value={bestMonth ? money(bestMonth.value) : '—'}
-            sub={bestMonth?.label}
+            label="Awaiting payment"
+            value={money(owedTotal)}
+            sub={`${owed.length} invoice${owed.length === 1 ? '' : 's'} out`}
           />
           <Stat
-            small
-            label="Quote win rate"
-            value={winRate != null ? `${winRate}%` : '—'}
-            sub={
-              decidedQuotes.length > 0
-                ? `${decidedQuotes.length} decided`
-                : 'no decided quotes yet'
-            }
-          />
-          <Stat small label="Open pipeline" value={money(pipelineValue)} />
-          <Stat
-            small
-            label="Active clients"
-            value={String(clientCount)}
+            label="Overdue"
+            value={money(overdueTotal)}
+            alert={overdueTotal > 0}
+            sub={overdueTotal > 0 ? 'chase these' : 'nothing late'}
           />
           <Stat
-            small
-            label={`Paid ${now.getFullYear()} · retainer / one-off`}
-            value={`${money(retainerRevenue)} / ${money(oneOffRevenue)}`}
+            label="Open pipeline"
+            value={money(pipelineValue)}
+            sub={`${openDeals.length} open deal${openDeals.length === 1 ? '' : 's'}`}
           />
         </div>
-        {!expensesReady && (
-          <p className="pt-3 text-sm text-slate">
-            Expense figures show £0 until the expenses table is switched on —
-            see the Expenses tab below.
-          </p>
-        )}
       </section>
 
       {/* Retainers + Run the month */}
@@ -422,6 +332,104 @@ export default function Money() {
           </ul>
         </section>
       )}
+
+      {/* 3 — This year */}
+      <section className="pt-10">
+        <div className="flex items-center gap-2.5 pb-4">
+          <span className="point" aria-hidden />
+          <h2 className="label-caps text-slate">{now.getFullYear()} so far</h2>
+        </div>
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
+          <Stat small label="Profit" value={money(profit.year)} alert={profit.year < 0} />
+          <Stat small label="Turnover" value={money(turnover.year)} />
+          <Stat small label="Expenses" value={money(spent.year)} />
+          <Stat
+            small
+            label="Retainer / one-off"
+            value={`${money(retainerRevenue)} / ${money(oneOffRevenue)}`}
+          />
+        </div>
+        {!expensesReady && (
+          <p className="pt-3 text-sm text-slate">
+            Expense figures show £0 until the expenses table is switched on —
+            see the Expenses tab below.
+          </p>
+        )}
+      </section>
+
+      {/* 4 — The trend */}
+      <section className="pt-10">
+        <div className="flex items-center gap-2.5 pb-4">
+          <span className="point" aria-hidden />
+          <h2 className="label-caps text-slate">Month by month</h2>
+        </div>
+        <div className="card overflow-x-auto">
+          <table className="w-full text-sm">
+            <thead>
+              <tr className="border-b border-line text-left">
+                <th className="px-4 py-2.5"></th>
+                <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                  In
+                </th>
+                <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                  Out
+                </th>
+                <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                  Profit
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {lastSixMonths.map((m) => (
+                <tr key={m.label} className="border-b border-line last:border-0">
+                  <td className="px-4 py-2.5 font-semibold">{m.label}</td>
+                  <td className="px-4 py-2.5 text-right">{money(m.inn)}</td>
+                  <td className="px-4 py-2.5 text-right">{money(m.out)}</td>
+                  <td
+                    className={`px-4 py-2.5 text-right font-editorial text-base ${
+                      m.inn - m.out < 0 ? 'text-forge' : ''
+                    }`}
+                  >
+                    {money(m.inn - m.out)}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* 5 — The bigger picture */}
+      <section className="pt-10">
+        <div className="flex items-center gap-2.5 pb-4">
+          <span className="point" aria-hidden />
+          <h2 className="label-caps text-slate">All time</h2>
+        </div>
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
+          <Stat small label="Profit" value={money(profit.all)} alert={profit.all < 0} />
+          <Stat small label="Turnover" value={money(turnover.all)} />
+          <Stat small label="Expenses" value={money(spent.all)} />
+          <Stat small label="Average invoice" value={money(avgInvoice)} />
+          <Stat
+            small
+            label="Best month"
+            value={bestMonth ? money(bestMonth.value) : '—'}
+            sub={bestMonth?.label}
+          />
+          <Stat
+            small
+            label="Quote win rate"
+            value={winRate != null ? `${winRate}%` : '—'}
+            sub={
+              decidedQuotes.length > 0
+                ? `${decidedQuotes.length} decided · ${clientCount} active client${
+                    clientCount === 1 ? '' : 's'
+                  }`
+                : `${clientCount} active client${clientCount === 1 ? '' : 's'}`
+            }
+          />
+        </div>
+      </section>
 
       {/* Documents */}
       <section className="pt-10">

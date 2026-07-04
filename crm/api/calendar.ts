@@ -48,11 +48,35 @@ export default async function handler(req: any, res: any) {
     return r.ok ? r.json() : [];
   };
 
-  const [deliverables, tasks, projects] = await Promise.all([
+  const [deliverables, tasks, projects, workEvents] = await Promise.all([
     get('deliverables?select=id,title,due_date,status,project:projects(name)&due_date=not.is.null&status=neq.live'),
     get('tasks?select=id,title,due_date&due_date=not.is.null&done=eq.false'),
     get('projects?select=id,name,due_date&due_date=not.is.null&status=eq.active'),
+    get('events?select=id,title,event_date,start_time,notes'),
   ]);
+
+  const timed: string[] = (workEvents as any[]).flatMap((e) => {
+    const base = [
+      'BEGIN:VEVENT',
+      `UID:evt-${e.id}@torqpoint-crm`,
+      `DTSTAMP:${icsDate(new Date().toISOString().slice(0, 10))}T000000Z`,
+    ];
+    if (e.start_time) {
+      const start = e.start_time.slice(0, 5).replace(':', '');
+      base.push(`DTSTART:${icsDate(e.event_date)}T${start}00`);
+    } else {
+      base.push(
+        `DTSTART;VALUE=DATE:${icsDate(e.event_date)}`,
+        `DTEND;VALUE=DATE:${nextDay(e.event_date)}`,
+      );
+    }
+    base.push(
+      `SUMMARY:${icsEscape(e.title)}`,
+      `DESCRIPTION:${icsEscape(e.notes ?? 'Torqpoint CRM event')}`,
+      'END:VEVENT',
+    );
+    return base;
+  });
 
   const events: FeedEvent[] = [
     ...deliverables.map((d: any) => ({
@@ -92,6 +116,7 @@ export default async function handler(req: any, res: any) {
       `DESCRIPTION:${icsEscape(e.description)}`,
       'END:VEVENT',
     ]),
+    ...timed,
     'END:VCALENDAR',
   ];
 

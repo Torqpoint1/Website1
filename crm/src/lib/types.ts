@@ -247,6 +247,15 @@ export const EXPENSE_CATEGORY_LABELS: Record<ExpenseCategory, string> =
     string
   >;
 
+export interface WorkEvent {
+  id: string;
+  title: string;
+  event_date: string;
+  start_time: string | null;
+  notes: string | null;
+  created_at: string;
+}
+
 export type AssetKind = 'file' | 'link' | 'location';
 
 export interface Asset {
