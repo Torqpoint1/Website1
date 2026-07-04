@@ -76,7 +76,7 @@ export default function CalendarPage() {
         </span>
       </div>
 
-      <section className="mt-12 border border-line bg-white p-5">
+      <section className="mt-12 rounded-xl border border-line bg-white p-5">
         <div className="flex items-center gap-2.5 pb-3">
           <span className="point" aria-hidden />
           <h2 className="label-caps text-slate">See these in Google Calendar</h2>

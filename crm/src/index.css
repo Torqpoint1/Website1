@@ -6,6 +6,7 @@
   html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
@@ -14,6 +15,26 @@
 
   ::selection {
     @apply bg-forge text-paper;
+  }
+
+  /* Stop iOS double-tap zoom on interactive elements */
+  button,
+  a,
+  label,
+  input,
+  select,
+  textarea {
+    touch-action: manipulation;
+  }
+
+  /* iOS auto-zooms into any form control under 16px — keep controls at
+     16px on phones (desktop keeps the compact sizes). */
+  @media (max-width: 1023px) {
+    input,
+    select,
+    textarea {
+      font-size: 16px !important;
+    }
   }
 }
 
@@ -33,23 +54,23 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 bg-graphite px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-forge disabled:opacity-40 disabled:hover:bg-graphite;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-graphite px-5 py-2.5 text-sm font-semibold text-paper transition-colors hover:bg-forge disabled:opacity-40 disabled:hover:bg-graphite;
   }
 
   .btn-forge {
-    @apply inline-flex items-center justify-center gap-2 bg-forge px-5 py-2.5 text-sm font-semibold text-paper transition-opacity hover:opacity-90 disabled:opacity-40;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-forge px-5 py-2.5 text-sm font-semibold text-paper transition-opacity hover:opacity-90 disabled:opacity-40;
   }
 
   .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 border border-graphite/20 bg-transparent px-5 py-2.5 text-sm font-semibold text-graphite transition-colors hover:border-graphite;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-graphite/20 bg-transparent px-5 py-2.5 text-sm font-semibold text-graphite transition-colors hover:border-graphite;
   }
 
   .field {
-    @apply w-full border border-graphite/20 bg-white px-3.5 py-2.5 text-sm text-graphite outline-none transition-colors placeholder:text-slate/50 focus:border-forge;
+    @apply w-full rounded-lg border border-graphite/20 bg-white px-3.5 py-2.5 text-sm text-graphite outline-none transition-colors placeholder:text-slate/50 focus:border-forge;
   }
 
   .card {
-    @apply border border-line bg-white shadow-card;
+    @apply rounded-xl border border-line bg-white shadow-card;
   }
 }
 

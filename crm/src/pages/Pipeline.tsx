@@ -86,7 +86,7 @@ export default function Pipeline() {
                   const deal = deals.find((d) => d.id === id);
                   if (deal) move(deal, stage.key);
                 }}
-                className={`flex min-h-[60vh] flex-col border transition-colors ${
+                className={`flex min-h-[60vh] flex-col rounded-xl border transition-colors ${
                   dragOver === stage.key
                     ? 'border-forge bg-forge/5'
                     : 'border-line bg-paper-2/60'
@@ -146,7 +146,7 @@ export default function Pipeline() {
                       {/* Tap-friendly stage move (drag needs a pointer) */}
                       <select
                         aria-label="Move stage"
-                        className="mt-2.5 w-full border border-graphite/15 bg-paper px-2 py-1.5 text-xs text-slate"
+                        className="mt-2.5 w-full rounded-md border border-graphite/15 bg-paper px-2 py-1.5 text-xs text-slate"
                         value={deal.pipeline_stage}
                         onChange={(e) => move(deal, e.target.value as PipelineStage)}
                       >

@@ -95,8 +95,7 @@ export default function Dashboard() {
             {money(data.mrr)}
           </p>
           <p className="pt-2 text-sm text-slate">
-            Live once retainers arrive in Layer 4 — until then this stays at
-            zero.
+            The sum of your active retainers — the number that matters most.
           </p>
         </div>
         <div className="flex gap-2">
@@ -116,7 +115,7 @@ export default function Dashboard() {
           <span className="point" aria-hidden />
           <h2 className="label-caps text-slate">Pipeline</h2>
         </div>
-        <div className="grid grid-cols-2 gap-px overflow-hidden border border-line bg-line sm:grid-cols-4">
+        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
           {PIPELINE_STAGES.filter((s) => s.key !== 'lost').map((stage) => {
             const stageDeals =
               stage.key === 'won'
@@ -168,7 +167,7 @@ export default function Dashboard() {
                     type="button"
                     onClick={() => completeTask(task)}
                     aria-label={`Mark “${task.title}” done`}
-                    className="h-4 w-4 shrink-0 border border-graphite/40 transition-colors hover:bg-forge hover:border-forge"
+                    className="h-4 w-4 shrink-0 rounded border border-graphite/40 transition-colors hover:bg-forge hover:border-forge"
                   />
                   <span className="min-w-0 flex-1 truncate text-sm">{task.title}</span>
                   <span

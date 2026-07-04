@@ -67,7 +67,7 @@ export default function Accounts() {
               key={key}
               type="button"
               onClick={() => setStatusFilter(key as AccountStatus | 'all')}
-              className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] transition-colors ${
+              className={`rounded-lg px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] transition-colors ${
                 statusFilter === key
                   ? 'bg-graphite text-paper'
                   : 'border border-graphite/20 text-slate hover:border-graphite'

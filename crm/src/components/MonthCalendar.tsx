@@ -92,7 +92,7 @@ export default function MonthCalendar({ events }: { events: CalendarEvent[] }) {
         </div>
       </div>
 
-      <div className="grid grid-cols-7 gap-px border border-line bg-line">
+      <div className="grid grid-cols-7 gap-px overflow-hidden rounded-xl border border-line bg-line">
         {DAY_HEADS.map((d) => (
           <div key={d} className="bg-paper-2 px-2 py-1.5">
             <span className="label-caps text-slate">{d}</span>
@@ -116,7 +116,7 @@ export default function MonthCalendar({ events }: { events: CalendarEvent[] }) {
                     {dayEvents.slice(0, 3).map((e) => {
                       const chip = (
                         <span
-                          className={`block truncate px-1.5 py-0.5 text-[10px] font-semibold leading-tight ${
+                          className={`block truncate rounded px-1.5 py-0.5 text-[10px] font-semibold leading-tight ${
                             toneClass[e.tone ?? 'slate']
                           }`}
                           title={`${e.label}${e.sublabel ? ` — ${e.sublabel}` : ''}`}

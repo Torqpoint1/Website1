@@ -62,7 +62,7 @@ export default function AIPanel({
       )}
       {text && (
         <div className="flex flex-col gap-4">
-          <div className="max-h-[55vh] overflow-y-auto whitespace-pre-wrap border border-line bg-white p-4 text-sm leading-relaxed">
+          <div className="max-h-[55vh] overflow-y-auto whitespace-pre-wrap rounded-lg border border-line bg-white p-4 text-sm leading-relaxed">
             {text}
           </div>
           <div className="flex flex-wrap gap-3">

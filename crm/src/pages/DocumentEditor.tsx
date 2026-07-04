@@ -235,7 +235,7 @@ export default function DocumentEditor({ kind }: { kind: Kind }) {
 
       <div className="flex flex-wrap items-center justify-between gap-4 pt-4 pb-8">
         <h1 className="font-editorial text-4xl tracking-tight">{title}</h1>
-        <span className="label-caps border border-graphite/25 px-2 py-1 text-slate">
+        <span className="label-caps rounded-full border border-graphite/25 px-2 py-1 text-slate">
           {doc.status}
         </span>
       </div>

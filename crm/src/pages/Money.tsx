@@ -112,7 +112,7 @@ export default function Money() {
       </div>
 
       {/* Headline numbers */}
-      <div className="grid grid-cols-2 gap-px overflow-hidden border border-line bg-line sm:grid-cols-4">
+      <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
         <Stat label="MRR" value={money(mrr)} accent />
         <Stat label="Money owed" value={money(owedTotal)} />
         <Stat label="Overdue" value={money(overdueTotal)} alert={overdueTotal > 0} />
@@ -225,7 +225,7 @@ export default function Money() {
               key={key}
               type="button"
               onClick={() => setTab(key)}
-              className={`px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] transition-colors ${
+              className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] transition-colors ${
                 tab === key
                   ? 'bg-graphite text-paper'
                   : 'border border-graphite/20 text-slate hover:border-graphite'
@@ -344,7 +344,7 @@ function DocStatus({ status }: { status: string }) {
             : 'border-graphite/25 text-slate';
   return (
     <span
-      className={`inline-flex border px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.08em] ${style}`}
+      className={`inline-flex rounded-full border px-2 py-0.5 text-[11px] font-semibold uppercase tracking-[0.08em] ${style}`}
     >
       {status}
     </span>

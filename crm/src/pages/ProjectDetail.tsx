@@ -123,7 +123,7 @@ export default function ProjectDetail() {
       </div>
 
       {/* Ready to invoice */}
-      <div className="mt-8 flex flex-wrap items-center justify-between gap-3 border border-line bg-white px-4 py-3.5">
+      <div className="mt-8 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-line bg-white px-4 py-3.5">
         <div>
           <p className="font-semibold">
             {project.ready_to_invoice ? 'Ready to invoice' : 'Not ready to invoice yet'}

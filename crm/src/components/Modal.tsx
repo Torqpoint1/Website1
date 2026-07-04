@@ -32,7 +32,7 @@ export default function Modal({
         role="dialog"
         aria-modal="true"
         aria-label={title}
-        className="max-h-[92vh] w-full overflow-y-auto bg-paper shadow-raised sm:max-w-lg"
+        className="max-h-[92vh] w-full overflow-y-auto rounded-t-2xl bg-paper shadow-raised sm:max-w-lg sm:rounded-2xl"
       >
         <div className="sticky top-0 flex items-center justify-between gap-4 border-b border-line bg-paper px-5 py-4 sm:px-6">
           <div className="flex items-center gap-2.5">

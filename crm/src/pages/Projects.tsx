@@ -92,7 +92,7 @@ export default function Projects() {
             key={key}
             type="button"
             onClick={() => setParams(key === 'projects' ? {} : { view: key })}
-            className={`px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] transition-colors ${
+            className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] transition-colors ${
               view === key
                 ? 'bg-graphite text-paper'
                 : 'border border-graphite/20 text-slate hover:border-graphite'
@@ -167,7 +167,7 @@ function ProjectList({
                 )}
               </div>
               {dlv.length > 0 && (
-                <div className="mt-2 flex h-1 overflow-hidden bg-paper-2">
+                <div className="mt-2 flex h-1 overflow-hidden rounded-full bg-paper-2">
                   <div
                     className="bg-forge"
                     style={{ width: `${(done / dlv.length) * 100}%` }}
@@ -219,7 +219,7 @@ function Board({
                 const d = deliverables.find((x) => x.id === id);
                 if (d) move(d, stage.key);
               }}
-              className={`flex min-h-[55vh] flex-col border transition-colors ${
+              className={`flex min-h-[55vh] flex-col rounded-xl border transition-colors ${
                 dragOver === stage.key
                   ? 'border-forge bg-forge/5'
                   : 'border-line bg-paper-2/60'
@@ -265,7 +265,7 @@ function Board({
                     )}
                     <select
                       aria-label="Move status"
-                      className="mt-2.5 w-full border border-graphite/15 bg-paper px-2 py-1.5 text-xs text-slate"
+                      className="mt-2.5 w-full rounded-md border border-graphite/15 bg-paper px-2 py-1.5 text-xs text-slate"
                       value={d.status}
                       onChange={(e) => move(d, e.target.value as DeliverableStatus)}
                     >

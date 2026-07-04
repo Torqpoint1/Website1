@@ -226,7 +226,7 @@ function AISection({
   }
 
   return (
-    <div className="mt-8 border border-line bg-white px-4 py-3.5">
+    <div className="mt-8 rounded-xl border border-line bg-white px-4 py-3.5">
       <div className="flex flex-wrap items-center gap-2">
         <span className="flex items-center gap-2 pr-2">
           <span className="point" aria-hidden />
@@ -237,7 +237,7 @@ function AISection({
             key={a.key}
             type="button"
             onClick={() => setOpen(a)}
-            className="border border-graphite/20 px-3 py-1.5 text-xs font-semibold text-graphite transition-colors hover:border-forge hover:text-forge"
+            className="rounded-lg border border-graphite/20 px-3 py-1.5 text-xs font-semibold text-graphite transition-colors hover:border-forge hover:text-forge"
           >
             {a.label}
           </button>
@@ -720,7 +720,7 @@ function TasksSection({
                 type="button"
                 onClick={() => toggle(task)}
                 aria-label={task.done ? 'Reopen' : 'Mark done'}
-                className={`h-4 w-4 shrink-0 border transition-colors ${
+                className={`h-4 w-4 shrink-0 rounded border transition-colors ${
                   task.done
                     ? 'border-forge bg-forge'
                     : 'border-graphite/40 hover:border-forge'
@@ -788,7 +788,7 @@ function ActivityLog({
               key={t.key}
               type="button"
               onClick={() => setType(t.key)}
-              className={`px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] transition-colors ${
+              className={`rounded-lg px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.08em] transition-colors ${
                 type === t.key
                   ? 'bg-graphite text-paper'
                   : 'border border-graphite/20 text-slate hover:border-graphite'
