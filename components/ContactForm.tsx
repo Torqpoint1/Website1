@@ -17,6 +17,24 @@ export function ContactForm() {
     const form = e.currentTarget;
     const data = new FormData(form);
 
+    // Also drop the enquiry into the Torqpoint CRM as a new lead.
+    // Only active when NEXT_PUBLIC_CRM_ENQUIRY_URL is set; failures are
+    // silent so the visitor's enquiry always goes through via email.
+    const crmUrl = process.env.NEXT_PUBLIC_CRM_ENQUIRY_URL;
+    if (crmUrl) {
+      fetch(crmUrl, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({
+          name: data.get('name'),
+          business: data.get('business'),
+          email: data.get('email'),
+          message: data.get('message'),
+          botcheck: data.get('botcheck'),
+        }),
+      }).catch(() => {});
+    }
+
     try {
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
