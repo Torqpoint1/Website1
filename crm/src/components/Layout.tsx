@@ -1,14 +1,71 @@
+import type { ReactNode } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
 
 const NAV = [
-  { to: '/', label: 'Dashboard', short: 'Home', end: true },
-  { to: '/pipeline', label: 'Pipeline', short: 'Pipeline', end: false },
-  { to: '/accounts', label: 'Leads & Clients', short: 'Clients', end: false },
-  { to: '/projects', label: 'Projects', short: 'Projects', end: false },
-  { to: '/money', label: 'Money', short: 'Money', end: false },
-  { to: '/calendar', label: 'Calendar', short: 'Calendar', end: false },
-];
+  { to: '/', label: 'Dashboard', short: 'Home', icon: 'home', end: true },
+  { to: '/pipeline', label: 'Pipeline', short: 'Pipeline', icon: 'pipeline', end: false },
+  { to: '/accounts', label: 'Leads & Clients', short: 'Clients', icon: 'clients', end: false },
+  { to: '/projects', label: 'Projects', short: 'Projects', icon: 'projects', end: false },
+  { to: '/money', label: 'Money', short: 'Money', icon: 'money', end: false },
+  { to: '/calendar', label: 'Calendar', short: 'Calendar', icon: 'calendar', end: false },
+] as const;
+
+function TabIcon({ name }: { name: (typeof NAV)[number]['icon'] }) {
+  const paths: Record<string, ReactNode> = {
+    home: (
+      <path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1v-9.5Z" />
+    ),
+    pipeline: (
+      <>
+        <rect x="4" y="4" width="4.5" height="16" rx="1" />
+        <rect x="10" y="4" width="4.5" height="10" rx="1" />
+        <rect x="16" y="4" width="4.5" height="13" rx="1" />
+      </>
+    ),
+    clients: (
+      <>
+        <circle cx="12" cy="8.5" r="3.5" />
+        <path d="M5 20c.8-3.2 3.6-5 7-5s6.2 1.8 7 5" />
+      </>
+    ),
+    projects: (
+      <>
+        <rect x="4" y="4" width="7" height="7" rx="1" />
+        <rect x="13" y="4" width="7" height="7" rx="1" />
+        <rect x="4" y="13" width="7" height="7" rx="1" />
+        <rect x="13" y="13" width="7" height="7" rx="1" />
+      </>
+    ),
+    money: (
+      <>
+        <rect x="3" y="6.5" width="18" height="11" rx="1.5" />
+        <circle cx="12" cy="12" r="2.8" />
+      </>
+    ),
+    calendar: (
+      <>
+        <rect x="4" y="5.5" width="16" height="15" rx="1.5" />
+        <path d="M4 10h16M8.5 3.5v4M15.5 3.5v4" />
+      </>
+    ),
+  };
+  return (
+    <svg
+      width="21"
+      height="21"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.7"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      {paths[name]}
+    </svg>
+  );
+}
 
 function navClasses(isActive: boolean) {
   return [
@@ -95,20 +152,23 @@ export default function Layout() {
       </main>
 
       {/* Mobile bottom nav */}
-      <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-line-dark bg-graphite pb-[env(safe-area-inset-bottom)] lg:hidden">
+      <nav className="fixed inset-x-0 bottom-0 z-40 flex border-t border-line-dark bg-graphite px-1 pb-[env(safe-area-inset-bottom)] lg:hidden">
         {NAV.map((item) => (
-          <NavLink key={item.to} to={item.to} end={item.end} className="flex-1">
+          <NavLink key={item.to} to={item.to} end={item.end} className="min-w-0 flex-1">
             {({ isActive }) => (
               <span
-                className={`flex flex-col items-center gap-1.5 py-3 text-[10px] font-semibold ${
-                  isActive ? 'text-paper' : 'text-paper/50'
+                className={`flex flex-col items-center gap-1 pb-2 pt-2.5 transition-colors ${
+                  isActive ? 'text-forge' : 'text-paper/45'
                 }`}
               >
+                <TabIcon name={item.icon} />
                 <span
-                  className={`h-1.5 w-1.5 ${isActive ? 'bg-forge' : 'bg-transparent'}`}
-                  aria-hidden
-                />
-                {item.short}
+                  className={`truncate text-[9px] font-semibold tracking-wide ${
+                    isActive ? 'text-paper' : ''
+                  }`}
+                >
+                  {item.short}
+                </span>
               </span>
             )}
           </NavLink>
