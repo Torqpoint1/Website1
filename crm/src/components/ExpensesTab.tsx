@@ -35,6 +35,7 @@ export default function ExpensesTab({
   onChanged: () => void;
 }) {
   const [adding, setAdding] = useState(false);
+  const [editing, setEditing] = useState<Expense | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [logging, setLogging] = useState(false);
 
@@ -161,8 +162,12 @@ export default function ExpensesTab({
               <span className="w-20 shrink-0 text-xs text-slate">
                 {shortDate(exp.expense_date)}
               </span>
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-semibold">
+              <button
+                type="button"
+                onClick={() => setEditing(exp)}
+                className="min-w-0 flex-1 text-left"
+              >
+                <p className="truncate text-sm font-semibold underline-offset-4 hover:underline">
                   {exp.supplier}
                   {exp.recurring && (
                     <span className="label-caps pl-2 text-forge">Monthly</span>
@@ -172,7 +177,7 @@ export default function ExpensesTab({
                   {EXPENSE_CATEGORY_LABELS[exp.category]}
                   {exp.description && ` · ${exp.description}`}
                 </p>
-              </div>
+              </button>
               {exp.receipt_path && (
                 <button
                   type="button"
@@ -197,25 +202,40 @@ export default function ExpensesTab({
       )}
 
       {adding && (
-        <AddExpenseModal onClose={() => setAdding(false)} onSaved={onChanged} />
+        <ExpenseModal onClose={() => setAdding(false)} onSaved={onChanged} />
+      )}
+      {editing && (
+        <ExpenseModal
+          existing={editing}
+          onClose={() => setEditing(null)}
+          onSaved={onChanged}
+        />
       )}
     </div>
   );
 }
 
-function AddExpenseModal({
+function ExpenseModal({
+  existing,
   onClose,
   onSaved,
 }: {
+  existing?: Expense;
   onClose: () => void;
   onSaved: () => void;
 }) {
-  const [date, setDate] = useState(new Date().toISOString().slice(0, 10));
-  const [supplier, setSupplier] = useState('');
-  const [description, setDescription] = useState('');
-  const [category, setCategory] = useState<ExpenseCategory>('software');
-  const [amount, setAmount] = useState('');
-  const [recurring, setRecurring] = useState(false);
+  const [date, setDate] = useState(
+    existing?.expense_date ?? new Date().toISOString().slice(0, 10),
+  );
+  const [supplier, setSupplier] = useState(existing?.supplier ?? '');
+  const [description, setDescription] = useState(existing?.description ?? '');
+  const [category, setCategory] = useState<ExpenseCategory>(
+    existing?.category ?? 'software',
+  );
+  const [amount, setAmount] = useState(
+    existing ? String(existing.amount) : '',
+  );
+  const [recurring, setRecurring] = useState(existing?.recurring ?? false);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const receiptRef = useRef<HTMLInputElement>(null);
@@ -225,7 +245,7 @@ function AddExpenseModal({
     setBusy(true);
     setError(null);
     try {
-      let receipt_path: string | null = null;
+      let receipt_path: string | null = existing?.receipt_path ?? null;
       const receipt = receiptRef.current?.files?.[0];
       if (receipt) {
         receipt_path = `receipts/${Date.now()}-${receipt.name.replace(/[^\w.\-() ]/g, '_')}`;
@@ -248,8 +268,11 @@ function AddExpenseModal({
         amount: Number(amount),
         receipt_path,
       };
-      if (recurring) payload.recurring = true;
-      const { error: insErr } = await db().from('expenses').insert(payload);
+      if (recurring || existing?.recurring != null) payload.recurring = recurring;
+      const query = existing
+        ? db().from('expenses').update(payload).eq('id', existing.id)
+        : db().from('expenses').insert(payload);
+      const { error: insErr } = await query;
       if (insErr) {
         if (insErr.code === '42703') {
           throw new Error(
@@ -267,7 +290,7 @@ function AddExpenseModal({
   }
 
   return (
-    <Modal title="Add expense" onClose={onClose}>
+    <Modal title={existing ? 'Edit expense' : 'Add expense'} onClose={onClose}>
       <form onSubmit={submit} className="flex flex-col gap-4">
         <div className="grid grid-cols-2 gap-3">
           <label className="flex flex-col gap-1.5">
@@ -346,7 +369,7 @@ function AddExpenseModal({
         {error && <p className="text-sm text-forge">{error}</p>}
         <div className="flex gap-3 pt-1">
           <button type="submit" disabled={busy} className="btn-forge flex-1">
-            {busy ? 'Saving…' : 'Add expense'}
+            {busy ? 'Saving…' : existing ? 'Save changes' : 'Add expense'}
           </button>
           <button type="button" onClick={onClose} className="btn-ghost">
             Cancel

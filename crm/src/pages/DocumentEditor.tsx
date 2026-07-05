@@ -223,6 +223,42 @@ export default function DocumentEditor({ kind }: { kind: Kind }) {
     navigate('/money');
   }
 
+  async function duplicate() {
+    if (!doc!.id) return;
+    setBusy(true);
+    try {
+      const number =
+        kind === 'quote' ? await nextQuoteNumber() : await nextInvoiceNumber();
+      const t = computeTotals(doc!.line_items, settings!);
+      const payload: Record<string, unknown> = {
+        account_id: doc!.account_id,
+        number,
+        line_items: doc!.line_items,
+        ...t,
+        status: 'draft',
+      };
+      if (kind === 'invoice') {
+        const today = new Date();
+        const due = new Date();
+        due.setDate(due.getDate() + 14);
+        payload.issue_date = today.toISOString().slice(0, 10);
+        payload.due_date = due.toISOString().slice(0, 10);
+        payload.pricing_type = 'one_off';
+      }
+      const { data, error: err } = await db()
+        .from(table)
+        .insert(payload)
+        .select('id')
+        .single();
+      if (err) throw err;
+      navigate(`/money/${kind}s/${data.id}`);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not duplicate.');
+    } finally {
+      setBusy(false);
+    }
+  }
+
   const title = doc.number
     ? `${kind === 'quote' ? 'Quote' : 'Invoice'} ${doc.number}`
     : `New ${kind}`;
@@ -421,6 +457,11 @@ export default function DocumentEditor({ kind }: { kind: Kind }) {
             <Link to={`/print/${kind}/${doc.id}`} className="btn-ghost">
               Print / PDF
             </Link>
+          )}
+          {!isNew && (
+            <button type="button" disabled={busy} onClick={duplicate} className="btn-ghost">
+              Duplicate
+            </button>
           )}
           {!isNew && (
             <button

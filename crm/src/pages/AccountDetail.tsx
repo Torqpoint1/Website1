@@ -25,6 +25,9 @@ import Modal from '../components/Modal';
 import RetainerSection from '../components/RetainerSection';
 import FilesSection from '../components/FilesSection';
 import AIPanel from '../components/AIPanel';
+import EditAccountModal from '../components/EditAccountModal';
+import DealModal from '../components/DealModal';
+import type { Invoice, Quote } from '../lib/types';
 import { buildAccountContext, type AIAction } from '../lib/ai';
 
 export default function AccountDetail() {
@@ -36,11 +39,13 @@ export default function AccountDetail() {
   const [tasks, setTasks] = useState<FollowUpTask[]>([]);
   const [projects, setProjects] = useState<Project[]>([]);
   const [retainer, setRetainer] = useState<Retainer | null>(null);
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [quotes, setQuotes] = useState<Quote[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
     if (!id) return;
-    const [acc, cts, dls, acts, tks, prjs, rtn] = await Promise.all([
+    const [acc, cts, dls, acts, tks, prjs, rtn, invs, qts] = await Promise.all([
       db().from('accounts').select('*').eq('id', id).single(),
       db().from('contacts').select('*').eq('account_id', id).order('name'),
       db()
@@ -71,9 +76,19 @@ export default function AccountDetail() {
         .order('created_at', { ascending: false })
         .limit(1)
         .maybeSingle(),
+      db().from('invoices').select('*').eq('account_id', id),
+      db().from('quotes').select('*').eq('account_id', id),
     ]);
     const firstError =
-      acc.error ?? cts.error ?? dls.error ?? acts.error ?? tks.error ?? prjs.error ?? rtn.error;
+      acc.error ??
+      cts.error ??
+      dls.error ??
+      acts.error ??
+      tks.error ??
+      prjs.error ??
+      rtn.error ??
+      invs.error ??
+      qts.error;
     if (firstError) {
       setError(firstError.message);
       return;
@@ -85,6 +100,8 @@ export default function AccountDetail() {
     setTasks((tks.data ?? []) as FollowUpTask[]);
     setProjects((prjs.data ?? []) as Project[]);
     setRetainer((rtn.data as Retainer) ?? null);
+    setInvoices((invs.data ?? []) as Invoice[]);
+    setQuotes((qts.data ?? []) as Quote[]);
   }, [id]);
 
   useEffect(() => {
@@ -101,6 +118,8 @@ export default function AccountDetail() {
       </Link>
 
       <Header account={account} onChanged={load} />
+
+      <WorthStrip invoices={invoices} quotes={quotes} retainer={retainer} />
 
       <AISection account={account} onChanged={load} />
 
@@ -261,7 +280,58 @@ function AISection({
 
 /* ---------- header ---------- */
 
+function WorthStrip({
+  invoices,
+  quotes,
+  retainer,
+}: {
+  invoices: Invoice[];
+  quotes: Quote[];
+  retainer: Retainer | null;
+}) {
+  const paid = invoices
+    .filter((i) => i.status === 'paid')
+    .reduce((s, i) => s + Number(i.total), 0);
+  const outstanding = invoices
+    .filter((i) => i.status === 'sent' || i.status === 'overdue')
+    .reduce((s, i) => s + Number(i.total), 0);
+  const quoted = quotes
+    .filter((q) => q.status === 'sent')
+    .reduce((s, q) => s + Number(q.total), 0);
+
+  return (
+    <div className="mt-6 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
+      {(
+        [
+          ['Paid all time', money(paid), false],
+          ['Outstanding', money(outstanding), outstanding > 0],
+          ['Quoted — awaiting answer', money(quoted), false],
+          [
+            'Retainer',
+            retainer?.status === 'active'
+              ? `${money(Number(retainer.monthly_amount))}/mo`
+              : '—',
+            false,
+          ],
+        ] as [string, string, boolean][]
+      ).map(([label, value, alert]) => (
+        <div key={label} className="bg-white px-4 py-3">
+          <p className="label-caps text-slate">{label}</p>
+          <p
+            className={`pt-0.5 font-editorial text-xl ${
+              alert ? 'text-forge' : 'text-graphite'
+            }`}
+          >
+            {value}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Header({ account, onChanged }: { account: Account; onChanged: () => void }) {
+  const [editing, setEditing] = useState(false);
   async function setStatus(status: AccountStatus) {
     await db().from('accounts').update({ status }).eq('id', account.id);
     await logSystemActivity(
@@ -307,6 +377,13 @@ function Header({ account, onChanged }: { account: Account; onChanged: () => voi
         )}
       </div>
       <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={() => setEditing(true)}
+          className="label-caps text-forge"
+        >
+          Edit
+        </button>
         <StagePill stage={account.pipeline_stage} />
         <select
           aria-label="Account status"
@@ -321,6 +398,13 @@ function Header({ account, onChanged }: { account: Account; onChanged: () => voi
           ))}
         </select>
       </div>
+      {editing && (
+        <EditAccountModal
+          account={account}
+          onClose={() => setEditing(false)}
+          onSaved={onChanged}
+        />
+      )}
     </div>
   );
 }
@@ -341,22 +425,48 @@ function ContactsSection({
   onChanged: () => void;
 }) {
   const [adding, setAdding] = useState(false);
+  const [editing, setEditing] = useState<Contact | null>(null);
   const [form, setForm] = useState({ name: '', role: '', email: '', phone: '' });
+
+  function openEdit(contact: Contact) {
+    setForm({
+      name: contact.name,
+      role: contact.role ?? '',
+      email: contact.email ?? '',
+      phone: contact.phone ?? '',
+    });
+    setEditing(contact);
+  }
+
+  function close() {
+    setAdding(false);
+    setEditing(null);
+    setForm({ name: '', role: '', email: '', phone: '' });
+  }
 
   async function submit(e: FormEvent) {
     e.preventDefault();
-    const { error } = await db().from('contacts').insert({
-      account_id: account.id,
+    const payload = {
       name: form.name.trim(),
       role: form.role.trim() || null,
       email: form.email.trim() || null,
       phone: form.phone.trim() || null,
-    });
+    };
+    const query = editing
+      ? db().from('contacts').update(payload).eq('id', editing.id)
+      : db().from('contacts').insert({ account_id: account.id, ...payload });
+    const { error } = await query;
     if (!error) {
-      setAdding(false);
-      setForm({ name: '', role: '', email: '', phone: '' });
+      close();
       onChanged();
     }
+  }
+
+  async function removeContact() {
+    if (!editing) return;
+    await db().from('contacts').delete().eq('id', editing.id);
+    close();
+    onChanged();
   }
 
   const hasPrimary =
@@ -388,6 +498,7 @@ function ContactsSection({
             role={c.role}
             email={c.email}
             phone={c.phone}
+            onEdit={() => openEdit(c)}
           />
         ))}
         {!hasPrimary && contacts.length === 0 && (
@@ -395,8 +506,8 @@ function ContactsSection({
         )}
       </div>
 
-      {adding && (
-        <Modal title="Add contact" onClose={() => setAdding(false)}>
+      {(adding || editing) && (
+        <Modal title={editing ? 'Edit contact' : 'Add contact'} onClose={close}>
           <form onSubmit={submit} className="flex flex-col gap-3">
             {(
               [
@@ -420,7 +531,16 @@ function ContactsSection({
               <button type="submit" className="btn-forge flex-1">
                 Save contact
               </button>
-              <button type="button" onClick={() => setAdding(false)} className="btn-ghost">
+              {editing && (
+                <button
+                  type="button"
+                  onClick={removeContact}
+                  className="btn-ghost text-slate hover:border-forge hover:text-forge"
+                >
+                  Delete
+                </button>
+              )}
+              <button type="button" onClick={close} className="btn-ghost">
                 Cancel
               </button>
             </div>
@@ -437,22 +557,35 @@ function ContactRow({
   email,
   phone,
   primary,
+  onEdit,
 }: {
   name: string;
   role: string | null;
   email: string | null;
   phone: string | null;
   primary?: boolean;
+  onEdit?: () => void;
 }) {
   return (
-    <div className="px-4 py-3">
-      <p className="flex items-center gap-2 font-semibold">
-        {name}
-        {primary && <span className="label-caps text-forge">Primary</span>}
-      </p>
-      <p className="text-sm text-slate">
-        {[role, email, phone].filter(Boolean).join(' · ') || '—'}
-      </p>
+    <div className="flex items-center gap-3 px-4 py-3">
+      <div className="min-w-0 flex-1">
+        <p className="flex items-center gap-2 font-semibold">
+          {name}
+          {primary && <span className="label-caps text-forge">Primary</span>}
+        </p>
+        <p className="text-sm text-slate">
+          {[role, email, phone].filter(Boolean).join(' · ') || '—'}
+        </p>
+      </div>
+      {primary ? (
+        <span className="label-caps text-slate/60">via Edit above</span>
+      ) : (
+        onEdit && (
+          <button type="button" onClick={onEdit} className="label-caps text-forge">
+            Edit
+          </button>
+        )
+      )}
     </div>
   );
 }
@@ -509,6 +642,7 @@ function DealsSection({
   onChanged: () => void;
 }) {
   const [adding, setAdding] = useState(false);
+  const [editingDeal, setEditingDeal] = useState<Deal | null>(null);
   const [form, setForm] = useState({ title: '', value: '' });
 
   async function submit(e: FormEvent) {
@@ -552,13 +686,21 @@ function DealsSection({
         )}
         {deals.map((deal) => (
           <div key={deal.id} className="flex flex-wrap items-center gap-3 px-4 py-3">
-            <div className="min-w-0 flex-1">
-              <p className="truncate font-semibold">{deal.title}</p>
+            <button
+              type="button"
+              onClick={() => setEditingDeal(deal)}
+              className="min-w-0 flex-1 text-left"
+            >
+              <p className="truncate font-semibold underline-offset-4 hover:underline">
+                {deal.title}
+              </p>
               <p className="text-sm text-slate">
-                {money(deal.value)}
+                {deal.pricing_type === 'retainer' && deal.monthly_amount != null
+                  ? `${money(deal.monthly_amount)}/mo`
+                  : money(deal.value)}
                 {deal.lost_reason && ` · ${deal.lost_reason}`}
               </p>
-            </div>
+            </button>
             <select
               aria-label={`Stage for ${deal.title}`}
               className="field w-auto py-1.5 text-xs"
@@ -608,6 +750,13 @@ function DealsSection({
             </div>
           </form>
         </Modal>
+      )}
+      {editingDeal && (
+        <DealModal
+          deal={editingDeal}
+          onClose={() => setEditingDeal(null)}
+          onSaved={onChanged}
+        />
       )}
     </section>
   );
@@ -687,6 +836,11 @@ function TasksSection({
     onChanged();
   }
 
+  async function removeTask(task: FollowUpTask) {
+    await db().from('tasks').delete().eq('id', task.id);
+    onChanged();
+  }
+
   const open = tasks.filter((t) => !t.done);
   const done = tasks.filter((t) => t.done);
 
@@ -744,6 +898,14 @@ function TasksSection({
                   {isOverdue(task.due_date) ? 'Overdue' : shortDate(task.due_date)}
                 </span>
               )}
+              <button
+                type="button"
+                onClick={() => removeTask(task)}
+                aria-label={`Delete “${task.title}”`}
+                className="px-1 text-slate transition-colors hover:text-forge"
+              >
+                ×
+              </button>
             </li>
           ))}
         </ul>
