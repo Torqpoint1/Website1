@@ -1,6 +1,7 @@
-import { useState, type FormEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState, type FormEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import Modal from './Modal';
+import { db } from '../lib/supabase';
 import { createLead, type NewLeadForm } from '../lib/actions';
 import { LEAD_SOURCES } from '../lib/types';
 
@@ -29,7 +30,26 @@ export default function AddLeadModal({
   const [form, setForm] = useState<NewLeadForm>(EMPTY);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [existing, setExisting] = useState<{ id: string; name: string }[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    db()
+      .from('accounts')
+      .select('id, name')
+      .then(({ data }) => setExisting((data ?? []) as { id: string; name: string }[]));
+  }, []);
+
+  const typed = form.name.trim().toLowerCase();
+  const duplicate =
+    typed.length >= 3
+      ? existing.find(
+          (a) =>
+            a.name.toLowerCase() === typed ||
+            a.name.toLowerCase().includes(typed) ||
+            typed.includes(a.name.toLowerCase()),
+        )
+      : undefined;
 
   function set<K extends keyof NewLeadForm>(key: K, value: NewLeadForm[K]) {
     setForm((f) => ({ ...f, [key]: value }));
@@ -66,6 +86,19 @@ export default function AddLeadModal({
     <Modal title="New lead" onClose={onClose}>
       <form onSubmit={submit} className="flex flex-col gap-4">
         {input('Business name', 'name', { required: true, autoFocus: true })}
+        {duplicate && (
+          <p className="-mt-2 text-sm text-slate">
+            Looks like{' '}
+            <Link
+              to={`/accounts/${duplicate.id}`}
+              onClick={onClose}
+              className="font-semibold text-forge underline underline-offset-4"
+            >
+              {duplicate.name}
+            </Link>{' '}
+            is already in here — open it instead of adding twice?
+          </p>
+        )}
         <div className="grid grid-cols-2 gap-3">
           {input('Niche', 'niche', { placeholder: 'e.g. Bespoke joinery' })}
           {input('Location', 'location', { placeholder: 'e.g. Stroud' })}

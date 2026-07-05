@@ -41,6 +41,10 @@ const ACTIONS: Record<string, { instruction: string; webSearch?: boolean }> = {
     instruction:
       'Research this business on the web. Produce: 1) FIT BRIEF — what they do, location, who their customers are, their voice/tone online, content gaps Torqpoint could fill (be specific about what you actually found); 2) FIRST OUTREACH — a first outreach email from Luke, under 150 words, referencing something real you found, ending with a low-pressure call suggestion, with a subject line. If you cannot find the business, say so plainly.',
   },
+  client_report: {
+    instruction:
+      "Write this month's client-facing report from Torqpoint for this client, in the house voice. Structure: a warm two-line opener from Luke; WHAT WENT LIVE (each deliverable finished this month with one line on it); IN PROGRESS (what's moving and when it lands); UP NEXT (the plan for next month, from the retainer template or open work). Keep it under 250 words, plain text, ready to paste into an email. Use only real deliverables and projects from the context — no invented results or statistics. If a month has little in it, be honest and brief.",
+  },
   run_my_week: {
     instruction:
       "Write Luke's Monday briefing from this CRM snapshot. Sections: THE WEEK IN ONE LINE; NEEDS YOU (due/overdue follow-ups and deliverables, in priority order); DEALS GOING COLD (open deals with no recent activity — for the coldest one, include a two-line chase draft); MONEY (unpaid + overdue invoices, who to invoice, MRR); ONE SUGGESTION (a single high-leverage action for the week). Keep it tight and scannable — plain text, no markdown tables.",

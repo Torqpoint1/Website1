@@ -8,6 +8,7 @@ export type AIAction =
   | 'chase_draft'
   | 'draft_deliverable'
   | 'lead_research'
+  | 'client_report'
   | 'run_my_week';
 
 export async function runAI(
@@ -35,7 +36,7 @@ export async function runAI(
 
 /** Everything the AI needs to know about one account, in one payload. */
 export async function buildAccountContext(accountId: string) {
-  const [account, deals, activities, tasks, projects] = await Promise.all([
+  const [account, deals, activities, tasks, projects, deliverables] = await Promise.all([
     db().from('accounts').select('*').eq('id', accountId).single(),
     db().from('deals').select('*').eq('account_id', accountId),
     db()
@@ -53,6 +54,11 @@ export async function buildAccountContext(accountId: string) {
       .from('projects')
       .select('name, status, due_date, ready_to_invoice')
       .eq('account_id', accountId),
+    db()
+      .from('deliverables')
+      .select('title, type, status, due_date, project:projects!inner(name, account_id)')
+      .eq('project.account_id', accountId)
+      .limit(60),
   ]);
   return {
     today: new Date().toISOString().slice(0, 10),
@@ -61,6 +67,7 @@ export async function buildAccountContext(accountId: string) {
     recent_activity: activities.data,
     follow_ups: tasks.data,
     projects: projects.data,
+    deliverables: deliverables.data,
   };
 }
 

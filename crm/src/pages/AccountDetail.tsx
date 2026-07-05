@@ -224,6 +224,7 @@ const AI_ACTIONS: { key: AIAction; label: string; title: string }[] = [
   { key: 'next_move', label: 'Next move', title: 'Suggested next move' },
   { key: 'chase_draft', label: 'Chase draft', title: 'Chase draft' },
   { key: 'lead_research', label: 'Research (web)', title: 'Lead research' },
+  { key: 'client_report', label: 'Client report', title: 'Monthly client report' },
 ];
 
 function AISection({

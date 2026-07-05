@@ -7,6 +7,7 @@ import {
   type Activity,
   type Deal,
   type FollowUpTask,
+  type WorkEvent,
 } from '../lib/types';
 import PointLoader from '../components/PointLoader';
 import AddLeadModal from '../components/AddLeadModal';
@@ -20,6 +21,7 @@ interface DashboardData {
   openDeals: Deal[];
   activities: Activity[];
   tasks: FollowUpTask[];
+  todayEvents: WorkEvent[];
 }
 
 export default function Dashboard() {
@@ -30,7 +32,7 @@ export default function Dashboard() {
 
   const load = useCallback(async () => {
     try {
-      const [retainers, deals, activities, tasks] = await Promise.all([
+      const [retainers, deals, activities, tasks, events] = await Promise.all([
         db().from('retainers').select('monthly_amount').eq('status', 'active'),
         db()
           .from('deals')
@@ -48,6 +50,11 @@ export default function Dashboard() {
           .not('due_date', 'is', null)
           .order('due_date', { ascending: true })
           .limit(10),
+        db()
+          .from('events')
+          .select('*')
+          .eq('event_date', new Date().toISOString().slice(0, 10))
+          .order('start_time', { ascending: true, nullsFirst: false }),
       ]);
       const firstError =
         retainers.error ?? deals.error ?? activities.error ?? tasks.error;
@@ -62,6 +69,8 @@ export default function Dashboard() {
         tasks: ((tasks.data ?? []) as FollowUpTask[]).filter(
           (t) => isOverdue(t.due_date) || isToday(t.due_date),
         ),
+        // Events table may not be switched on yet — that's fine.
+        todayEvents: events.error ? [] : ((events.data ?? []) as WorkEvent[]),
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not load the dashboard.');
@@ -200,13 +209,24 @@ export default function Dashboard() {
             <span className="point" aria-hidden />
             <h2 className="label-caps text-slate">Needs you today</h2>
           </div>
-          {data.tasks.length === 0 ? (
+          {data.tasks.length === 0 && data.todayEvents.length === 0 ? (
             <EmptyState
               title="Nothing due today."
-              hint="Follow-ups you add on an account will surface here when they’re due or overdue."
+              hint="Follow-ups and calendar events land here on the day they’re due."
             />
           ) : (
             <ul className="card divide-y divide-line">
+              {data.todayEvents.map((e) => (
+                <li key={e.id} className="flex items-center gap-3 px-4 py-3">
+                  <span className="point shrink-0" aria-hidden />
+                  <span className="min-w-0 flex-1 truncate text-sm font-semibold">
+                    {e.title}
+                  </span>
+                  <span className="label-caps text-slate">
+                    {e.start_time ? e.start_time.slice(0, 5) : 'Today'}
+                  </span>
+                </li>
+              ))}
               {data.tasks.map((task) => (
                 <li key={task.id} className="flex items-center gap-3 px-4 py-3">
                   <button

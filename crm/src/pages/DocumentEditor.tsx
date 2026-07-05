@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState, type FormEvent } from 'react';
 import { Link, useNavigate, useParams, useSearchParams } from 'react-router-dom';
 import { db } from '../lib/supabase';
 import { logSystemActivity } from '../lib/actions';
@@ -50,6 +50,7 @@ export default function DocumentEditor({ kind }: { kind: Kind }) {
   const [busy, setBusy] = useState(false);
   const [savedAt, setSavedAt] = useState<number | null>(null);
   const [deleting, setDeleting] = useState(false);
+  const [emailing, setEmailing] = useState(false);
 
   const table = kind === 'quote' ? 'quotes' : 'invoices';
 
@@ -496,6 +497,19 @@ export default function DocumentEditor({ kind }: { kind: Kind }) {
             </Link>
           )}
           {!isNew && (
+            <button
+              type="button"
+              disabled={busy}
+              onClick={async () => {
+                const docId = await save();
+                if (docId) setEmailing(true);
+              }}
+              className="btn-ghost"
+            >
+              Email to client
+            </button>
+          )}
+          {!isNew && (
             <button type="button" disabled={busy} onClick={duplicate} className="btn-ghost">
               Duplicate
             </button>
@@ -511,6 +525,24 @@ export default function DocumentEditor({ kind }: { kind: Kind }) {
           )}
         </div>
       </div>
+
+      {emailing && (
+        <EmailModal
+          kind={kind}
+          doc={doc}
+          settings={settings}
+          account={accounts.find((a) => a.id === doc.account_id)}
+          onClose={() => setEmailing(false)}
+          onSent={async () => {
+            if (doc.status === 'draft') await save({ status: 'sent' });
+            await logSystemActivity(
+              doc.account_id,
+              `${kind === 'quote' ? 'Quote' : 'Invoice'} ${doc.number} emailed`,
+            );
+            setEmailing(false);
+          }}
+        />
+      )}
 
       {deleting && (
         <Modal title={`Delete ${kind}`} onClose={() => setDeleting(false)}>
@@ -531,5 +563,129 @@ export default function DocumentEditor({ kind }: { kind: Kind }) {
         </Modal>
       )}
     </div>
+  );
+}
+
+function EmailModal({
+  kind,
+  doc,
+  settings,
+  account,
+  onClose,
+  onSent,
+}: {
+  kind: Kind;
+  doc: DocState;
+  settings: CompanySettings;
+  account: Account | undefined;
+  onClose: () => void;
+  onSent: () => Promise<void>;
+}) {
+  const [to, setTo] = useState(account?.primary_contact_email ?? '');
+  const [subject, setSubject] = useState(
+    `${kind === 'invoice' ? 'Invoice' : 'Quote'} ${doc.number} — ${settings.business_name}`,
+  );
+  const [message, setMessage] = useState(
+    kind === 'invoice'
+      ? `Hi${account?.primary_contact_name ? ` ${account.primary_contact_name.split(' ')[0]}` : ''},\n\nInvoice ${doc.number} is below. Any questions, just reply.\n\nThanks,\nLuke`
+      : `Hi${account?.primary_contact_name ? ` ${account.primary_contact_name.split(' ')[0]}` : ''},\n\nHere's the quote we talked about. Reply to accept and we'll get started.\n\nThanks,\nLuke`,
+  );
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [sent, setSent] = useState(false);
+
+  async function send(e: FormEvent) {
+    e.preventDefault();
+    setBusy(true);
+    setError(null);
+    try {
+      const { data } = await db().auth.getSession();
+      const token = data.session?.access_token;
+      const response = await fetch('/api/send-document', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          to: to.trim(),
+          subject,
+          message,
+          kind,
+          accountName: account?.name,
+          doc: {
+            number: doc.number,
+            line_items: doc.line_items,
+            ...computeTotals(doc.line_items, settings),
+            due_date: doc.due_date,
+          },
+          business: {
+            name: settings.business_name,
+            bank_details: settings.bank_details,
+            payment_link: settings.payment_link,
+            payment_terms: settings.payment_terms,
+          },
+        }),
+      });
+      const body = await response.json().catch(() => ({}));
+      if (!response.ok) throw new Error(body.error ?? 'Sending failed.');
+      setSent(true);
+      await onSent();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Sending failed.');
+      setBusy(false);
+    }
+  }
+
+  return (
+    <Modal title={`Email ${kind} ${doc.number}`} onClose={onClose}>
+      {sent ? (
+        <p className="py-6 text-sm">Sent ✓ — logged on the client's timeline.</p>
+      ) : (
+        <form onSubmit={send} className="flex flex-col gap-4">
+          <label className="flex flex-col gap-1.5">
+            <span className="label-caps text-slate">To</span>
+            <input
+              required
+              type="email"
+              className="field"
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+              placeholder="client@business.co.uk"
+            />
+          </label>
+          <label className="flex flex-col gap-1.5">
+            <span className="label-caps text-slate">Subject</span>
+            <input
+              required
+              className="field"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+            />
+          </label>
+          <label className="flex flex-col gap-1.5">
+            <span className="label-caps text-slate">Message</span>
+            <textarea
+              className="field min-h-28"
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
+          </label>
+          <p className="text-xs text-slate">
+            The {kind} itself — line items, totals and payment details — is laid
+            out in the email automatically, in the house style.
+          </p>
+          {error && <p className="text-sm text-forge">{error}</p>}
+          <div className="flex gap-3">
+            <button type="submit" disabled={busy} className="btn-forge flex-1">
+              {busy ? 'Sending…' : 'Send'}
+            </button>
+            <button type="button" onClick={onClose} className="btn-ghost">
+              Cancel
+            </button>
+          </div>
+        </form>
+      )}
+    </Modal>
   );
 }

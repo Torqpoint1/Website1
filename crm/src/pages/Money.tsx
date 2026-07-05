@@ -17,8 +17,10 @@ export default function Money() {
   const [readyProjects, setReadyProjects] = useState<Project[]>([]);
   const [expenses, setExpenses] = useState<Expense[]>([]);
   const [expensesReady, setExpensesReady] = useState(true);
-  const [openDeals, setOpenDeals] = useState<Deal[]>([]);
-  const [clientCount, setClientCount] = useState(0);
+  const [allDeals, setAllDeals] = useState<Deal[]>([]);
+  const [accountsLite, setAccountsLite] = useState<
+    { id: string; lead_source: string; status: string }[]
+  >([]);
   const [tab, setTab] = useState<'invoices' | 'quotes' | 'expenses'>('invoices');
   const [showAllDocs, setShowAllDocs] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,11 +49,8 @@ export default function Money() {
           .from('expenses')
           .select('*')
           .order('expense_date', { ascending: false }),
-        db().from('deals').select('*').eq('status', 'open'),
-        db()
-          .from('accounts')
-          .select('id', { count: 'exact', head: true })
-          .in('status', ['active', 'one_off']),
+        db().from('deals').select('account_id, status, value, pricing_type, monthly_amount, pipeline_stage'),
+        db().from('accounts').select('id, lead_source, status'),
       ]);
       const err = inv.error ?? qts.error ?? rts.error ?? prj.error ?? dls.error;
       if (err) throw err;
@@ -59,8 +58,10 @@ export default function Money() {
       setQuotes(qts.data as Quote[]);
       setRetainers(rts.data as Retainer[]);
       setReadyProjects(prj.data as Project[]);
-      setOpenDeals((dls.data ?? []) as Deal[]);
-      setClientCount(cls.count ?? 0);
+      setAllDeals((dls.data ?? []) as Deal[]);
+      setAccountsLite(
+        (cls.data ?? []) as { id: string; lead_source: string; status: string }[],
+      );
       if (exp.error) {
         // Table missing until the expenses paste is run — metrics show £0.
         if (exp.error.code === '42P01') setExpensesReady(false);
@@ -92,6 +93,20 @@ export default function Money() {
 
   // --- The numbers (cash basis: paid invoices in, logged expenses out) ---
   const now = new Date();
+  const openDeals = allDeals.filter((d) => d.status === 'open');
+  const clientCount = accountsLite.filter(
+    (a) => a.status === 'active' || a.status === 'one_off',
+  ).length;
+
+  // UK personal tax year: 6 April to 5 April.
+  const taxYearStart =
+    now >= new Date(now.getFullYear(), 3, 6)
+      ? new Date(now.getFullYear(), 3, 6)
+      : new Date(now.getFullYear() - 1, 3, 6);
+  const inTaxYear = (d: string) => new Date(d) >= taxYearStart;
+  const taxLabel = `Tax year ${taxYearStart.getFullYear()}/${String(
+    (taxYearStart.getFullYear() + 1) % 100,
+  ).padStart(2, '0')}`;
   const paid = invoices.filter((i) => i.status === 'paid' && i.paid_date);
   const inMonth = (d: string, ref: Date) => {
     const x = new Date(d);
@@ -104,18 +119,44 @@ export default function Money() {
   const turnover = {
     month: sumInv(paid.filter((i) => inMonth(i.paid_date!, now))),
     year: sumInv(paid.filter((i) => inYear(i.paid_date!))),
+    tax: sumInv(paid.filter((i) => inTaxYear(i.paid_date!))),
     all: sumInv(paid),
   };
   const spent = {
     month: sumExp(expenses.filter((e) => inMonth(e.expense_date, now))),
     year: sumExp(expenses.filter((e) => inYear(e.expense_date))),
+    tax: sumExp(expenses.filter((e) => inTaxYear(e.expense_date))),
     all: sumExp(expenses),
   };
   const profit = {
     month: turnover.month - spent.month,
     year: turnover.year - spent.year,
+    tax: turnover.tax - spent.tax,
     all: turnover.all - spent.all,
   };
+
+  // Where work comes from: per lead source — clients, deals won, money banked.
+  const paidByAccount = new Map<string, number>();
+  for (const i of paid) {
+    paidByAccount.set(
+      i.account_id,
+      (paidByAccount.get(i.account_id) ?? 0) + Number(i.total),
+    );
+  }
+  const sourceReport = ['inbound', 'outbound', 'referral', 'social']
+    .map((source) => {
+      const accs = accountsLite.filter((a) => a.lead_source === source);
+      const ids = new Set(accs.map((a) => a.id));
+      const won = allDeals.filter(
+        (d) => d.status === 'won' && ids.has(d.account_id),
+      ).length;
+      const revenue = accs.reduce(
+        (s, a) => s + (paidByAccount.get(a.id) ?? 0),
+        0,
+      );
+      return { source, leads: accs.length, won, revenue };
+    })
+    .filter((r) => r.leads > 0);
 
   const lastSixMonths = Array.from({ length: 6 }, (_, i) => {
     const ref = new Date(now.getFullYear(), now.getMonth() - i, 1);
@@ -388,6 +429,17 @@ export default function Money() {
             value={`${money(retainerRevenue)} / ${money(oneOffRevenue)}`}
           />
         </div>
+        <div className="mt-4 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-4">
+          <Stat
+            small
+            label={`${taxLabel} · profit`}
+            value={money(profit.tax)}
+            alert={profit.tax < 0}
+          />
+          <Stat small label={`${taxLabel} · turnover`} value={money(turnover.tax)} />
+          <Stat small label={`${taxLabel} · expenses`} value={money(spent.tax)} />
+          <Stat small label="Runs 6 Apr – 5 Apr" value="" sub="what self-assessment uses" />
+        </div>
         {!expensesReady && (
           <p className="pt-3 text-sm text-slate">
             Expense figures show £0 until the expenses table is switched on —
@@ -468,6 +520,41 @@ export default function Money() {
             }
           />
         </div>
+
+        {sourceReport.length > 0 && (
+          <div className="card mt-4 overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-line text-left">
+                  <th className="label-caps px-4 py-2.5 font-semibold text-slate">
+                    Where work comes from
+                  </th>
+                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                    Leads
+                  </th>
+                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                    Deals won
+                  </th>
+                  <th className="label-caps px-4 py-2.5 text-right font-semibold text-slate">
+                    Banked
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {sourceReport.map((r) => (
+                  <tr key={r.source} className="border-b border-line last:border-0">
+                    <td className="px-4 py-2.5 font-semibold capitalize">{r.source}</td>
+                    <td className="px-4 py-2.5 text-right">{r.leads}</td>
+                    <td className="px-4 py-2.5 text-right">{r.won}</td>
+                    <td className="px-4 py-2.5 text-right font-editorial text-base">
+                      {money(r.revenue)}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </section>
 
       {/* Documents */}
