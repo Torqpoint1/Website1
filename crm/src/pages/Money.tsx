@@ -150,6 +150,28 @@ export default function Money() {
         value: bestMonthEntry[1],
       }
     : null;
+  // Money on the way, stage by stage
+  const sentQuotes = quotes.filter((q) => q.status === 'sent');
+  const quotedOut = {
+    total: sentQuotes.reduce((s, q) => s + Number(q.total), 0),
+    count: sentQuotes.length,
+  };
+  const invoicedQuoteIds = new Set(
+    invoices.map((i) => i.quote_id).filter(Boolean),
+  );
+  const acceptedUninvoiced = quotes.filter(
+    (q) => q.status === 'accepted' && !invoicedQuoteIds.has(q.id),
+  );
+  const confirmedOrders = {
+    total: acceptedUninvoiced.reduce((s, q) => s + Number(q.total), 0),
+    count: acceptedUninvoiced.length,
+  };
+  const drafts = invoices.filter((i) => i.status === 'draft');
+  const draftInvoices = {
+    total: drafts.reduce((s, i) => s + Number(i.total), 0),
+    count: drafts.length,
+  };
+
   const decidedQuotes = quotes.filter(
     (q) => q.status === 'accepted' || q.status === 'declined',
   );
@@ -218,13 +240,33 @@ export default function Money() {
         </div>
       </section>
 
-      {/* 2 — What's owed to you */}
+      {/* 2 — Money on the way: speculative → confirmed → nearly cash */}
       <section className="pt-8">
         <div className="flex items-center gap-2.5 pb-4">
           <span className="point" aria-hidden />
-          <h2 className="label-caps text-slate">Owed to you</h2>
+          <h2 className="label-caps text-slate">Money on the way</h2>
         </div>
         <div className="grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-3">
+          <Stat
+            label="Open pipeline"
+            value={money(pipelineValue)}
+            sub={`${openDeals.length} deal${openDeals.length === 1 ? '' : 's'} — estimates`}
+          />
+          <Stat
+            label="Quoted — awaiting answer"
+            value={money(quotedOut.total)}
+            sub={`${quotedOut.count} quote${quotedOut.count === 1 ? '' : 's'} out`}
+          />
+          <Stat
+            label="Confirmed orders"
+            value={money(confirmedOrders.total)}
+            sub={`${confirmedOrders.count} accepted, not yet invoiced`}
+          />
+          <Stat
+            label="Drafts to send"
+            value={money(draftInvoices.total)}
+            sub={`${draftInvoices.count} invoice${draftInvoices.count === 1 ? '' : 's'} unsent`}
+          />
           <Stat
             label="Awaiting payment"
             value={money(owedTotal)}
@@ -235,11 +277,6 @@ export default function Money() {
             value={money(overdueTotal)}
             alert={overdueTotal > 0}
             sub={overdueTotal > 0 ? 'chase these' : 'nothing late'}
-          />
-          <Stat
-            label="Open pipeline"
-            value={money(pipelineValue)}
-            sub={`${openDeals.length} open deal${openDeals.length === 1 ? '' : 's'}`}
           />
         </div>
       </section>
