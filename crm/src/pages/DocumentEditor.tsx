@@ -387,15 +387,52 @@ export default function DocumentEditor({ kind }: { kind: Kind }) {
               </div>
             ))}
           </div>
-          <button
-            type="button"
-            onClick={() =>
-              setDoc({ ...doc, line_items: [...doc.line_items, { ...EMPTY_ITEM }] })
-            }
-            className="label-caps pt-3 text-forge"
-          >
-            + Add line
-          </button>
+          <div className="flex flex-wrap items-center gap-4 pt-3">
+            <button
+              type="button"
+              onClick={() =>
+                setDoc({ ...doc, line_items: [...doc.line_items, { ...EMPTY_ITEM }] })
+              }
+              className="label-caps text-forge"
+            >
+              + Add line
+            </button>
+            {(settings.price_list ?? []).length > 0 && (
+              <select
+                aria-label="Add from price list"
+                className="field w-auto py-1.5 text-xs"
+                value=""
+                onChange={(e) => {
+                  const item = (settings.price_list ?? [])[Number(e.target.value)];
+                  if (!item) return;
+                  const line = {
+                    description: item.description,
+                    qty: 1,
+                    unit_price: item.unit_price,
+                    line_total: item.unit_price,
+                  };
+                  setDoc({
+                    ...doc,
+                    line_items: [
+                      ...doc.line_items.filter(
+                        (l) => l.description.trim() !== '' || l.unit_price !== 0,
+                      ),
+                      line,
+                    ],
+                  });
+                }}
+              >
+                <option value="" disabled>
+                  + From price list…
+                </option>
+                {(settings.price_list ?? []).map((p, i) => (
+                  <option key={i} value={i}>
+                    {p.description} — £{p.unit_price}
+                  </option>
+                ))}
+              </select>
+            )}
+          </div>
         </div>
 
         {/* Totals */}

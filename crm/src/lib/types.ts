@@ -268,8 +268,14 @@ export interface Asset {
   uploaded_at: string;
 }
 
+export interface PriceItem {
+  description: string;
+  unit_price: number;
+}
+
 export interface CompanySettings {
   id: string;
+  price_list?: PriceItem[];
   business_name: string;
   address: string | null;
   logo: string | null;

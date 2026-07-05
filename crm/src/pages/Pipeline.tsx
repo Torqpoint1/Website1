@@ -72,6 +72,11 @@ export default function Pipeline() {
           {PIPELINE_STAGES.map((stage) => {
             const stageDeals = deals.filter((d) => d.pipeline_stage === stage.key);
             const total = stageDeals.reduce((s, d) => s + Number(d.value ?? 0), 0);
+            // Won/Lost accumulate forever — keep the board light, history
+            // stays on each client's page.
+            const isClosed = stage.key === 'won' || stage.key === 'lost';
+            const visibleDeals = isClosed ? stageDeals.slice(0, 15) : stageDeals;
+            const hiddenCount = stageDeals.length - visibleDeals.length;
             return (
               <div
                 key={stage.key}
@@ -111,7 +116,7 @@ export default function Pipeline() {
                   </span>
                 </div>
                 <div className="flex flex-1 flex-col gap-2.5 p-2.5">
-                  {stageDeals.map((deal) => (
+                  {visibleDeals.map((deal) => (
                     <article
                       key={deal.id}
                       draggable
@@ -163,6 +168,11 @@ export default function Pipeline() {
                   ))}
                   {stageDeals.length === 0 && (
                     <p className="px-1 pt-2 text-xs text-slate/70">No deals here.</p>
+                  )}
+                  {hiddenCount > 0 && (
+                    <p className="px-1 pt-1 text-xs text-slate/70">
+                      +{hiddenCount} earlier — on each client's page.
+                    </p>
                   )}
                 </div>
               </div>

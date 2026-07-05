@@ -30,10 +30,25 @@ export default function Settings() {
     setBusy(true);
     setError(null);
     const { id, ...payload } = settings!;
-    const { error: err } = await db()
+    let { error: err } = await db()
       .from('company_settings')
       .update(payload)
       .eq('id', id);
+    // Price list column not switched on yet — save everything else.
+    if (err?.code === '42703' && 'price_list' in payload) {
+      const { price_list: _pl, ...rest } = payload;
+      ({ error: err } = await db()
+        .from('company_settings')
+        .update(rest)
+        .eq('id', id));
+      if (!err) {
+        setError(
+          'Saved — except the price list, which needs a small database paste from Claude first.',
+        );
+        setBusy(false);
+        return;
+      }
+    }
     setBusy(false);
     if (err) setError(err.message);
     else setSaved(true);
@@ -123,6 +138,75 @@ export default function Settings() {
               onChange={(e) => patch({ payment_terms: e.target.value })}
             />
           </Field>
+        </section>
+
+        <section className="flex flex-col gap-4">
+          <SectionHead label="Price list" />
+          <p className="-mt-2 text-sm text-slate">
+            Your standard services and prices — one tap adds them as line items
+            when building quotes and invoices.
+          </p>
+          {(settings.price_list ?? []).map((item, i) => (
+            <div key={i} className="flex gap-2">
+              <input
+                aria-label="Service"
+                className="field flex-1"
+                placeholder="e.g. Case study — written & designed"
+                value={item.description}
+                onChange={(e) =>
+                  patch({
+                    price_list: (settings.price_list ?? []).map((x, idx) =>
+                      idx === i ? { ...x, description: e.target.value } : x,
+                    ),
+                  })
+                }
+              />
+              <input
+                aria-label="Price"
+                inputMode="decimal"
+                className="field w-28"
+                placeholder="£"
+                value={item.unit_price === 0 ? '' : String(item.unit_price)}
+                onChange={(e) =>
+                  patch({
+                    price_list: (settings.price_list ?? []).map((x, idx) =>
+                      idx === i
+                        ? { ...x, unit_price: Number(e.target.value) || 0 }
+                        : x,
+                    ),
+                  })
+                }
+              />
+              <button
+                type="button"
+                aria-label="Remove"
+                onClick={() =>
+                  patch({
+                    price_list: (settings.price_list ?? []).filter(
+                      (_, idx) => idx !== i,
+                    ),
+                  })
+                }
+                className="px-1 text-slate transition-colors hover:text-forge"
+              >
+                ×
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() =>
+              patch({
+                price_list: [
+                  ...(settings.price_list ?? []),
+                  { description: '', unit_price: 0 },
+                ],
+              })
+            }
+            className="label-caps self-start text-forge"
+          >
+            + Add service
+          </button>
         </section>
 
         <section className="flex flex-col gap-4">

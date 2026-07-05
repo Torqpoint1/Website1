@@ -38,6 +38,7 @@ export default function ExpensesTab({
   const [editing, setEditing] = useState<Expense | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [logging, setLogging] = useState(false);
+  const [showAll, setShowAll] = useState(false);
 
   async function remove(exp: Expense) {
     if (exp.receipt_path) {
@@ -157,7 +158,7 @@ export default function ExpensesTab({
         />
       ) : (
         <ul className="card divide-y divide-line">
-          {expenses.map((exp) => (
+          {(showAll ? expenses : expenses.slice(0, 20)).map((exp) => (
             <li key={exp.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-3">
               <span className="w-20 shrink-0 text-xs text-slate">
                 {shortDate(exp.expense_date)}
@@ -199,6 +200,16 @@ export default function ExpensesTab({
             </li>
           ))}
         </ul>
+      )}
+
+      {!showAll && expenses.length > 20 && (
+        <button
+          type="button"
+          onClick={() => setShowAll(true)}
+          className="label-caps pt-3 text-forge"
+        >
+          Show all {expenses.length}
+        </button>
       )}
 
       {adding && (

@@ -57,7 +57,8 @@ export default function AccountDetail() {
         .from('activities')
         .select('*')
         .eq('account_id', id)
-        .order('occurred_at', { ascending: false }),
+        .order('occurred_at', { ascending: false })
+        .limit(100),
       db()
         .from('tasks')
         .select('*')
@@ -942,6 +943,11 @@ function ActivityLog({
     }
   }
 
+  async function removeActivity(activity: Activity) {
+    await db().from('activities').delete().eq('id', activity.id);
+    onChanged();
+  }
+
   return (
     <section className="min-w-0">
       <SectionHead label="Activity — log everything" />
@@ -986,8 +992,18 @@ function ActivityLog({
               }`}
               aria-hidden
             />
-            <p className="label-caps text-slate">
+            <p className="label-caps flex items-center gap-2 text-slate">
               {a.type} · {timeAgo(a.occurred_at)}
+              {a.type !== 'system' && (
+                <button
+                  type="button"
+                  onClick={() => removeActivity(a)}
+                  aria-label="Delete this entry"
+                  className="text-slate/50 transition-colors hover:text-forge"
+                >
+                  ×
+                </button>
+              )}
             </p>
             <p
               className={`pt-1 text-sm leading-relaxed ${

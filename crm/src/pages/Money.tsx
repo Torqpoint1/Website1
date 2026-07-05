@@ -8,6 +8,7 @@ import type { Deal, Expense, Invoice, Project, Quote, Retainer } from '../lib/ty
 import PointLoader from '../components/PointLoader';
 import EmptyState from '../components/EmptyState';
 import ExpensesTab from '../components/ExpensesTab';
+import { downloadCsv } from '../lib/csv';
 
 export default function Money() {
   const [invoices, setInvoices] = useState<Invoice[] | null>(null);
@@ -19,6 +20,7 @@ export default function Money() {
   const [openDeals, setOpenDeals] = useState<Deal[]>([]);
   const [clientCount, setClientCount] = useState(0);
   const [tab, setTab] = useState<'invoices' | 'quotes' | 'expenses'>('invoices');
+  const [showAllDocs, setShowAllDocs] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
   const [runResult, setRunResult] = useState<RunResult | null>(null);
@@ -470,7 +472,7 @@ export default function Money() {
 
       {/* Documents */}
       <section className="pt-10">
-        <div className="flex gap-1.5 pb-4">
+        <div className="flex flex-wrap items-center gap-1.5 pb-4">
           {(
             [
               ['invoices', `Invoices (${invoices.length})`],
@@ -491,6 +493,54 @@ export default function Money() {
               {label}
             </button>
           ))}
+          {tab === 'invoices' && invoices.length > 0 && (
+            <button
+              type="button"
+              onClick={() =>
+                downloadCsv(
+                  `torqpoint-invoices-${new Date().toISOString().slice(0, 10)}.csv`,
+                  ['Number', 'Client', 'Issued', 'Due', 'Paid', 'Status', 'Subtotal', 'VAT', 'Total', 'Type'],
+                  invoices.map((i) => [
+                    i.number,
+                    i.account?.name,
+                    i.issue_date,
+                    i.due_date,
+                    i.paid_date,
+                    i.status,
+                    i.subtotal,
+                    i.vat_amount,
+                    i.total,
+                    i.pricing_type,
+                  ]),
+                )
+              }
+              className="label-caps ml-auto text-forge"
+            >
+              Export CSV
+            </button>
+          )}
+          {tab === 'expenses' && expenses.length > 0 && (
+            <button
+              type="button"
+              onClick={() =>
+                downloadCsv(
+                  `torqpoint-expenses-${new Date().toISOString().slice(0, 10)}.csv`,
+                  ['Date', 'Supplier', 'Category', 'What for', 'Amount', 'Recurring'],
+                  expenses.map((e) => [
+                    e.expense_date,
+                    e.supplier,
+                    e.category,
+                    e.description,
+                    e.amount,
+                    e.recurring ? 'yes' : '',
+                  ]),
+                )
+              }
+              className="label-caps ml-auto text-forge"
+            >
+              Export CSV
+            </button>
+          )}
         </div>
 
         {tab === 'invoices' &&
@@ -501,7 +551,7 @@ export default function Money() {
             />
           ) : (
             <ul className="card divide-y divide-line">
-              {invoices.map((inv) => (
+              {(showAllDocs ? invoices : invoices.slice(0, 20)).map((inv) => (
                 <li key={inv.id}>
                   <Link
                     to={`/money/invoices/${inv.id}`}
@@ -534,7 +584,7 @@ export default function Money() {
             />
           ) : (
             <ul className="card divide-y divide-line">
-              {quotes.map((q) => (
+              {(showAllDocs ? quotes : quotes.slice(0, 20)).map((q) => (
                 <li key={q.id}>
                   <Link
                     to={`/money/quotes/${q.id}`}
@@ -555,6 +605,18 @@ export default function Money() {
               ))}
             </ul>
           ))}
+
+        {!showAllDocs &&
+          ((tab === 'invoices' && invoices.length > 20) ||
+            (tab === 'quotes' && quotes.length > 20)) && (
+            <button
+              type="button"
+              onClick={() => setShowAllDocs(true)}
+              className="label-caps pt-3 text-forge"
+            >
+              Show all {tab === 'invoices' ? invoices.length : quotes.length}
+            </button>
+          )}
 
         {tab === 'expenses' && (
           <ExpensesTab
