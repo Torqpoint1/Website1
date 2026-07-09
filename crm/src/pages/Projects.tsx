@@ -16,14 +16,19 @@ import EmptyState from '../components/EmptyState';
 import Modal from '../components/Modal';
 import MonthCalendar, { type CalendarEvent } from '../components/MonthCalendar';
 import DeliverableModal from '../components/DeliverableModal';
+import { getCached, setCached } from '../lib/pageCache';
 
 type View = 'projects' | 'board' | 'calendar';
 
 export default function Projects() {
   const [params, setParams] = useSearchParams();
   const view = (params.get('view') as View) ?? 'projects';
-  const [projects, setProjects] = useState<Project[] | null>(null);
-  const [deliverables, setDeliverables] = useState<Deliverable[]>([]);
+  const [projects, setProjects] = useState<Project[] | null>(() =>
+    getCached<Project[]>('projects'),
+  );
+  const [deliverables, setDeliverables] = useState<Deliverable[]>(
+    () => getCached<Deliverable[]>('deliverables') ?? [],
+  );
   const [error, setError] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
   const [editing, setEditing] = useState<Deliverable | null>(null);
@@ -43,6 +48,8 @@ export default function Projects() {
       setError((prj.error ?? dlv.error)!.message);
       return;
     }
+    setCached('projects', prj.data as Project[]);
+    setCached('deliverables', dlv.data as Deliverable[]);
     setProjects(prj.data as Project[]);
     setDeliverables(dlv.data as Deliverable[]);
   }, []);

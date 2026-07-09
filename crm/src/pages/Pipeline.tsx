@@ -12,9 +12,12 @@ import {
 import PointLoader from '../components/PointLoader';
 import AddLeadModal from '../components/AddLeadModal';
 import Modal from '../components/Modal';
+import { getCached, setCached } from '../lib/pageCache';
 
 export default function Pipeline() {
-  const [deals, setDeals] = useState<Deal[] | null>(null);
+  const [deals, setDeals] = useState<Deal[] | null>(() =>
+    getCached<Deal[]>('pipeline'),
+  );
   const [error, setError] = useState<string | null>(null);
   const [showAddLead, setShowAddLead] = useState(false);
   const [dragOver, setDragOver] = useState<PipelineStage | null>(null);
@@ -27,7 +30,10 @@ export default function Pipeline() {
       .select('*, account:accounts(name)')
       .order('created_at', { ascending: false });
     if (err) setError(err.message);
-    else setDeals(data as Deal[]);
+    else {
+      setCached('pipeline', data as Deal[]);
+      setDeals(data as Deal[]);
+    }
   }, []);
 
   useEffect(() => {

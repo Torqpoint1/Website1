@@ -9,18 +9,33 @@ import PointLoader from '../components/PointLoader';
 import EmptyState from '../components/EmptyState';
 import ExpensesTab from '../components/ExpensesTab';
 import { downloadCsv } from '../lib/csv';
+import { getCached, setCached } from '../lib/pageCache';
+
+interface MoneyCache {
+  invoices: Invoice[];
+  quotes: Quote[];
+  retainers: Retainer[];
+  readyProjects: Project[];
+  expenses: Expense[];
+  expensesReady: boolean;
+  allDeals: Deal[];
+  accountsLite: { id: string; lead_source: string; status: string }[];
+}
 
 export default function Money() {
-  const [invoices, setInvoices] = useState<Invoice[] | null>(null);
-  const [quotes, setQuotes] = useState<Quote[]>([]);
-  const [retainers, setRetainers] = useState<Retainer[]>([]);
-  const [readyProjects, setReadyProjects] = useState<Project[]>([]);
-  const [expenses, setExpenses] = useState<Expense[]>([]);
-  const [expensesReady, setExpensesReady] = useState(true);
-  const [allDeals, setAllDeals] = useState<Deal[]>([]);
+  const cached = getCached<MoneyCache>('money');
+  const [invoices, setInvoices] = useState<Invoice[] | null>(cached?.invoices ?? null);
+  const [quotes, setQuotes] = useState<Quote[]>(cached?.quotes ?? []);
+  const [retainers, setRetainers] = useState<Retainer[]>(cached?.retainers ?? []);
+  const [readyProjects, setReadyProjects] = useState<Project[]>(
+    cached?.readyProjects ?? [],
+  );
+  const [expenses, setExpenses] = useState<Expense[]>(cached?.expenses ?? []);
+  const [expensesReady, setExpensesReady] = useState(cached?.expensesReady ?? true);
+  const [allDeals, setAllDeals] = useState<Deal[]>(cached?.allDeals ?? []);
   const [accountsLite, setAccountsLite] = useState<
     { id: string; lead_source: string; status: string }[]
-  >([]);
+  >(cached?.accountsLite ?? []);
   const [tab, setTab] = useState<'invoices' | 'quotes' | 'expenses'>('invoices');
   const [showAllDocs, setShowAllDocs] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -54,22 +69,31 @@ export default function Money() {
       ]);
       const err = inv.error ?? qts.error ?? rts.error ?? prj.error ?? dls.error;
       if (err) throw err;
-      setInvoices(inv.data as Invoice[]);
-      setQuotes(qts.data as Quote[]);
-      setRetainers(rts.data as Retainer[]);
-      setReadyProjects(prj.data as Project[]);
-      setAllDeals((dls.data ?? []) as Deal[]);
-      setAccountsLite(
-        (cls.data ?? []) as { id: string; lead_source: string; status: string }[],
-      );
-      if (exp.error) {
-        // Table missing until the expenses paste is run — metrics show £0.
-        if (exp.error.code === '42P01') setExpensesReady(false);
-        else throw exp.error;
-      } else {
-        setExpenses((exp.data ?? []) as Expense[]);
-        setExpensesReady(true);
-      }
+      if (exp.error && exp.error.code !== '42P01') throw exp.error;
+      const next: MoneyCache = {
+        invoices: inv.data as Invoice[],
+        quotes: qts.data as Quote[],
+        retainers: rts.data as Retainer[],
+        readyProjects: prj.data as Project[],
+        allDeals: (dls.data ?? []) as Deal[],
+        accountsLite: (cls.data ?? []) as {
+          id: string;
+          lead_source: string;
+          status: string;
+        }[],
+        // Expenses table missing until its paste is run — metrics show £0.
+        expenses: exp.error ? [] : ((exp.data ?? []) as Expense[]),
+        expensesReady: !exp.error,
+      };
+      setCached('money', next);
+      setInvoices(next.invoices);
+      setQuotes(next.quotes);
+      setRetainers(next.retainers);
+      setReadyProjects(next.readyProjects);
+      setAllDeals(next.allDeals);
+      setAccountsLite(next.accountsLite);
+      setExpenses(next.expenses);
+      setExpensesReady(next.expensesReady);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not load money.');
     }

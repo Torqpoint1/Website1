@@ -5,10 +5,15 @@ import type { Deliverable, FollowUpTask, Project, WorkEvent } from '../lib/types
 import MonthCalendar, { type CalendarEvent } from '../components/MonthCalendar';
 import PointLoader from '../components/PointLoader';
 import Modal from '../components/Modal';
+import { getCached, setCached } from '../lib/pageCache';
 
 export default function CalendarPage() {
-  const [entries, setEntries] = useState<CalendarEvent[] | null>(null);
-  const [events, setEvents] = useState<WorkEvent[]>([]);
+  const [entries, setEntries] = useState<CalendarEvent[] | null>(() =>
+    getCached<CalendarEvent[]>('calendar-entries'),
+  );
+  const [events, setEvents] = useState<WorkEvent[]>(
+    () => getCached<WorkEvent[]>('calendar-events') ?? [],
+  );
   const [eventsReady, setEventsReady] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);
@@ -44,8 +49,7 @@ export default function CalendarPage() {
       workEvents = (evs.data ?? []) as WorkEvent[];
       setEventsReady(true);
     }
-    setEvents(workEvents);
-    setEntries([
+    const nextEntries: CalendarEvent[] = [
       ...workEvents.map((e) => ({
         id: `e-${e.id}`,
         date: e.event_date,
@@ -74,7 +78,11 @@ export default function CalendarPage() {
         to: `/projects/${p.id}`,
         tone: 'slate' as const,
       })),
-    ]);
+    ];
+    setCached('calendar-events', workEvents);
+    setCached('calendar-entries', nextEntries);
+    setEvents(workEvents);
+    setEntries(nextEntries);
   }, []);
 
   useEffect(() => {

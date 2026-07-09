@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 import { supabase } from '../lib/supabase';
+import { clearCache } from '../lib/pageCache';
 
 const NAV = [
   { to: '/', label: 'Dashboard', short: 'Home', icon: 'home', end: true },
@@ -116,7 +117,10 @@ export default function Layout() {
             </NavLink>
             <button
               type="button"
-              onClick={() => supabase?.auth.signOut()}
+              onClick={() => {
+              clearCache();
+              supabase?.auth.signOut();
+            }}
               className="label-caps text-left text-paper/50 transition-colors hover:text-paper"
             >
               Sign out
@@ -139,7 +143,10 @@ export default function Layout() {
           </NavLink>
           <button
             type="button"
-            onClick={() => supabase?.auth.signOut()}
+            onClick={() => {
+              clearCache();
+              supabase?.auth.signOut();
+            }}
             className="label-caps text-paper/60"
           >
             Sign out

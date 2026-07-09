@@ -29,18 +29,32 @@ import EditAccountModal from '../components/EditAccountModal';
 import DealModal from '../components/DealModal';
 import type { Invoice, Quote } from '../lib/types';
 import { buildAccountContext, type AIAction } from '../lib/ai';
+import { getCached, setCached } from '../lib/pageCache';
+
+interface AccountCache {
+  account: Account;
+  contacts: Contact[];
+  deals: Deal[];
+  activities: Activity[];
+  tasks: FollowUpTask[];
+  projects: Project[];
+  retainer: Retainer | null;
+  invoices: Invoice[];
+  quotes: Quote[];
+}
 
 export default function AccountDetail() {
   const { id } = useParams<{ id: string }>();
-  const [account, setAccount] = useState<Account | null>(null);
-  const [contacts, setContacts] = useState<Contact[]>([]);
-  const [deals, setDeals] = useState<Deal[]>([]);
-  const [activities, setActivities] = useState<Activity[]>([]);
-  const [tasks, setTasks] = useState<FollowUpTask[]>([]);
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [retainer, setRetainer] = useState<Retainer | null>(null);
-  const [invoices, setInvoices] = useState<Invoice[]>([]);
-  const [quotes, setQuotes] = useState<Quote[]>([]);
+  const cached = id ? getCached<AccountCache>(`account-${id}`) : null;
+  const [account, setAccount] = useState<Account | null>(cached?.account ?? null);
+  const [contacts, setContacts] = useState<Contact[]>(cached?.contacts ?? []);
+  const [deals, setDeals] = useState<Deal[]>(cached?.deals ?? []);
+  const [activities, setActivities] = useState<Activity[]>(cached?.activities ?? []);
+  const [tasks, setTasks] = useState<FollowUpTask[]>(cached?.tasks ?? []);
+  const [projects, setProjects] = useState<Project[]>(cached?.projects ?? []);
+  const [retainer, setRetainer] = useState<Retainer | null>(cached?.retainer ?? null);
+  const [invoices, setInvoices] = useState<Invoice[]>(cached?.invoices ?? []);
+  const [quotes, setQuotes] = useState<Quote[]>(cached?.quotes ?? []);
   const [error, setError] = useState<string | null>(null);
 
   const load = useCallback(async () => {
@@ -94,15 +108,27 @@ export default function AccountDetail() {
       setError(firstError.message);
       return;
     }
-    setAccount(acc.data as Account);
-    setContacts((cts.data ?? []) as Contact[]);
-    setDeals((dls.data ?? []) as Deal[]);
-    setActivities((acts.data ?? []) as Activity[]);
-    setTasks((tks.data ?? []) as FollowUpTask[]);
-    setProjects((prjs.data ?? []) as Project[]);
-    setRetainer((rtn.data as Retainer) ?? null);
-    setInvoices((invs.data ?? []) as Invoice[]);
-    setQuotes((qts.data ?? []) as Quote[]);
+    const next: AccountCache = {
+      account: acc.data as Account,
+      contacts: (cts.data ?? []) as Contact[],
+      deals: (dls.data ?? []) as Deal[],
+      activities: (acts.data ?? []) as Activity[],
+      tasks: (tks.data ?? []) as FollowUpTask[],
+      projects: (prjs.data ?? []) as Project[],
+      retainer: (rtn.data as Retainer) ?? null,
+      invoices: (invs.data ?? []) as Invoice[],
+      quotes: (qts.data ?? []) as Quote[],
+    };
+    setCached(`account-${id}`, next);
+    setAccount(next.account);
+    setContacts(next.contacts);
+    setDeals(next.deals);
+    setActivities(next.activities);
+    setTasks(next.tasks);
+    setProjects(next.projects);
+    setRetainer(next.retainer);
+    setInvoices(next.invoices);
+    setQuotes(next.quotes);
   }, [id]);
 
   useEffect(() => {

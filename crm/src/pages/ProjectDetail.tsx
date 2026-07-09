@@ -14,12 +14,21 @@ import PointLoader from '../components/PointLoader';
 import Modal from '../components/Modal';
 import DeliverableModal from '../components/DeliverableModal';
 import DeliverableStatusPill from '../components/DeliverableStatusPill';
+import { getCached, setCached } from '../lib/pageCache';
+
+interface ProjectCache {
+  project: Project;
+  deliverables: Deliverable[];
+}
 
 export default function ProjectDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const [project, setProject] = useState<Project | null>(null);
-  const [deliverables, setDeliverables] = useState<Deliverable[]>([]);
+  const cached = id ? getCached<ProjectCache>(`project-${id}`) : null;
+  const [project, setProject] = useState<Project | null>(cached?.project ?? null);
+  const [deliverables, setDeliverables] = useState<Deliverable[]>(
+    cached?.deliverables ?? [],
+  );
   const [error, setError] = useState<string | null>(null);
   const [adding, setAdding] = useState(false);
   const [editing, setEditing] = useState<Deliverable | null>(null);
@@ -39,8 +48,13 @@ export default function ProjectDetail() {
       setError((prj.error ?? dlv.error)!.message);
       return;
     }
-    setProject(prj.data as Project);
-    setDeliverables(dlv.data as Deliverable[]);
+    const next: ProjectCache = {
+      project: prj.data as Project,
+      deliverables: dlv.data as Deliverable[],
+    };
+    setCached(`project-${id}`, next);
+    setProject(next.project);
+    setDeliverables(next.deliverables);
   }, [id]);
 
   useEffect(() => {

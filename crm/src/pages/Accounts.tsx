@@ -10,9 +10,12 @@ import StagePill from '../components/StagePill';
 import PointLoader from '../components/PointLoader';
 import AddLeadModal from '../components/AddLeadModal';
 import EmptyState from '../components/EmptyState';
+import { getCached, setCached } from '../lib/pageCache';
 
 export default function Accounts() {
-  const [accounts, setAccounts] = useState<Account[] | null>(null);
+  const [accounts, setAccounts] = useState<Account[] | null>(() =>
+    getCached<Account[]>('accounts'),
+  );
   const [error, setError] = useState<string | null>(null);
   const [query, setQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<AccountStatus | 'all'>('all');
@@ -24,7 +27,10 @@ export default function Accounts() {
       .select('*')
       .order('updated_at', { ascending: false });
     if (err) setError(err.message);
-    else setAccounts(data as Account[]);
+    else {
+      setCached('accounts', data as Account[]);
+      setAccounts(data as Account[]);
+    }
   }, []);
 
   useEffect(() => {

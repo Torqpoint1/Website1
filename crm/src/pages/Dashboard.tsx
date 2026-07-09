@@ -16,6 +16,7 @@ import EmptyState from '../components/EmptyState';
 import StagePill from '../components/StagePill';
 import AIPanel from '../components/AIPanel';
 import { buildWeekContext } from '../lib/ai';
+import { getCached, setCached } from '../lib/pageCache';
 
 interface DashboardData {
   mrr: number;
@@ -27,7 +28,9 @@ interface DashboardData {
 }
 
 export default function Dashboard() {
-  const [data, setData] = useState<DashboardData | null>(null);
+  const [data, setData] = useState<DashboardData | null>(() =>
+    getCached<DashboardData>('dashboard'),
+  );
   const [error, setError] = useState<string | null>(null);
   const [showAddLead, setShowAddLead] = useState(false);
   const [showBriefing, setShowBriefing] = useState(false);
@@ -70,7 +73,7 @@ export default function Dashboard() {
         tasks.error ??
         invoices.error;
       if (firstError) throw firstError;
-      setData({
+      const next: DashboardData = {
         mrr: (retainers.data ?? []).reduce(
           (sum, r) => sum + Number(r.monthly_amount ?? 0),
           0,
@@ -83,7 +86,9 @@ export default function Dashboard() {
         // Events table may not be switched on yet — that's fine.
         todayEvents: events.error ? [] : ((events.data ?? []) as WorkEvent[]),
         unpaidInvoices: (invoices.data ?? []) as Invoice[],
-      });
+      };
+      setCached('dashboard', next);
+      setData(next);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not load the dashboard.');
     }
