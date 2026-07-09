@@ -161,7 +161,7 @@ export default function DeliverableModal({
             className="field min-h-36 leading-relaxed"
             value={body}
             onChange={(e) => setBody(e.target.value)}
-            placeholder="The work itself — drafts live here. AI drafting arrives with the AI layer."
+            placeholder="The work itself — drafts live here. Or tap Draft with Claude above."
           />
         </label>
 

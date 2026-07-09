@@ -7,6 +7,7 @@ import {
   type Activity,
   type Deal,
   type FollowUpTask,
+  type Invoice,
   type WorkEvent,
 } from '../lib/types';
 import PointLoader from '../components/PointLoader';
@@ -22,6 +23,7 @@ interface DashboardData {
   activities: Activity[];
   tasks: FollowUpTask[];
   todayEvents: WorkEvent[];
+  unpaidInvoices: Invoice[];
 }
 
 export default function Dashboard() {
@@ -32,7 +34,7 @@ export default function Dashboard() {
 
   const load = useCallback(async () => {
     try {
-      const [retainers, deals, activities, tasks, events] = await Promise.all([
+      const [retainers, deals, activities, tasks, events, invoices] = await Promise.all([
         db().from('retainers').select('monthly_amount').eq('status', 'active'),
         db()
           .from('deals')
@@ -55,9 +57,18 @@ export default function Dashboard() {
           .select('*')
           .eq('event_date', new Date().toISOString().slice(0, 10))
           .order('start_time', { ascending: true, nullsFirst: false }),
+        db()
+          .from('invoices')
+          .select('*, account:accounts(name)')
+          .in('status', ['sent', 'overdue'])
+          .order('due_date', { ascending: true, nullsFirst: false }),
       ]);
       const firstError =
-        retainers.error ?? deals.error ?? activities.error ?? tasks.error;
+        retainers.error ??
+        deals.error ??
+        activities.error ??
+        tasks.error ??
+        invoices.error;
       if (firstError) throw firstError;
       setData({
         mrr: (retainers.data ?? []).reduce(
@@ -71,6 +82,7 @@ export default function Dashboard() {
         ),
         // Events table may not be switched on yet — that's fine.
         todayEvents: events.error ? [] : ((events.data ?? []) as WorkEvent[]),
+        unpaidInvoices: (invoices.data ?? []) as Invoice[],
       });
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not load the dashboard.');
@@ -280,16 +292,59 @@ export default function Dashboard() {
         </section>
       </div>
 
-      {/* Money owed — Layer 3 placeholder */}
+      {/* Money owed — invoices sent but not yet paid */}
       <section className="pt-10">
-        <div className="flex items-center gap-2.5 pb-4">
-          <span className="point" aria-hidden />
-          <h2 className="label-caps text-slate">Money owed</h2>
+        <div className="flex items-center justify-between pb-4">
+          <div className="flex items-center gap-2.5">
+            <span className="point" aria-hidden />
+            <h2 className="label-caps text-slate">Money owed</h2>
+          </div>
+          {data.unpaidInvoices.length > 0 && (
+            <span className="font-editorial text-xl text-graphite">
+              {money(
+                data.unpaidInvoices.reduce((sum, i) => sum + Number(i.total ?? 0), 0),
+              )}
+            </span>
+          )}
         </div>
-        <EmptyState
-          title="Coming with invoices."
-          hint="Unpaid and overdue invoices appear here once the money layer (Layer 3) is built."
-        />
+        {data.unpaidInvoices.length === 0 ? (
+          <EmptyState
+            title="Nothing outstanding."
+            hint="Invoices you've sent but haven't been paid yet will appear here."
+          />
+        ) : (
+          <ul className="card divide-y divide-line">
+            {data.unpaidInvoices.map((inv) => (
+              <li key={inv.id}>
+                <Link
+                  to={`/money/invoices/${inv.id}`}
+                  className="flex items-center justify-between gap-3 px-4 py-3"
+                >
+                  <div className="min-w-0">
+                    <p className="truncate text-sm font-semibold text-graphite">
+                      {inv.account?.name ?? '—'}
+                      <span className="pl-2 font-normal text-slate">{inv.number}</span>
+                    </p>
+                    <p
+                      className={`pt-0.5 text-xs ${
+                        inv.status === 'overdue' ? 'font-semibold text-forge' : 'text-slate'
+                      }`}
+                    >
+                      {inv.status === 'overdue'
+                        ? `Overdue${inv.due_date ? ` — was due ${shortDate(inv.due_date)}` : ''}`
+                        : inv.due_date
+                          ? `Due ${shortDate(inv.due_date)}`
+                          : 'Sent, awaiting payment'}
+                    </p>
+                  </div>
+                  <span className="shrink-0 font-editorial text-lg text-graphite">
+                    {money(inv.total)}
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        )}
       </section>
 
       {showAddLead && (
