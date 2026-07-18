@@ -30,11 +30,13 @@ function ProseSection({
         <ScrollReveal>
           <div className={styles.block}>
             <h2 className={styles.sectionHeading}>{title}</h2>
-            {paragraphs.map((p, i) => (
-              <p key={i} className={styles.prose}>
-                {withEmphasis(p)}
-              </p>
-            ))}
+            <div className={styles.proseCol}>
+              {paragraphs.map((p, i) => (
+                <p key={i} className={styles.prose}>
+                  {withEmphasis(p)}
+                </p>
+              ))}
+            </div>
           </div>
         </ScrollReveal>
       </div>

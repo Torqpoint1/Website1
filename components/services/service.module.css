@@ -46,6 +46,7 @@
 /* ── Generic prose sections ─────────────────────────────── */
 .section {
   border-bottom: 1px solid var(--surface-2);
+  padding-block: clamp(48px, 6vw, 80px);
 }
 
 .block { max-width: 70ch; }
@@ -67,6 +68,20 @@
 }
 .prose + .prose { margin-top: 20px; }
 .prose em { font-style: italic; color: var(--ink); }
+
+/* On desktop, set the section label beside the prose (label left, text
+   right) so the short blocks fill the width instead of sitting flush-left
+   with an empty half. */
+@media (min-width: 900px) {
+  .block {
+    display: grid;
+    grid-template-columns: minmax(170px, 220px) minmax(0, 680px);
+    gap: clamp(40px, 5vw, 88px);
+    align-items: start;
+    max-width: 1000px;
+  }
+  .block .sectionHeading { margin-bottom: 0; padding-top: 4px; }
+}
 
 /* ── What you get checklist ─────────────────────────────── */
 .checklist {

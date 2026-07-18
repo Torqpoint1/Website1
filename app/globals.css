@@ -260,7 +260,7 @@ ul, ol { list-style: none; }
 
 /* ── CTA Bands ──────────────────────────────────────────── */
 .cta-band {
-  padding-block: clamp(64px, 9vw, 112px);
+  padding-block: clamp(64px, 7vw, 88px);
 }
 .cta-band--forge {
   background: var(--forge);
