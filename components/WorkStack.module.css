@@ -4,7 +4,9 @@
   overflow-x: clip;
 }
 
-.head { margin-bottom: clamp(32px, 4vw, 48px); }
+/* Match the centred stage/controls width so the heading lines up with the
+   card's left edge instead of sitting flush-left while the card is centred. */
+.head { margin-bottom: clamp(32px, 4vw, 48px); max-width: 880px; margin-inline: auto; }
 .title {
   font-family: var(--font-serif);
   font-weight: 500;
