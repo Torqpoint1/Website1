@@ -36,9 +36,12 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPost('work', params.slug);
   if (!post) return {};
+  const url = `/work/${params.slug}/`;
   return {
     title: `${post.title} — Concept project`,
     description: post.summary ?? post.excerpt,
+    alternates: { canonical: url },
+    openGraph: { url },
   };
 }
 
@@ -87,7 +90,11 @@ export default async function WorkPage({ params }: Props) {
       <div className="container">
         <div className={styles.cover}>
           {post.coverImage ? (
-            <img src={post.coverImage} alt="" className={styles.coverImg} />
+            <img
+              src={post.coverImage}
+              alt={[post.client, post.sector, post.location].filter(Boolean).join(' — ')}
+              className={styles.coverImg}
+            />
           ) : (
             <WorkPlaceholder label={post.client} />
           )}
@@ -105,7 +112,12 @@ export default async function WorkPage({ params }: Props) {
               {post.gallery.map((g, i) => (
                 <div key={i} className={styles.galleryItem}>
                   {post.galleryImages?.includes(g) ? (
-                    <img src={g} alt="" className={styles.galleryImg} loading="lazy" />
+                    <img
+                      src={g}
+                      alt={`${post.client ?? 'Project'} — project photo`}
+                      className={styles.galleryImg}
+                      loading="lazy"
+                    />
                   ) : (
                     <WorkPlaceholder />
                   )}

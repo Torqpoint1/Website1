@@ -22,7 +22,7 @@ export function AssetPhoto({
 }) {
   const src = `/work/${slug}/${name}.jpg`;
   if (assetHas(post, name)) {
-    return <img src={src} alt="" className={className} loading="lazy" />;
+    return <img src={src} alt={label} className={className} loading="lazy" />;
   }
   return (
     <div className={className}>

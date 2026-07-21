@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Services',
   description:
     'No rigid packages. We build a quote around what you actually need — social posts, case studies, email newsletters, blog articles and more.',
+  alternates: { canonical: '/services/' },
 };
 
 const serviceList = [

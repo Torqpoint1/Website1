@@ -9,6 +9,7 @@ export const metadata: Metadata = {
   title: 'Work',
   description:
     'Concept projects — sample work showing what we\'d create for a business like yours. Not real client case studies.',
+  alternates: { canonical: '/work/' },
 };
 
 export default function WorkPage() {
@@ -62,7 +63,12 @@ export default function WorkPage() {
                   <div className={styles.cardCover}>
                     {post.concept && <span className={styles.conceptBadge}>Concept</span>}
                     {post.coverImage ? (
-                      <img src={post.coverImage} alt="" className={styles.cardCoverImg} loading="lazy" />
+                      <img
+                        src={post.coverImage}
+                        alt={[post.client, post.sector].filter(Boolean).join(' — ')}
+                        className={styles.cardCoverImg}
+                        loading="lazy"
+                      />
                     ) : (
                       <WorkPlaceholder label={post.client ?? post.title} />
                     )}

@@ -6,6 +6,7 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Contact',
   description: 'Tell us about your work. A few lines is plenty to get started.',
+  alternates: { canonical: '/contact/' },
 };
 
 export default function ContactPage() {

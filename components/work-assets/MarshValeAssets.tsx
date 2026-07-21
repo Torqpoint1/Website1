@@ -12,7 +12,7 @@ const SLUG = 'marsh-vale-bathrooms';
 
 function Photo({ name, label, has, className }: { name: string; label: string; has: boolean; className?: string }) {
   const src = `/work/${SLUG}/${name}.jpg`;
-  if (has) return <img src={src} alt="" className={className} loading="lazy" />;
+  if (has) return <img src={src} alt={label} className={className} loading="lazy" />;
   return (
     <div className={`${styles.slot} ${className ?? ''}`}>
       <WorkPlaceholder label={label} />

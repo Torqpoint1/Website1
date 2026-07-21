@@ -176,47 +176,6 @@ const faqs = [
 
 /* ── Structured data ────────────────────────────────────── */
 
-const professionalService = {
-  '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
-  '@id': 'https://torqpoint.com/#organization',
-  name: 'Torqpoint',
-  url: 'https://torqpoint.com/',
-  description: DESCRIPTION,
-  email: 'info@torqpoint.com',
-  priceRange: '££',
-  image: 'https://torqpoint.com/icon.png',
-  logo: 'https://torqpoint.com/icon.png',
-  areaServed: [
-    { '@type': 'AdministrativeArea', name: 'Gloucestershire' },
-    { '@type': 'Place', name: 'The Cotswolds' },
-    { '@type': 'City', name: 'Gloucester' },
-    { '@type': 'City', name: 'Cheltenham' },
-    { '@type': 'City', name: 'Cirencester' },
-    { '@type': 'City', name: 'Stroud' },
-    { '@type': 'City', name: 'Tewkesbury' },
-  ],
-  address: {
-    '@type': 'PostalAddress',
-    addressRegion: 'Gloucestershire',
-    addressCountry: 'GB',
-  },
-  sameAs: ['https://www.instagram.com/torqpoint.co/'],
-  knowsAbout: [
-    'Content marketing',
-    'Social media management',
-    'Content creation for small businesses',
-    'Marketing for trades and makers',
-  ],
-  makesOffer: [
-    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Social media content and management' } },
-    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Blog and journal articles' } },
-    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Email newsletters' } },
-    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Google Business Profile posts' } },
-    { '@type': 'Offer', itemOffered: { '@type': 'Service', name: 'Website design and build' } },
-  ],
-};
-
 const breadcrumbList = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -251,10 +210,6 @@ export default function MarketingAgencyGloucestershirePage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(professionalService) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbList) }}

@@ -25,6 +25,7 @@ export const metadata: Metadata = {
   title: 'Torqpoint — Content & Marketing Studio, Gloucestershire',
   description:
     'Torqpoint is a content & marketing studio in Gloucestershire. We turn the work you do into posts, case studies, emails, blogs and websites that win the next job.',
+  alternates: { canonical: '/' },
 };
 
 const services = [

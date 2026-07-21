@@ -7,6 +7,7 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'Journal',
   description: 'Short, plain-spoken pieces on marketing for businesses that want to grow. No hype, no jargon.',
+  alternates: { canonical: '/journal/' },
 };
 
 export default function JournalPage() {

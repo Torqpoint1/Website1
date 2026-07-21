@@ -18,10 +18,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPost('journal', params.slug);
   if (!post) return {};
+  const url = `/journal/${params.slug}/`;
   return {
     title: post.title,
     description: post.description ?? post.excerpt,
     keywords: post.keywords,
+    alternates: { canonical: url },
+    openGraph: { url },
   };
 }
 

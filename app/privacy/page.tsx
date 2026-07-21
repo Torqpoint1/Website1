@@ -7,6 +7,7 @@ export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
     'How Torqpoint collects, uses and protects the information you share through this website.',
+  alternates: { canonical: '/privacy/' },
 };
 
 const LAST_UPDATED = '26 June 2026';

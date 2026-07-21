@@ -6,6 +6,7 @@ import styles from './page.module.css';
 export const metadata: Metadata = {
   title: 'About',
   description: 'Torqpoint is a content & marketing studio based in Gloucestershire. Plain-spoken, substance over hype.',
+  alternates: { canonical: '/about/' },
 };
 
 const values = [
