@@ -13,7 +13,9 @@ export function Footer() {
             <Logo size="lg" dark />
             <p className={styles.tagline}>
               Content that makes your work look as good as it is.{' '}
-              <span className={styles.location}>Gloucestershire.</span>
+              <Link href="/marketing-agency-gloucestershire" className={styles.location}>
+                Gloucestershire.
+              </Link>
             </p>
           </div>
 

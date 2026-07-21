@@ -113,6 +113,13 @@ export default async function WorkPage({ params }: Props) {
               ))}
             </div>
           )}
+
+          <p className={styles.landingNote}>
+            Want this for your business? See what we do for{' '}
+            <Link href="/marketing-agency-gloucestershire" className={styles.landingLink}>
+              Cotswold trades and makers
+            </Link>.
+          </p>
         </div>
       </article>
 

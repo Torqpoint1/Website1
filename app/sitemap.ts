@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Static pages
   const staticPages = [
     { path: '/', priority: 1.0 },
+    { path: '/marketing-agency-gloucestershire/', priority: 0.9 },
     { path: '/services/', priority: 0.9 },
     { path: '/work/', priority: 0.8 },
     { path: '/journal/', priority: 0.7 },

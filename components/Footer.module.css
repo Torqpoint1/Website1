@@ -25,7 +25,8 @@
   line-height: 1.65;
   max-width: 32ch;
 }
-.location { color: var(--dark-heading); font-weight: 600; }
+.location { color: var(--dark-heading); font-weight: 600; transition: color var(--t-fast); }
+.location:hover { color: var(--dark-eyebrow); }
 
 .columns {
   display: grid;

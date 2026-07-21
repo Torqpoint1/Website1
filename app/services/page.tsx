@@ -98,7 +98,11 @@ export default function ServicesPage() {
           <ScrollReveal>
             <h2 id="menu-heading" className={styles.menuHeading}>What we can do for you</h2>
             <p className={styles.menuHint}>
-              Click any service to see how it works, what you get and the proof behind it.
+              Click any service to see how it works, what you get and the proof behind it —
+              or see how it all comes together for{' '}
+              <Link href="/marketing-agency-gloucestershire" className={styles.menuHintLink}>
+                Gloucestershire businesses
+              </Link>.
             </p>
           </ScrollReveal>
           <ScrollReveal className={styles.serviceMenu} stagger>
