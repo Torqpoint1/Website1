@@ -1,0 +1,111 @@
+.section {
+  padding-block: clamp(8px, 2vw, 24px);
+}
+
+.panel {
+  display: grid;
+  gap: clamp(36px, 5vw, 64px);
+  padding: clamp(28px, 5vw, 64px);
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  border-radius: var(--r-xl);
+  position: relative;
+  overflow: hidden;
+}
+/* A single forge rule down the left edge, the brand's "point" stretched */
+.panel::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: clamp(28px, 5vw, 64px);
+  width: 4px;
+  height: 64px;
+  background: var(--forge);
+}
+@media (min-width: 900px) {
+  .panel {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    align-items: center;
+  }
+}
+
+.heading {
+  margin-top: 18px;
+  font-size: clamp(32px, 4.2vw, 52px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+.heading em {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  font-style: italic;
+  color: var(--forge-text);
+}
+
+.lead {
+  margin-top: 18px;
+  font-size: clamp(16px, 1.6vw, 18px);
+  line-height: 1.65;
+  color: var(--slate);
+  max-width: 52ch;
+}
+
+.trades {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.trade {
+  font-size: 13.5px;
+  font-weight: 600;
+  padding: 8px 14px;
+  border-radius: 999px;
+  border: 1.5px solid var(--surface-2);
+  background: var(--paper);
+  transition: border-color var(--t), transform var(--t), background var(--t);
+}
+.trade:hover {
+  border-color: var(--forge);
+  background: var(--surface);
+  transform: translateY(-2px);
+}
+
+.signals {
+  display: grid;
+  gap: 12px;
+}
+.signal {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px;
+  background: var(--paper);
+  border-radius: var(--r-lg);
+}
+.signalBig {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 2.6vw, 32px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+.signalSmall {
+  font-size: 14px;
+  color: var(--muted);
+  text-align: right;
+}
+
+.notYet {
+  margin-top: 8px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+.notYetLink {
+  color: var(--forge-text);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

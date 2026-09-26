@@ -1,5 +1,7 @@
 ---
-title: "Your Contact Form Is Costing You Leads. Here’s Why."
+title: "Your Contact Form Is Costing You Jobs. Here’s Why."
+audience: "trade"
+relatedService: "website-design-build"
 category: "Conversion"
 date: "2026-06-12"
 excerpt: "You spent money getting visitors to the site. The contact form is where most of them quietly give up."
@@ -23,7 +25,7 @@ Every field you add lowers the number of people who finish. Name, contact, and a
 
 ## Make it work on a phone
 
-Most local enquiries happen on mobile, often in the evening. If your form is fiddly on a small screen, you’re losing your warmest leads at the final step.
+Most homeowners enquire on their phone, often in the evening after the kids are in bed. If your form is fiddly on a small screen, you’re losing your warmest leads at the final step.
 
 ## Give an alternative
 

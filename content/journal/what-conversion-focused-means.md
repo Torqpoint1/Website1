@@ -1,5 +1,7 @@
 ---
 title: "What ‘Conversion-Focused’ Actually Means"
+audience: "general"
+relatedService: "website-design-build"
 category: "Fundamentals"
 date: "2026-04-24"
 excerpt: "It’s the phrase every web designer uses and few explain. Here’s what it really means — and why it changes everything about how a site is built."

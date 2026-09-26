@@ -5,7 +5,10 @@ import { getPost, getAllPosts } from '@/lib/content';
 import { WorkPlaceholder } from '@/components/WorkPlaceholder';
 import { BrandAssets } from '@/components/work-assets/BrandAssets';
 import { marked } from 'marked';
+import { pageMetadata, absoluteUrl, BASE_URL } from '@/lib/seo';
+import { ORGANIZATION_ID } from '@/lib/schema';
 import styles from './page.module.css';
+import { Picture } from '@/components/Picture';
 
 interface Props {
   params: { slug: string };
@@ -22,6 +25,8 @@ const SERVICE_SLUGS: Record<string, string> = {
   'Google Business posts': 'google-business-posts',
   'Profiles & setup': 'profiles-setup',
   'Website design & build': 'website-design-build',
+  'Job Story': 'job-story',
+  Engine: 'engine',
 };
 
 function serviceHref(name: string): string {
@@ -36,13 +41,13 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = getPost('work', params.slug);
   if (!post) return {};
-  const url = `/work/${params.slug}/`;
-  return {
-    title: `${post.title} — Concept project`,
+  return pageMetadata({
+    path: `/work/${params.slug}/`,
+    title: [post.client, post.sector].filter(Boolean).join(' — ') || post.title,
     description: post.summary ?? post.excerpt,
-    alternates: { canonical: url },
-    openGraph: { url },
-  };
+    og: 'work',
+    image: post.coverImage,
+  });
 }
 
 export default async function WorkPage({ params }: Props) {
@@ -51,8 +56,25 @@ export default async function WorkPage({ params }: Props) {
 
   const html = await marked(post.content);
 
+  const images = [post.coverImage, ...(post.galleryImages ?? [])].filter(Boolean) as string[];
+  const caseStudyLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: post.title,
+    description: post.summary ?? post.excerpt,
+    url: absoluteUrl(`/work/${post.slug}/`),
+    creator: { '@id': ORGANIZATION_ID },
+    about: [post.sector, post.location].filter(Boolean).join(', ') || undefined,
+    image: images.map(src => ({
+      '@type': 'ImageObject',
+      contentUrl: `${BASE_URL}${src}`,
+      caption: [post.client, post.sector, post.location].filter(Boolean).join(' — '),
+    })),
+  };
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(caseStudyLd) }} />
       <div className={styles.hero}>
         <div className="container">
           <Link href="/work" className={styles.back}>
@@ -90,10 +112,11 @@ export default async function WorkPage({ params }: Props) {
       <div className="container">
         <div className={styles.cover}>
           {post.coverImage ? (
-            <img
+            <Picture
               src={post.coverImage}
               alt={[post.client, post.sector, post.location].filter(Boolean).join(' — ')}
               className={styles.coverImg}
+              loading="eager"
             />
           ) : (
             <WorkPlaceholder label={post.client} />
@@ -112,7 +135,7 @@ export default async function WorkPage({ params }: Props) {
               {post.gallery.map((g, i) => (
                 <div key={i} className={styles.galleryItem}>
                   {post.galleryImages?.includes(g) ? (
-                    <img
+                    <Picture
                       src={g}
                       alt={`${post.client ?? 'Project'} — project photo`}
                       className={styles.galleryImg}
@@ -127,9 +150,13 @@ export default async function WorkPage({ params }: Props) {
           )}
 
           <p className={styles.landingNote}>
-            Want this for your business? See what we do for{' '}
+            Want your next finished job written up like this? A{' '}
+            <Link href="/services/job-story/" className={styles.landingLink}>
+              Job Story
+            </Link>{' '}
+            is £350, fixed — or see what we do for{' '}
             <Link href="/marketing-agency-gloucestershire" className={styles.landingLink}>
-              Cotswold trades and makers
+              Gloucestershire trades
             </Link>.
           </p>
         </div>

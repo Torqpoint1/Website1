@@ -334,3 +334,53 @@
     margin-inline: auto;
   }
 }
+
+/* Before & after mock — a muddy "before" against a clean, warm "after" */
+.baPair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.baShot {
+  position: relative;
+  height: 112px;
+  border-radius: var(--r);
+  overflow: hidden;
+}
+.baShot span {
+  position: absolute;
+  left: 8px;
+  bottom: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 3px 7px;
+  border-radius: 4px;
+  background: rgba(23, 26, 30, 0.72);
+  color: #fff;
+}
+.baBefore {
+  background:
+    repeating-linear-gradient(90deg, transparent 0 22px, rgba(0, 0, 0, 0.05) 22px 23px),
+    linear-gradient(160deg, #CFC9BC, #B8B1A3);
+}
+.baAfter {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 18px, rgba(255, 255, 255, 0.55) 18px 19px),
+    repeating-linear-gradient(90deg, transparent 0 18px, rgba(255, 255, 255, 0.55) 18px 19px),
+    linear-gradient(160deg, #E9EEF0, #CFD9DD);
+}
+.baAfter::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(90px 60px at 70% 25%, rgba(238, 90, 30, 0.16), transparent 70%);
+}
+
+.photoSm {
+  margin-top: 12px;
+  height: 64px;
+  border-radius: var(--r);
+  background: linear-gradient(135deg, #DDE5E8, #C9D3D7);
+}

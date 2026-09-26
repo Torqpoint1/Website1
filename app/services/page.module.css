@@ -282,3 +282,18 @@
 @media (max-width: 640px) {
   .waysGrid { grid-template-columns: 1fr; }
 }
+
+/* ── What you can buy ───────────────────────────────────── */
+.buySection {
+  padding-top: clamp(40px, 5vw, 64px);
+  padding-bottom: clamp(48px, 6vw, 80px);
+}
+.buySection .menuHeading { margin-bottom: 24px; }
+.buySection .menuHint {
+  margin: 24px 0 0;
+  text-align: center;
+}
+
+/* Capabilities read as supporting detail, a step down from the products */
+.serviceMenuCompact .menuItemName { font-size: clamp(17px, 1.7vw, 19px); }
+.serviceMenuCompact .menuItemDesc { font-size: 14.5px; }

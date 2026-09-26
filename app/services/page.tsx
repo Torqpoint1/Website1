@@ -1,72 +1,60 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { ProductCards } from '@/components/offer/ProductCards';
+import { pageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
-  title: 'Services',
+export const metadata: Metadata = pageMetadata({
+  path: '/services/',
+  title: 'Services — Job Story and Engine',
   description:
-    'No rigid packages. We build a quote around what you actually need — social posts, case studies, email newsletters, blog articles and more.',
-  alternates: { canonical: '/services/' },
-};
+    'Two products for Gloucestershire trades: a Job Story (£350) turns one finished job into proof you keep; Engine (from £450/month) does it every month and manages your Google profile.',
+  og: 'services',
+});
 
 const serviceList = [
   {
-    name: 'Social posts',
-    slug: 'social-posts',
-    desc: 'One post or a month\'s worth — written, formatted and scheduled.',
-  },
-  {
     name: 'Case studies',
     slug: 'case-studies',
-    desc: 'Your finished jobs written up to win trust and send to prospects.',
+    desc: 'The job written up — brief, problem, fit, handover — for your site and for prospects.',
   },
   {
-    name: 'Email & newsletters',
-    slug: 'email-newsletters',
-    desc: 'A single send, or a regular newsletter to past customers and leads.',
-  },
-  {
-    name: 'Blog articles',
-    slug: 'blog-articles',
-    desc: 'Written properly, in your voice — and they help you show up on Google.',
+    name: 'Social posts',
+    slug: 'social-posts',
+    desc: 'Four posts from every job, written and formatted for the platform.',
   },
   {
     name: 'Google Business posts',
     slug: 'google-business-posts',
-    desc: 'Keep your local listing active and working for you.',
+    desc: 'Your profile kept active, so you show up where local searches start.',
+  },
+  {
+    name: 'Blog articles',
+    slug: 'blog-articles',
+    desc: 'Answers to what homeowners search before they call — written to rank.',
+  },
+  {
+    name: 'Email & newsletters',
+    slug: 'email-newsletters',
+    desc: 'Staying in front of past customers, so the referral comes to you.',
   },
   {
     name: 'Profiles & setup',
     slug: 'profiles-setup',
-    desc: 'Get your social profiles and listings set up and looking the part.',
+    desc: 'Google profile, socials and directories set up properly, once.',
   },
   {
     name: 'Website design & build',
     slug: 'website-design-build',
-    desc: 'Need a proper online home to go with your content? We oversee high-quality website builds — designed in your brand, built to win enquiries.',
+    desc: 'A fast site built around your finished jobs, so every project page sells the next.',
   },
   {
     name: 'Anything else',
     slug: 'anything-else',
-    desc: 'No content or marketing challenge is off the table. If it grows your business or builds your reputation, we\'ll make it happen.',
+    desc: 'Vans, signage, a review drive, a one-off campaign — if it wins work, ask.',
   },
 ];
-
-const wayFeatures = {
-  oneOff: [
-    'Pick any items from the list',
-    'One-time, no commitment',
-    'We quote the job, you approve',
-    'Delivered ready to publish',
-  ],
-  monthly: [
-    'Mix and match',
-    'Scale up or down any month',
-    'Consistent, hands-off, on-brand',
-    'One simple monthly quote',
-  ],
-};
 
 export default function ServicesPage() {
   return (
@@ -80,33 +68,51 @@ export default function ServicesPage() {
               Services
             </p>
             <h1 className={styles.pageTitle}>
-              Take exactly what you need —{' '}
-              <span className={styles.ink}>nothing you don&rsquo;t.</span>
+              Two things to buy.{' '}
+              <span className={styles.ink}>Both priced up front.</span>
             </h1>
             <p className={styles.pageIntro}>
-              Some clients want the works, every month. Others want a single newsletter
-              or three posts before a busy spell. Both are completely fine. There are no
-              rigid packages here — and if your challenge isn&rsquo;t on the list, just
-              ask. There&rsquo;s no content or marketing task we can&rsquo;t facilitate.
+              A Job Story turns one finished job into proof you keep. Engine does it every
+              month and looks after your Google profile and reviews too. Everything
+              further down the page is what goes into them.
             </p>
           </ScrollReveal>
         </div>
       </div>
 
-      {/* ── Service Menu ────────────────────────────────── */}
+      {/* ── What you can buy ────────────────────────────── */}
+      <section className={`section ${styles.buySection}`} aria-labelledby="buy-heading">
+        <div className="container">
+          <ScrollReveal>
+            <h2 id="buy-heading" className={styles.menuHeading}>What you can buy</h2>
+          </ScrollReveal>
+          <ProductCards />
+          <ScrollReveal>
+            <p className={styles.menuHint}>
+              Paying a directory for leads?{' '}
+              <Link href="/pricing/#compare" className={styles.menuHintLink}>
+                See how it compares
+              </Link>
+              .
+            </p>
+          </ScrollReveal>
+        </div>
+      </section>
+
+      {/* ── What goes into it ───────────────────────────── */}
       <section className={`section ${styles.menuSection}`} aria-labelledby="menu-heading">
         <div className="container">
           <ScrollReveal>
-            <h2 id="menu-heading" className={styles.menuHeading}>What we can do for you</h2>
+            <h2 id="menu-heading" className={styles.menuHeading}>What goes into it — and other work</h2>
             <p className={styles.menuHint}>
-              Click any service to see how it works, what you get and the proof behind it —
-              or see how it all comes together for{' '}
+              The pieces behind every Job Story, and the bigger jobs we take on alongside.
+              Click any one to see how it works — or see how it all comes together for{' '}
               <Link href="/marketing-agency-gloucestershire" className={styles.menuHintLink}>
-                Gloucestershire businesses
+                Gloucestershire trades
               </Link>.
             </p>
           </ScrollReveal>
-          <ScrollReveal className={styles.serviceMenu} stagger>
+          <ScrollReveal className={`${styles.serviceMenu} ${styles.serviceMenuCompact}`} stagger staggerStep={0.06}>
             {serviceList.map(({ name, slug, desc }) => (
               <Link key={name} href={`/services/${slug}`} className={styles.menuItem}>
                 <div className={styles.menuItemInner}>
@@ -130,69 +136,10 @@ export default function ServicesPage() {
 
           <ScrollReveal>
             <p className={styles.supportNote}>
-              <strong>Need professional photography or video?</strong> If getting the
-              most from your content requires a proper shoot, we can source and arrange
-              it through our network — just mention it when you get in touch.
+              <strong>Need professional photography or video?</strong> If a job really
+              deserves a proper shoot, we can source and arrange it through our network —
+              just mention it when you get in touch.
             </p>
-          </ScrollReveal>
-        </div>
-      </section>
-
-      {/* ── Two Ways to Work ────────────────────────────── */}
-      <section className={`section ${styles.waysSection}`} aria-labelledby="ways-heading">
-        <div className="container">
-          <ScrollReveal className="section-header" stagger>
-            <p className="eyebrow">
-              <span className="point point--sm" aria-hidden="true" />
-              How we work
-            </p>
-            <h2 id="ways-heading">
-              Two ways to work —{' '}
-              <span className={styles.forge}>both built around you.</span>
-            </h2>
-          </ScrollReveal>
-
-          <ScrollReveal className={styles.waysGrid} stagger>
-            {/* One-off */}
-            <article className={`card ${styles.wayCard}`}>
-              <p className={styles.wayLabel}>One-off</p>
-              <p className={styles.waySubLabel}>A single job</p>
-              <h3 className={styles.wayTitle}>
-                Need just one thing? A newsletter, a handful of posts, one case study written up.
-              </h3>
-              <ul className={styles.wayFeatures} aria-label="One-off features">
-                {wayFeatures.oneOff.map(f => (
-                  <li key={f}>
-                    <span className="point point--sm" aria-hidden="true" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/contact" className={`btn btn-ghost ${styles.wayBtn}`}>
-                Get a quote
-              </Link>
-            </article>
-
-            {/* Monthly — featured */}
-            <article className={`card ${styles.wayCard} ${styles.wayCardFeatured}`} aria-label="Monthly ongoing — recommended">
-              <div className={styles.featuredBadge}>Most popular</div>
-              <p className={styles.wayLabel} style={{ color: 'var(--dark-eyebrow)' }}>Monthly · ongoing</p>
-              <p className={styles.waySubLabel} style={{ color: 'var(--dark-body)' }}>A rolling engine</p>
-              <h3 className={styles.wayTitle} style={{ color: 'var(--dark-heading)' }}>
-                Want it handled every month? We build a package from the list and run it for you.
-              </h3>
-              <ul className={styles.wayFeatures} style={{ color: 'var(--dark-body)' }} aria-label="Monthly features">
-                {wayFeatures.monthly.map(f => (
-                  <li key={f}>
-                    <span className="point point--sm" style={{ background: 'var(--dark-eyebrow)' }} aria-hidden="true" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <Link href="/contact" className={`btn btn-primary ${styles.wayBtn}`}>
-                Book a call
-              </Link>
-            </article>
           </ScrollReveal>
         </div>
       </section>
@@ -202,10 +149,10 @@ export default function ServicesPage() {
         <div className="container">
           <div className="cta-band__inner">
             <p className="cta-band__statement">
-              Tell us what you need — we&rsquo;ll build a quote around it.
+              Not sure which? Fifteen minutes on the phone will tell you.
             </p>
             <Link href="/contact" className="btn btn-ghost-light">
-              Start a project
+              Book a call
             </Link>
           </div>
         </div>

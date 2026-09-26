@@ -63,3 +63,62 @@
   max-width: 56ch;
   line-height: 1.65;
 }
+
+/* ── End-of-article CTA ─────────────────────────────────── */
+.relatedCta {
+  position: relative;
+  overflow: hidden;
+  display: grid;
+  gap: 24px;
+  max-width: 70ch;
+  margin-top: clamp(48px, 6vw, 72px);
+  padding: clamp(24px, 3.5vw, 36px);
+  border-radius: var(--r-xl);
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  box-shadow: 0 20px 40px rgba(23, 26, 30, 0.05);
+}
+.relatedCta::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 4px;
+  background: var(--forge);
+}
+.relatedEyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-text);
+}
+.relatedTitle {
+  margin-top: 10px;
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+}
+.relatedDesc {
+  margin-top: 8px;
+  font-size: 15.5px;
+  line-height: 1.6;
+  color: var(--slate);
+}
+.relatedActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+.relatedLink {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.relatedLink span { display: inline-block; transition: transform var(--t); }
+.relatedLink:hover { color: var(--forge-text); }
+.relatedLink:hover span { transform: translateX(4px); }

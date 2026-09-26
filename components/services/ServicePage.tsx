@@ -9,9 +9,12 @@ import {
 } from '@/lib/services';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { WorkPlaceholder } from '@/components/WorkPlaceholder';
+import { Testimonials } from '@/components/Testimonials';
+import { productOffer, ORGANIZATION_ID } from '@/lib/schema';
 import { FaqAccordion } from './Faq';
 import { withEmphasis } from './emphasis';
 import styles from './service.module.css';
+import { Picture } from '@/components/Picture';
 
 /* ── Section primitives ─────────────────────────────────── */
 
@@ -117,7 +120,7 @@ function ProofGrid({ proof, single }: { proof: ProofCard[]; single?: boolean }) 
               <div className={styles.proofCover}>
                 <span className={styles.proofBadge}>Concept</span>
                 {card.coverImage ? (
-                  <img
+                  <Picture
                     src={card.coverImage}
                     alt={`${card.fallback} — sample work`}
                     className={styles.proofCoverImg}
@@ -217,11 +220,34 @@ function JsonLd({ service }: { service: ServiceData }) {
         }
       : null;
 
+  const serviceLd = (() => {
+    const base = {
+      '@type': 'Service',
+      name: service.name,
+      description: service.metaDescription,
+      provider: { '@id': ORGANIZATION_ID },
+      areaServed: { '@type': 'AdministrativeArea', name: 'Gloucestershire' },
+    };
+    if (!service.price) return { '@context': 'https://schema.org', ...base, url };
+    const { itemOffered: _item, ...offer } = productOffer({
+      name: service.name,
+      slug: service.slug,
+      description: service.metaDescription,
+      price: service.price.value,
+      unit: service.price.unit === 'a month' ? 'month' : 'job',
+    });
+    return { '@context': 'https://schema.org', ...base, url, offers: offer };
+  })();
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumb) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceLd) }}
       />
       {faqLd && (
         <script
@@ -245,31 +271,72 @@ export function ServicePage({ slug }: { slug: string }) {
       <JsonLd service={service} />
 
       {/* Breadcrumb + hero */}
-      <div className={styles.hero}>
+      <div className={`${styles.hero} ${service.price ? styles.heroProduct : ''}`}>
         <div className="container">
           <Link href="/services" className={styles.back}>
             <span aria-hidden="true">←</span> Back to services
           </Link>
-          <ScrollReveal stagger>
-            <p className={`eyebrow ${styles.heroEyebrow}`}>
-              <span className="point point--sm" aria-hidden="true" />
-              {service.eyebrow}
-            </p>
-            <h1 className={styles.h1}>{withEmphasis(service.h1)}</h1>
-            <p className={styles.standfirst}>{withEmphasis(service.standfirst)}</p>
-            <div className={styles.heroCtas}>
-              <Link href={service.primaryCta.href} className="btn btn-primary">
-                {service.primaryCta.label}
-              </Link>
-              {service.secondaryCta && (
-                <a href={service.secondaryCta.href} className="btn btn-ghost">
-                  {service.secondaryCta.label}
-                </a>
-              )}
-            </div>
-          </ScrollReveal>
+          <div className={service.price ? styles.heroGrid : undefined}>
+            <ScrollReveal stagger>
+              <p className={`eyebrow ${styles.heroEyebrow}`}>
+                <span className="point point--sm" aria-hidden="true" />
+                {service.eyebrow}
+              </p>
+              <h1 className={styles.h1}>{withEmphasis(service.h1)}</h1>
+              <p className={styles.standfirst}>{withEmphasis(service.standfirst)}</p>
+              <div className={styles.heroCtas}>
+                <Link href={service.primaryCta.href} className="btn btn-primary">
+                  {service.primaryCta.label}
+                </Link>
+                {service.secondaryCta && (
+                  <a href={service.secondaryCta.href} className="btn btn-ghost">
+                    {service.secondaryCta.label}
+                  </a>
+                )}
+              </div>
+            </ScrollReveal>
+
+            {service.price && (
+              <ScrollReveal delay={0.25} direction="right">
+                <aside className={styles.priceCard} aria-label={`${service.name} price`}>
+                  <p className={styles.priceKind}>{service.price.unit === 'a month' ? 'Monthly' : 'One-off'}</p>
+                  <p className={styles.priceLine}>
+                    <span className={styles.priceAmount}>{service.price.amount}</span>
+                    <span className={styles.priceUnit}>{service.price.unit}</span>
+                  </p>
+                  <p className={styles.priceQualifier}>{service.price.qualifier}</p>
+                  {service.price.founderRate && (
+                    <p className={styles.priceFounder}>
+                      <span className="point point--sm" aria-hidden="true" />
+                      {service.price.founderRate}
+                    </p>
+                  )}
+                  <Link href="/pricing/#compare" className={styles.priceCompare}>
+                    Compare with directory sites <span aria-hidden="true">→</span>
+                  </Link>
+                </aside>
+              </ScrollReveal>
+            )}
+          </div>
         </div>
       </div>
+
+      {/* Capabilities point back to the two things people actually buy */}
+      {!service.isProduct && (
+        <div className={styles.partOf}>
+          <div className="container">
+            <p className={styles.partOfText}>
+              <span className="point point--sm" aria-hidden="true" />
+              Comes as part of a{' '}
+              <Link href="/services/job-story/">Job Story</Link> (£350) or{' '}
+              <Link href="/services/engine/">Engine</Link> (from £450 a month).
+              <Link href="/pricing/" className={styles.partOfLink}>
+                See pricing <span aria-hidden="true">→</span>
+              </Link>
+            </p>
+          </div>
+        </div>
+      )}
 
       {/* The short version */}
       <ProseSection title="The short version" paragraphs={[service.shortVersion]} />
@@ -349,6 +416,8 @@ export function ServicePage({ slug }: { slug: string }) {
         </section>
       )}
 
+      {service.isProduct && <Testimonials />}
+
       {/* Pairs well with */}
       <PairsWith slugs={service.pairsWith} />
 
@@ -357,11 +426,18 @@ export function ServicePage({ slug }: { slug: string }) {
         <div className="container">
           <div className="cta-band__inner">
             <p className="cta-band__statement">
-              Let’s make your work look as good as it is.
+              Stop renting your leads. Start owning your proof.
             </p>
-            <Link href="/contact" className="btn btn-ghost-light">
-              Book a call
-            </Link>
+            <div className={styles.ctaPair}>
+              <Link href="/contact/" className="btn btn-ghost-light">
+                Book a call
+              </Link>
+              {!service.isProduct && (
+                <Link href="/pricing/" className={`btn ${styles.ctaSolidLight}`}>
+                  See what it costs
+                </Link>
+              )}
+            </div>
           </div>
         </div>
       </section>

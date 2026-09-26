@@ -1,5 +1,7 @@
 ---
 title: "DIY Website vs Professional Build: An Honest Comparison"
+audience: "general"
+relatedService: "website-design-build"
 category: "Decisions"
 date: "2026-05-22"
 excerpt: "A website builder can get you online for the price of a coffee a week. Whether it gets you clients is a different question."

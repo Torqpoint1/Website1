@@ -102,3 +102,126 @@
     grid-template-columns: 1fr;
   }
 }
+
+.srOnly {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ── Founder ───────────────────────────────────────────── */
+.founderGrid {
+  display: grid;
+  gap: clamp(36px, 6vw, 88px);
+  align-items: center;
+}
+@media (min-width: 860px) {
+  .founderGrid { grid-template-columns: minmax(260px, 0.8fr) minmax(0, 1.2fr); }
+}
+
+.portrait {
+  margin: 0;
+  position: relative;
+  max-width: 420px;
+}
+.portraitImg,
+.portraitFallback {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-xl);
+  object-fit: cover;
+}
+.portraitFallback {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 78% 18%, rgba(238, 90, 30, 0.42), transparent 55%),
+    repeating-linear-gradient(135deg, transparent 0 22px, rgba(246, 245, 241, 0.035) 22px 23px),
+    var(--ink);
+}
+.monogram {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(96px, 12vw, 148px);
+  letter-spacing: -0.04em;
+  color: var(--paper);
+  line-height: 1;
+}
+.monogram::after {
+  content: '';
+  display: inline-block;
+  width: 0.13em;
+  height: 0.13em;
+  margin-left: 0.04em;
+  background: var(--forge);
+}
+.portraitCaption {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 16px;
+  border-radius: var(--r-lg);
+  background: rgba(246, 245, 241, 0.94);
+  backdrop-filter: blur(6px);
+  font-size: 13px;
+  color: var(--slate);
+}
+.portraitCaption strong { font-size: 15px; color: var(--ink); }
+
+.leadPara {
+  font-family: var(--font-serif);
+  font-size: clamp(21px, 2.4vw, 27px) !important;
+  line-height: 1.45 !important;
+  color: var(--ink) !important;
+}
+
+.credentials {
+  display: grid;
+  gap: 12px;
+  margin-top: clamp(48px, 6vw, 80px);
+}
+@media (min-width: 760px) {
+  .credentials { grid-template-columns: repeat(3, 1fr); gap: 16px; }
+}
+.credential {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 22px 24px;
+  border-top: 3px solid var(--forge);
+  background: var(--surface);
+  border-radius: 0 0 var(--r-lg) var(--r-lg);
+}
+.credentialBig {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 2.6vw, 32px);
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+.credentialSmall { font-size: 14.5px; color: var(--muted); }
+
+/* ── How we work ───────────────────────────────────────── */
+.valuesSection { border-top: 1px solid var(--surface-2); }
+.valuesGrid {
+  display: grid;
+  gap: 20px;
+}
+@media (min-width: 860px) {
+  .valuesGrid { grid-template-columns: repeat(3, 1fr); }
+}
+.valueCard { display: flex; flex-direction: column; gap: 14px; }
+.valueCard .valueName { font-size: 19px; margin-bottom: 0; }
+.valueCard .valueDesc { font-size: 15px; }
+
+.ctaPair { display: flex; flex-wrap: wrap; gap: 12px; }
+.ctaSolid { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.ctaSolid:hover { transform: translateY(-2px); background: #fff; }

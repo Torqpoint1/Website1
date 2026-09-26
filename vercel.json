@@ -1,4 +1,8 @@
 {
   "outputDirectory": "out",
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    { "source": "/blank", "destination": "/privacy/", "permanent": true },
+    { "source": "/blank-1", "destination": "/", "permanent": true }
+  ]
 }

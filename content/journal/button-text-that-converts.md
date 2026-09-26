@@ -1,5 +1,7 @@
 ---
 title: "From ‘Submit’ to ‘Get My Quote’: Why Your Button Text Matters"
+audience: "general"
+relatedService: "website-design-build"
 category: "Conversion"
 date: "2026-07-08"
 excerpt: "It’s two words on a button. It also might be the difference between a click and a shrug. Small words, real money."

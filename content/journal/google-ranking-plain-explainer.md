@@ -1,5 +1,7 @@
 ---
 title: "Your Google Ranking Isn’t Magic: A Plain Explainer"
+audience: "general"
+relatedService: "blog-articles"
 category: "SEO"
 date: "2026-07-07"
 excerpt: "SEO gets talked about like a dark art. It isn’t. Once you understand what Google’s actually trying to do, most of it makes plain sense."

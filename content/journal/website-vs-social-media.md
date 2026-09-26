@@ -1,5 +1,7 @@
 ---
 title: "Do You Need a Website if You’ve Got Social Media?"
+audience: "general"
+relatedService: "website-design-build"
 category: "Fundamentals"
 date: "2026-06-27"
 excerpt: "If your Instagram is busy and the enquiries are coming, it’s a fair question. Here’s the honest answer."

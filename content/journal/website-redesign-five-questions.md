@@ -1,5 +1,7 @@
 ---
 title: "Before You Redesign Your Website, Answer These Five Questions"
+audience: "general"
+relatedService: "website-design-build"
 category: "Strategy"
 date: "2026-06-26"
 excerpt: "A redesign that starts with “make it look better” usually ends with a prettier site that still doesn’t bring in work. Start here instead."

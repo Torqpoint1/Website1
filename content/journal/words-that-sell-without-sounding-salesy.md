@@ -1,5 +1,7 @@
 ---
 title: "Words That Sell Without Sounding Salesy"
+audience: "general"
+relatedService: "case-studies"
 category: "Copy"
 date: "2026-05-01"
 excerpt: "You don’t need to shout, exaggerate, or stack exclamation marks. You need to be clear, specific, and easy to trust."

@@ -29,28 +29,29 @@ export function Hero() {
           <div className={styles.content}>
             <p className={`eyebrow ${styles.eyebrow}`} data-hero>
               <span className="point point--sm" aria-hidden="true" />
-              Content &amp; marketing · Gloucestershire
+              Content &amp; marketing for trades · Gloucestershire
             </p>
 
             <h1 className={styles.headline} data-hero>
-              Your best work deserves better than the{' '}
+              Stop renting your leads. Start owning your{' '}
               <span className={styles.forge}>
-                camera roll<span className={styles.signaturePoint} aria-hidden="true" />
+                proof<span className={styles.signaturePoint} aria-hidden="true" />
               </span>
             </h1>
 
             <p className={`${styles.lead} font-serif`} data-hero>
-              We turn the work you do into content and marketing that win the
-              next job — posts, case studies, emails, blogs, even your website —
-              so you look <em>as good online as the work actually is.</em>
+              Directory sites charge you every month to hand the same enquiry to
+              four other firms. We turn your finished jobs into case studies, photos
+              and a Google presence that <em>belong to you</em> — and keep working
+              long after the invoice is paid.
             </p>
 
             <div className={styles.ctas} data-hero>
-              <Link href="/contact" className="btn btn-primary">
-                Start a project
+              <Link href="/contact" className="btn btn-primary" data-track="book_call_click" data-track-place="hero">
+                Book a call
               </Link>
-              <Link href="/services" className="btn btn-ghost">
-                See what we do
+              <Link href="/pricing" className="btn btn-ghost" data-track="see_pricing_click" data-track-place="hero">
+                See what it costs
               </Link>
             </div>
           </div>

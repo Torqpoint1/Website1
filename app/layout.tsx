@@ -1,23 +1,28 @@
 import type { Metadata } from 'next';
+import { Analytics } from '@vercel/analytics/next';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
+import { ClickTracker } from '@/components/ClickTracker';
 import { organizationSchema } from '@/lib/schema';
+import { BASE_URL, SITE_DESCRIPTION } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Torqpoint — Content & Marketing Studio, Gloucestershire',
+    default: 'Torqpoint — Content & Marketing for Trades, Gloucestershire',
     template: '%s | Torqpoint',
   },
-  description:
-    'Torqpoint is a content & marketing studio in Gloucestershire. We turn the work you do into posts, case studies, emails, blogs and websites that win the next job.',
-  metadataBase: new URL('https://torqpoint.com'),
+  description: SITE_DESCRIPTION,
+  metadataBase: new URL(BASE_URL),
   openGraph: {
     type: 'website',
     locale: 'en_GB',
-    url: 'https://torqpoint.com',
+    url: `${BASE_URL}/`,
     siteName: 'Torqpoint',
+    images: [{ url: `${BASE_URL}/og/default.png`, width: 1200, height: 630 }],
   },
+  twitter: { card: 'summary_large_image' },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -32,6 +37,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Nav />
         <main id="main-content">{children}</main>
         <Footer />
+        <ClickTracker />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

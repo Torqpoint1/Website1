@@ -1,5 +1,7 @@
 ---
 title: "The One-Page Website: When Less Is Genuinely More"
+audience: "general"
+relatedService: "website-design-build"
 category: "Web Design"
 date: "2026-07-10"
 excerpt: "Not every business needs a sprawling site with a dozen pages. For some, one well-built page does the whole job — better."

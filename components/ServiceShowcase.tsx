@@ -15,14 +15,14 @@ interface Card {
 
 const cards: Card[] = [
   {
-    label: 'Case study',
-    desc: 'Your finished jobs, written up to win the next one.',
+    label: 'Case study page',
+    desc: 'The job written up on your own website — yours for good.',
     rot: 2.5,
     tx: 16,
-    w: 262,
+    w: 272,
     render: () => (
       <>
-        <p className={`${styles.serifTitle} font-serif`}>Your project, written up properly.</p>
+        <p className={`${styles.serifTitle} font-serif`}>Leckhampton wet room, strip-out to handover.</p>
         <div className={styles.lines}>
           <span className={styles.lineWide} />
           <span className={styles.lineWide} />
@@ -32,72 +32,62 @@ const cards: Card[] = [
     ),
   },
   {
-    label: 'Email & newsletter',
-    desc: 'Keeps you in front of past customers and warm leads.',
+    label: 'Before & after set',
+    desc: 'Edited, ordered and captioned — the proof a homeowner asks for.',
     rot: -3,
     tx: -14,
+    w: 312,
+    render: () => (
+      <div className={styles.baPair}>
+        <div className={`${styles.baShot} ${styles.baBefore}`}><span>Before</span></div>
+        <div className={`${styles.baShot} ${styles.baAfter}`}><span>After</span></div>
+      </div>
+    ),
+  },
+  {
+    label: 'Google Business post',
+    desc: 'The finished job, right where local searches start.',
+    rot: 2.5,
+    tx: 14,
+    w: 300,
+    render: () => (
+      <>
+        <p className={styles.subject}>
+          <span className={styles.subjectLabel}>Update · Cheltenham</span>
+          Just finished: a walk-in wet room in Leckhampton.
+        </p>
+        <div className={styles.photoSm} />
+      </>
+    ),
+  },
+  {
+    label: 'Four social posts',
+    desc: 'Built from the job photos, ready to publish.',
+    rot: -2,
+    tx: -12,
+    w: 290,
+    render: () => (
+      <>
+        <div className={styles.photo} />
+        <div className={styles.lines}>
+          <span className={styles.lineWide} />
+          <span className={styles.lineMid} />
+        </div>
+      </>
+    ),
+  },
+  {
+    label: 'Review request',
+    desc: 'Written for you to send the homeowner on handover day.',
+    rot: 3,
+    tx: 16,
     w: 284,
     render: () => (
       <>
         <p className={styles.subject}>
-          <span className={styles.subjectLabel}>Subject</span>
-          One job done, the next one lined up.
+          <span className={styles.subjectLabel}>To: Mrs Carter</span>
+          Thanks for having us — would you mind leaving a quick review?
         </p>
-        <div className={styles.lines}>
-          <span className={styles.lineWide} />
-          <span className={styles.lineMid} />
-        </div>
-      </>
-    ),
-  },
-  {
-    label: 'Website design & build',
-    desc: 'A fast, on-brand site that turns visitors into enquiries.',
-    rot: 2.5,
-    tx: 14,
-    w: 324,
-    render: () => (
-      <>
-        <div className={styles.browser}>
-          <span className={styles.browserDot} />
-          <span className={styles.browserDot} />
-          <span className={styles.browserDot} />
-        </div>
-        <div className={styles.siteHero} />
-        <div className={styles.siteRow}>
-          <span className={styles.siteBlock} />
-          <span className={styles.siteBlock} />
-          <span className={styles.siteBlock} />
-        </div>
-      </>
-    ),
-  },
-  {
-    label: 'Blog article',
-    desc: 'Genuinely useful pieces that help you rank on Google.',
-    rot: -2,
-    tx: -12,
-    w: 256,
-    render: () => (
-      <>
-        <p className={`${styles.serifTitle} font-serif`}>The five questions every customer asks first.</p>
-        <div className={styles.lines}>
-          <span className={styles.lineWide} />
-          <span className={styles.lineWide} />
-          <span className={styles.lineMid} />
-        </div>
-      </>
-    ),
-  },
-  {
-    label: 'Social post',
-    desc: 'A month of scheduled posts, built from your project photos.',
-    rot: 3,
-    tx: 16,
-    w: 300,
-    render: () => (
-      <>
-        <div className={styles.photo} />
         <div className={styles.lines}>
           <span className={styles.lineWide} />
           <span className={styles.lineMid} />
@@ -145,7 +135,7 @@ export function ServiceShowcase() {
     <section
       ref={sectionRef}
       className={styles.showcase}
-      aria-label="What your work becomes"
+      aria-label="What one finished job becomes"
     >
       <div className={styles.sticky}>
         <div className={styles.deskGrid}>
@@ -154,22 +144,23 @@ export function ServiceShowcase() {
           <div className={styles.deskText}>
             <p className={`eyebrow ${styles.eyebrow}`}>
               <span className="point point--sm" aria-hidden="true" />
-              Content &amp; marketing · Gloucestershire
+              Content &amp; marketing for trades · Gloucestershire
             </p>
             <h1 className={styles.headline}>
-              Your best work deserves better than the{' '}
+              Stop renting your leads. Start owning your{' '}
               <span className={styles.forge}>
-                camera roll<span className={styles.signaturePoint} aria-hidden="true" />
+                proof<span className={styles.signaturePoint} aria-hidden="true" />
               </span>
             </h1>
             <p className={`${styles.lead} font-serif`}>
-              We turn the work you do into content and marketing that win the
-              next job — posts, case studies, emails, blogs, even your website —
-              so you look <em>as good online as the work actually is.</em>
+              Directory sites charge you every month to hand the same enquiry to
+              four other firms. We turn your finished jobs into case studies, photos
+              and a Google presence that <em>belong to you</em> — and keep working
+              long after the invoice is paid.
             </p>
             <div className={styles.ctas}>
-              <Link href="/contact" className="btn btn-primary">Start a project</Link>
-              <Link href="/services" className="btn btn-ghost">See what we do</Link>
+              <Link href="/contact" className="btn btn-primary" data-track="book_call_click" data-track-place="hero">Book a call</Link>
+              <Link href="/pricing" className="btn btn-ghost" data-track="see_pricing_click" data-track-place="hero">See what it costs</Link>
             </div>
           </div>
 

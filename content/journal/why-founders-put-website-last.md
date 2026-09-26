@@ -1,5 +1,7 @@
 ---
 title: "Why Founders Put Their Website Last (And Why That’s Backwards)"
+audience: "general"
+relatedService: "website-design-build"
 category: "Mindset"
 date: "2026-04-28"
 excerpt: "It’s the storefront every potential client walks past — yet it’s the job that never reaches the top of the list. There’s a reason, and a fix."

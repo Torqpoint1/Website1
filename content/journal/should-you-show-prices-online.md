@@ -1,5 +1,7 @@
 ---
 title: "Should You Show Your Prices Online?"
+audience: "trade"
+relatedService: "job-story"
 category: "Pricing"
 date: "2026-07-03"
 excerpt: "It’s the question that splits every service business. Hide your prices and you stay mysterious. Show them and you might scare people off — or might not. Let’s think it through."

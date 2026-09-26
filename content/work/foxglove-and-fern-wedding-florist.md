@@ -1,4 +1,5 @@
 ---
+archived: true
 title: "One wedding. A whole season's worth of bookings."
 client: "Foxglove & Fern"
 sector: "Wedding & event florist"

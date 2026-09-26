@@ -21,6 +21,12 @@ export interface PostMeta {
   sector?: string;
   location?: string;
   concept?: boolean;
+  /** work: kept live at its URL but hidden from grids (off-target sector) */
+  archived?: boolean;
+  /** journal: 'trade' articles are listed first */
+  audience?: 'trade' | 'general';
+  /** journal: service or product slug for the end-of-article CTA */
+  relatedService?: string;
   gallery?: string[];
   services?: string[];
   /** cover path if the image actually exists in /public, else undefined */
@@ -95,6 +101,9 @@ export function getPost(collection: string, slug: string): Post | null {
     sector: data.sector,
     location: data.location,
     concept: data.concept === true,
+    archived: data.archived === true,
+    audience: data.audience === 'trade' ? 'trade' : data.audience === 'general' ? 'general' : undefined,
+    relatedService: typeof data.relatedService === 'string' ? data.relatedService : undefined,
     gallery,
     services: Array.isArray(data.services) ? data.services : undefined,
     coverImage: exists(data.cover) ? data.cover : undefined,

@@ -208,3 +208,49 @@
   .actions .btn { display: none; }
   .burger { display: flex; }
 }
+
+/* Tap-to-call: number on wide screens, icon-only button on phones */
+.call {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ink);
+  transition: color var(--t-fast);
+}
+.call:hover { color: var(--forge-text); }
+.callIcon { width: 18px; height: 18px; flex-shrink: 0; }
+@media (max-width: 1100px) {
+  .callNumber { display: none; }
+}
+@media (max-width: 768px) {
+  .call {
+    width: 40px;
+    height: 40px;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--forge);
+    color: #fff;
+  }
+  .call:hover { color: #fff; }
+}
+
+.drawerDirect {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.drawerWa,
+.drawerTel {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: var(--r);
+}
+.drawerWa { background: #1FA855; color: #fff; }
+.drawerTel { border: 2px solid var(--ink); color: var(--ink); }

@@ -1,5 +1,7 @@
 ---
 title: "Keeping Past Clients Close: Your Website Isn’t Just for Strangers"
+audience: "general"
+relatedService: "email-newsletters"
 category: "Retention"
 date: "2026-07-09"
 excerpt: "Most businesses aim their website entirely at people who’ve never heard of them — and quietly ignore the warmest audience they’ve got."

@@ -1,5 +1,8 @@
 ---
 title: "Why your best work vanishes — and what to do about it"
+category: "Proof"
+audience: "trade"
+relatedService: "job-story"
 date: "2025-06-01"
 excerpt: "Most businesses do great work and then say nothing about it. Here's why that matters, and the simple fix."
 ---

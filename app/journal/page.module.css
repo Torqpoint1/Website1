@@ -141,3 +141,25 @@
   .postMain { grid-column: 1; }
   .postArrow { grid-column: 2; grid-row: 1; }
 }
+
+/* ── Groups: trade articles first ───────────────────────── */
+.group + .group { margin-top: clamp(56px, 7vw, 96px); }
+.groupHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-bottom: 16px;
+  margin-bottom: 8px;
+  border-bottom: 2px solid var(--ink);
+}
+.groupTitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+.groupNote { font-size: 14.5px; color: var(--muted); }

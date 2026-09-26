@@ -1,5 +1,7 @@
 ---
 title: "Website Getting Traffic but No Enquiries? Here’s Where to Look"
+audience: "general"
+relatedService: "website-design-build"
 category: "Diagnostics"
 date: "2026-07-05"
 excerpt: "People are visiting. Nobody’s getting in touch. That gap is frustrating — and usually fixable once you know where to look."

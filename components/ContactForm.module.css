@@ -3,8 +3,66 @@
 .fields {
   display: flex;
   flex-direction: column;
-  gap: 24px;
-  margin-bottom: 32px;
+  gap: 22px;
+  margin-bottom: 24px;
+}
+
+.pair {
+  display: grid;
+  gap: 22px;
+}
+@media (min-width: 640px) {
+  .pair { grid-template-columns: 1fr 1fr; gap: 18px; }
+}
+
+.selectWrap { position: relative; }
+.selectWrap::after {
+  content: '';
+  position: absolute;
+  right: 18px;
+  top: 50%;
+  width: 8px;
+  height: 8px;
+  border-right: 2px solid var(--slate);
+  border-bottom: 2px solid var(--slate);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+  transition: border-color var(--t-fast);
+}
+.selectWrap:focus-within::after { border-color: var(--forge); }
+
+.promise {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--slate);
+  background: rgba(238, 90, 30, 0.06);
+  border-radius: var(--r);
+}
+.promiseDot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #1FA855;
+}
+.promiseDot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: #1FA855;
+  animation: ping 2.2s var(--ease-out) infinite;
+}
+@keyframes ping {
+  from { transform: scale(1); opacity: 0.7; }
+  to   { transform: scale(2.8); opacity: 0; }
 }
 
 .submit {

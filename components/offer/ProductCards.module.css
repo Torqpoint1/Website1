@@ -1,0 +1,183 @@
+.grid {
+  display: grid;
+  gap: 20px;
+  align-items: stretch;
+}
+@media (min-width: 820px) {
+  .grid { grid-template-columns: 1fr 1fr; gap: 24px; }
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(28px, 3.4vw, 44px);
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  border-radius: var(--r-xl);
+  overflow: hidden;
+  transition: transform var(--t), box-shadow var(--t), border-color var(--t);
+}
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 28px 56px rgba(23, 26, 30, 0.08);
+}
+
+/* Engine: dark, with a slow forge glow in the corner */
+.featured {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--dark-heading);
+}
+.featured::before {
+  content: '';
+  position: absolute;
+  width: 420px;
+  height: 420px;
+  right: -180px;
+  top: -200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(238, 90, 30, 0.34), transparent 65%);
+  pointer-events: none;
+  animation: glow 9s ease-in-out infinite alternate;
+}
+@keyframes glow {
+  from { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  to   { transform: translate(-40px, 30px) scale(1.12); opacity: 1; }
+}
+.card > * { position: relative; }
+
+.badge {
+  position: absolute;
+  top: clamp(20px, 2.4vw, 28px);
+  right: clamp(20px, 2.4vw, 28px);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--forge);
+  color: #fff;
+}
+
+.kind {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--forge-text);
+}
+.featured .kind { color: var(--dark-eyebrow); }
+
+.name {
+  margin-top: 10px;
+  font-size: clamp(30px, 3.4vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1;
+}
+
+.tagline {
+  margin-top: 14px;
+  font-size: 15.5px;
+  line-height: 1.55;
+  color: var(--slate);
+  max-width: 38ch;
+}
+.featured .tagline { color: var(--dark-body); }
+
+.priceBlock {
+  margin-top: 28px;
+  padding-top: 24px;
+  border-top: 1px solid var(--surface-2);
+}
+.featured .priceBlock { border-top-color: rgba(246, 245, 241, 0.14); }
+
+.price {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.amount {
+  font-family: var(--font-serif);
+  font-size: clamp(52px, 6vw, 68px);
+  font-weight: 400;
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+}
+.unit {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--muted);
+}
+.featured .unit { color: var(--dark-body); }
+
+.qualifier {
+  margin-top: 8px;
+  font-size: 13.5px;
+  color: var(--muted);
+}
+.featured .qualifier { color: var(--dark-body); }
+
+.founder {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 14px;
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--forge-text);
+  background: rgba(238, 90, 30, 0.08);
+  border-radius: 999px;
+}
+.featured .founder {
+  color: #FFB08F;
+  background: rgba(238, 90, 30, 0.16);
+}
+
+.includes {
+  margin-top: 26px;
+  display: grid;
+  gap: 12px;
+  font-size: 15px;
+}
+.includes li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  line-height: 1.45;
+}
+.tick {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  color: var(--forge);
+}
+
+.actions {
+  margin-top: auto;
+  padding-top: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.cta { width: 100%; }
+.featured .cta:hover { box-shadow: 0 10px 28px rgba(238, 90, 30, 0.35); }
+.card:not(.featured) .cta:hover { background: var(--ink); color: var(--paper); }
+
+.more {
+  align-self: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--slate);
+  transition: color var(--t-fast);
+}
+.more span { display: inline-block; transition: transform var(--t); }
+.more:hover { color: var(--forge-text); }
+.more:hover span { transform: translateX(4px); }
+.featured .more { color: var(--dark-body); }
+.featured .more:hover { color: var(--dark-eyebrow); }

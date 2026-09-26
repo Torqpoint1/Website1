@@ -1,0 +1,47 @@
+.section { border-top: 1px solid var(--surface-2); }
+
+.grid {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+}
+
+.card {
+  position: relative;
+  margin: 0;
+  padding: clamp(28px, 3vw, 40px);
+  background: var(--surface);
+  border: 1px solid var(--surface-2);
+  border-radius: var(--r-xl);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mark {
+  font-family: var(--font-serif);
+  font-size: 72px;
+  line-height: 0.6;
+  color: var(--forge);
+  height: 28px;
+}
+
+.quote {
+  margin: 0;
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 1.6vw, 21px);
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.who {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: auto;
+  font-size: 14px;
+  color: var(--ink);
+}
+.who strong { display: block; }
+.biz { display: block; color: var(--muted); }
+.photo { border-radius: 50%; object-fit: cover; }

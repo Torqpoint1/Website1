@@ -259,3 +259,50 @@
   .step:last-child { border-bottom: none; }
   .step:not(:first-child) { padding-left: 0; }
 }
+
+/* ── Pricing (02) ───────────────────────────────────────────── */
+.pricing {
+  padding-top: clamp(40px, 6vw, 72px);
+}
+.compareLink {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+  padding: 20px clamp(20px, 3vw, 32px);
+  border-radius: var(--r-xl);
+  border: 1.5px dashed rgba(238, 90, 30, 0.45);
+  background: rgba(238, 90, 30, 0.04);
+  font-size: 15.5px;
+  color: var(--slate);
+  transition: background var(--t), border-color var(--t), transform var(--t);
+}
+.compareLink strong { color: var(--ink); }
+.compareLink:hover {
+  background: rgba(238, 90, 30, 0.08);
+  border-color: var(--forge);
+  border-style: solid;
+}
+.compareArrow {
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--forge);
+  color: #fff;
+  font-weight: 700;
+  transition: transform var(--t);
+}
+.compareLink:hover .compareArrow { transform: translateX(4px); }
+
+/* ── Closing CTA ────────────────────────────────────────────── */
+.ctaPair { display: flex; flex-wrap: wrap; gap: 12px; }
+.ctaSolid {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+.ctaSolid:hover { transform: translateY(-2px); background: #fff; }

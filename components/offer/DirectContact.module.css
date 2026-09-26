@@ -1,0 +1,41 @@
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 22px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: var(--r);
+  border: 2px solid currentColor;
+  transition: transform var(--t), background var(--t), color var(--t), border-color var(--t), box-shadow var(--t);
+}
+.btn:hover { transform: translateY(-2px); }
+
+.icon { width: 18px; height: 18px; flex-shrink: 0; }
+
+.light .btn { color: var(--ink); }
+.light .btn:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+
+.dark .btn,
+.forge .btn { color: var(--paper); border-color: rgba(246, 245, 241, 0.5); }
+.dark .btn:hover,
+.forge .btn:hover { background: var(--paper); color: var(--ink); border-color: var(--paper); }
+
+.btn.wa {
+  background: #1FA855;
+  border-color: #1FA855;
+  color: #fff;
+}
+.btn.wa:hover {
+  background: #178E47;
+  border-color: #178E47;
+  color: #fff;
+  box-shadow: 0 10px 24px rgba(31, 168, 85, 0.28);
+}

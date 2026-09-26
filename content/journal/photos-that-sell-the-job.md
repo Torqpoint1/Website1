@@ -1,5 +1,7 @@
 ---
 title: "Photos That Sell the Job: Getting Usable Images of Your Work"
+audience: "trade"
+relatedService: "job-story"
 category: "Imagery"
 date: "2026-07-02"
 excerpt: "You don’t need a professional shoot for every job. You do need photos that make someone think ‘I want that.’ Most don’t."

@@ -500,6 +500,7 @@ html { scroll-behavior: smooth; }
   color: var(--slate);
 }
 .form-field input,
+.form-field select,
 .form-field textarea {
   font-family: var(--font-sans);
   font-size: 16px;
@@ -513,7 +514,16 @@ html { scroll-behavior: smooth; }
   outline: none;
   -webkit-appearance: none;
 }
+.form-field select {
+  cursor: pointer;
+  -moz-appearance: none;
+  appearance: none;
+  padding-right: 44px;
+}
+.form-field select:invalid { color: var(--muted); }
+.form-field select option { color: var(--ink); }
 .form-field input:focus,
+.form-field select:focus,
 .form-field textarea:focus {
   border-color: var(--forge);
   box-shadow: 0 0 0 3px rgba(238,90,30,0.12);

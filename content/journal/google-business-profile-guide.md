@@ -1,5 +1,7 @@
 ---
 title: "Google Business Profile: The Free Tool Most Businesses Neglect"
+audience: "trade"
+relatedService: "engine"
 category: "Local SEO"
 date: "2026-06-29"
 excerpt: "It’s free, it sits right at the top of local searches, and most businesses set it up once and forget it. That’s a gift left on the table."

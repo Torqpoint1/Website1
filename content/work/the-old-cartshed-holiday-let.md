@@ -1,4 +1,5 @@
 ---
+archived: true
 title: "A beautiful barn nobody could find — turned into direct bookings."
 client: "The Old Cartshed"
 sector: "Luxury holiday let"

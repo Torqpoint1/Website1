@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Logo } from './Logo';
+import { EMAIL, INSTAGRAM_URL, PHONE_DISPLAY, hasPhone, telHref, whatsappHref } from '@/lib/contact';
 import styles from './Footer.module.css';
 
 const year = new Date().getFullYear();
@@ -12,7 +13,7 @@ export function Footer() {
           <div className={styles.brand}>
             <Logo size="lg" dark />
             <p className={styles.tagline}>
-              Content that makes your work look as good as it is.{' '}
+              Proof you own, not leads you rent. Content and marketing for trades across{' '}
               <Link href="/marketing-agency-gloucestershire" className={styles.location}>
                 Gloucestershire.
               </Link>
@@ -25,6 +26,7 @@ export function Footer() {
               <ul className={styles.colLinks}>
                 {[
                   { href: '/services', label: 'Services' },
+                  { href: '/pricing', label: 'Pricing' },
                   { href: '/work', label: 'Work' },
                   { href: '/journal', label: 'Journal' },
                   { href: '/about', label: 'About' },
@@ -43,14 +45,26 @@ export function Footer() {
                 <li>
                   <Link href="/contact" className={styles.colLink}>Book a call</Link>
                 </li>
+                {hasPhone && (
+                  <>
+                    <li>
+                      <a href={telHref} className={styles.colLink} data-track-place="footer">{PHONE_DISPLAY}</a>
+                    </li>
+                    <li>
+                      <a href={whatsappHref} className={styles.colLink} data-track-place="footer" target="_blank" rel="noopener noreferrer">
+                        WhatsApp us
+                      </a>
+                    </li>
+                  </>
+                )}
                 <li>
-                  <a href="mailto:info@torqpoint.com" className={styles.colLink}>
-                    info@torqpoint.com
+                  <a href={`mailto:${EMAIL}`} className={styles.colLink}>
+                    {EMAIL}
                   </a>
                 </li>
                 <li>
                   <a
-                    href="https://instagram.com/torqpoint.co"
+                    href={INSTAGRAM_URL}
                     className={styles.colLink}
                     target="_blank"
                     rel="noopener noreferrer"

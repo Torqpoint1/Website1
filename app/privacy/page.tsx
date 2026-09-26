@@ -1,16 +1,17 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { pageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
+  path: '/privacy/',
   title: 'Privacy Policy',
   description:
     'How Torqpoint collects, uses and protects the information you share through this website.',
-  alternates: { canonical: '/privacy/' },
-};
+});
 
-const LAST_UPDATED = '26 June 2026';
+const LAST_UPDATED = '25 September 2026';
 
 export default function PrivacyPage() {
   return (
@@ -55,7 +56,8 @@ export default function PrivacyPage() {
             <ul>
               <li>Your name</li>
               <li>Your business name</li>
-              <li>Your email address</li>
+              <li>Your phone number and email address</li>
+              <li>Your trade, what you&rsquo;re interested in, and how you heard about us</li>
               <li>Anything you write in the message field</li>
             </ul>
             <p>
@@ -83,12 +85,26 @@ export default function PrivacyPage() {
               you&rsquo;d like to know how they handle data in transit.
             </p>
 
-            <h2>Cookies and tracking</h2>
+            <h2>Cookies and analytics</h2>
             <p>
               This website does not use tracking or advertising cookies, and we
-              don&rsquo;t build a profile of you as you browse. If we add analytics in
-              the future to understand which pages are useful, we&rsquo;ll update this
-              policy first.
+              don&rsquo;t build a profile of you as you browse.
+            </p>
+            <p>
+              To understand which pages are useful and how people find us, we use{' '}
+              <a href="https://vercel.com/docs/analytics/privacy-policy" target="_blank" rel="noopener noreferrer">
+                Vercel Web Analytics
+              </a>{' '}
+              and Vercel Speed Insights. They are cookieless: they record anonymous,
+              aggregated information such as the page visited, the referring site,
+              country, device type and page-loading speed. They do not store anything on
+              your device, do not identify you, and do not follow you across other
+              websites. We also count anonymous events such as a tap on our phone number
+              or a submitted enquiry, so we know which contact routes people prefer.
+            </p>
+            <p>
+              If we ever add analytics that use cookies, we&rsquo;ll update this policy
+              first and ask for your consent before setting them.
             </p>
 
             <h2>How long we keep it</h2>

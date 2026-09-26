@@ -1,5 +1,7 @@
 ---
 title: "The Real Cost of a Weak Website (It’s Not What You Paid for It)"
+audience: "general"
+relatedService: "website-design-build"
 category: "Strategy"
 date: "2026-04-21"
 excerpt: "The cheapest website is rarely the one with the lowest price tag. The real cost shows up in the work you never won."

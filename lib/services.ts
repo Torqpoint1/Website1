@@ -6,6 +6,8 @@
  * routes/files that each compose <ServicePage> with this data by tier.
  */
 
+import { BASE_URL, pageMetadata } from './seo';
+
 export type Tier = 1 | 2 | 3;
 
 export interface ProofCard {
@@ -54,10 +56,45 @@ export interface ServiceData {
   thingsWeGetAskedFor?: CapabilityItem[];
   closingLine?: string;
   photoNote?: string;
+  /** The two things Torqpoint actually sells, as opposed to capabilities */
+  isProduct?: boolean;
+  price?: ServicePrice;
+  /** One-line summary used on pricing and product cards */
+  tagline?: string;
 }
 
-/** Footer prev/next order — loops (content brief). */
+export interface ServicePrice {
+  /** "£350" */
+  amount: string;
+  /** numeric value for schema, e.g. "350" */
+  value: string;
+  /** "per job" | "a month" */
+  unit: string;
+  /** "Fixed price" | "Rolling, one month’s notice" */
+  qualifier: string;
+  /** "£150 for the first three clients" */
+  founderRate?: string;
+}
+
+/** The two products, in display order. */
+export const PRODUCT_ORDER = ['job-story', 'engine'] as const;
+
+/** The supporting capabilities that make up the products. */
+export const CAPABILITY_ORDER: string[] = [
+  'case-studies',
+  'social-posts',
+  'google-business-posts',
+  'blog-articles',
+  'email-newsletters',
+  'profiles-setup',
+  'website-design-build',
+  'anything-else',
+];
+
+/** Footer prev/next order — loops, products first. */
 export const SERVICE_ORDER: string[] = [
+  'job-story',
+  'engine',
   'social-posts',
   'case-studies',
   'email-newsletters',
@@ -72,6 +109,208 @@ const SECONDARY_PROOF = { label: 'See it in the work', href: '#proof' };
 const PRIMARY_START = { label: 'Start a project', href: '/contact' };
 
 export const SERVICES: Record<string, ServiceData> = {
+  'job-story': {
+    slug: 'job-story',
+    name: 'Job Story',
+    tier: 1,
+    isProduct: true,
+    tagline: 'One finished job, captured before, during and after — and turned into proof you keep.',
+    price: {
+      amount: '£350',
+      value: '350',
+      unit: 'per job',
+      qualifier: 'Fixed price, no contract',
+      founderRate: '£150 for our first three clients',
+    },
+    metaTitle: 'Job Story — one job, written up properly (£350)',
+    metaDescription:
+      'One finished job turned into a case study page, a before-and-after photo set, four social posts, a Google Business post and a review request. £350 fixed, for Gloucestershire trades.',
+    eyebrow: 'Product · Job Story',
+    h1: 'One finished job, turned into *proof you keep.*',
+    standfirst:
+      'You photograph the job as you go and send us a voice note from the van. We turn it into a case study page, a before-and-after set, four social posts, a Google Business post and a review request — everything a homeowner needs to pick you over the other two quotes.',
+    primaryCta: { label: 'Book a call', href: '/contact/?interest=job-story' },
+    secondaryCta: { label: 'See pricing', href: '/pricing/' },
+    shortVersion:
+      'A Job Story is one job, told properly — from the first survey photo to handover. It becomes a page on your own website, a photo set on your Google profile, and a week of posts on your socials. You pay for it once and it keeps working on every homeowner who looks you up afterwards.',
+    whyItMatters: [
+      'A homeowner comparing three quotes has almost nothing to go on except the number at the bottom. A finished job written up properly — the before, the problem you solved, the snagging you sorted, the handover — gives them a reason to pick you that isn’t the lowest price.',
+      'And unlike a directory lead, it doesn’t expire or get shared with four other firms. The case study sits on your site, the photos sit on your Google profile, and both keep working on the next customer, and the one after that.',
+    ],
+    whoItsFor:
+      'Established trades with a job worth showing off — a bathroom, kitchen, garden, staircase, roof or extension worth £5,000 or more. If you’ve ever handed a customer your phone and scrolled the camera roll to prove you’re good, start here.',
+    whatYouGet: [
+      'A case study page for your website — the brief, the problem, the fit, the handover',
+      'A before, during and after photo set, edited, ordered and captioned',
+      'Four social posts built from the job, ready to publish',
+      'A Google Business Profile post, so the job shows up where local searches start',
+      'A review request written for you to send the homeowner',
+      'All of it yours to keep — use it anywhere, for as long as you like',
+    ],
+    howItWorks: [
+      {
+        title: 'Photograph the job as you go.',
+        desc: 'Before you start, at first fix, and at handover. We send you a simple shot list — phone photos are fine.',
+      },
+      {
+        title: 'Send us a voice note.',
+        desc: 'Two or three minutes on WhatsApp from the van: what the customer wanted, what was tricky, what you’re proud of.',
+      },
+      {
+        title: 'We write it up.',
+        desc: 'Within five working days you get the whole set back to check over.',
+      },
+      {
+        title: 'Approve it, and it goes live.',
+        desc: 'On your site, your Google profile and your socials — or handed over for you to post.',
+      },
+    ],
+    proof: [
+      {
+        workSlug: 'marsh-vale-bathrooms-wet-room',
+        client: 'Marsh & Vale Bathrooms',
+        blurb:
+          'A cramped ensuite rebuilt as a walk-in wet room — the case study, the photo set and the posts from one job.',
+      },
+      {
+        workSlug: 'fieldhouse-landscapes-cotswold-garden',
+        client: 'Fieldhouse Landscapes',
+        blurb:
+          'An overgrown plot to a sandstone terrace, told as the before-and-after a homeowner actually stops for.',
+      },
+      {
+        workSlug: 'ashcroft-joinery-oak-staircase',
+        client: 'Ashcroft Joinery',
+        blurb:
+          'A hand-cut oak staircase, written up to open with *“Most staircases are bought on price. This one was bought on the photo of a single joint.”*',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Do I need a photographer?',
+        a: 'No. Phone photos taken on the job are exactly what we work with. We send you a shot list so you know what to grab at each stage — it adds about two minutes to your day.',
+      },
+      {
+        q: 'How much of my time does it take?',
+        a: 'About ten minutes per job: a few photos as you go and one voice note at the end. We do the writing, editing and posting.',
+      },
+      {
+        q: 'What if I didn’t take before photos?',
+        a: 'We work with what you have. A strong finished set and a good voice note still make a solid case study — and we’ll make sure you’ve got the shot list for the next one.',
+      },
+      {
+        q: 'Do I need the customer’s permission?',
+        a: 'We’ll guide you on it. Most homeowners are happy to be featured, and plenty of strong case studies don’t name the customer or show the address at all.',
+      },
+      {
+        q: 'Can I turn this into something monthly?',
+        a: 'Yes — that’s Engine. Two Job Stories a month, plus your Google Business Profile managed and your reviews answered, from £450 a month.',
+      },
+    ],
+    pairsWith: ['engine', 'case-studies', 'google-business-posts'],
+  },
+
+  engine: {
+    slug: 'engine',
+    name: 'Engine',
+    tier: 1,
+    isProduct: true,
+    tagline: 'Two jobs written up every month, your Google profile managed and every review answered.',
+    price: {
+      amount: '£450',
+      value: '450',
+      unit: 'a month',
+      qualifier: 'Rolling monthly, one month’s notice',
+      founderRate: 'Founding rate — £650 a month standard',
+    },
+    metaTitle: 'Engine — monthly content for trades (from £450/month)',
+    metaDescription:
+      'Two finished jobs written up every month, your Google Business Profile managed and every review answered. From £450 a month, no contract. For Gloucestershire trades.',
+    eyebrow: 'Product · Engine',
+    h1: 'Your finished jobs, *working for you every month.*',
+    standfirst:
+      'Two jobs written up every month, your Google Business Profile kept active, and every review replied to — so the work you’ve already done keeps bringing in the next enquiry. No per-lead fees, no contract, no sharing the enquiry with four other firms.',
+    primaryCta: { label: 'Book a call', href: '/contact/?interest=engine' },
+    secondaryCta: { label: 'See pricing', href: '/pricing/' },
+    shortVersion:
+      'Engine is the monthly version of a Job Story, plus the upkeep most firms never get round to. Each month we write up two of your finished jobs, keep your Google Business Profile active and complete, reply to every review, and send you a short report. You send photos and voice notes; we do everything else.',
+    whyItMatters: [
+      'Directory platforms charge you every month to pass the same enquiry to three to five other firms — and you pay whether you win the job or not. Stop paying and your profile, and every review on it, stops working for you.',
+      'Engine spends a similar budget on things you keep. Every month adds two more finished jobs to your website and your Google profile, and each one keeps pulling in searches long after it’s published. After a year you have 24 written-up jobs, a Google profile that ranks, and a body of proof no competitor can buy.',
+    ],
+    whoItsFor:
+      'Firms with a team, a couple of vans and a steady run of jobs worth £5,000 and up — bathroom and kitchen fitters, landscapers, joiners, roofers and extension builders across Gloucestershire and the Cotswolds.',
+    whatYouGet: [
+      'Two Job Stories a month — case study, photo set, social posts and Google post for each',
+      'Your Google Business Profile managed — posts, photos, services and Q&A kept current',
+      'Every Google review replied to, within two working days',
+      'A review request sent for every finished job',
+      'A short monthly report and a 20-minute call — what went out, what it did, what’s next',
+      'Everything we make stays yours if you stop',
+    ],
+    howItWorks: [
+      {
+        title: 'Kick-off call.',
+        desc: 'Thirty minutes on the phone: the jobs you want more of, the areas you cover, and how you talk to customers.',
+      },
+      {
+        title: 'Send jobs as you finish them.',
+        desc: 'Photos and a voice note on WhatsApp. That’s your whole part.',
+      },
+      {
+        title: 'We publish and manage.',
+        desc: 'Jobs written up, your Google profile kept active, reviews answered — all in your voice.',
+      },
+      {
+        title: 'Monthly report and call.',
+        desc: 'What went out, what it did, what’s next. Stop any time with a month’s notice.',
+      },
+    ],
+    proof: [
+      {
+        workSlug: 'marsh-vale-bathrooms-wet-room',
+        client: 'Marsh & Vale Bathrooms',
+        blurb:
+          'One wet-room job feeding a case study, a blog, an email and a Google post — the kind of month Engine runs for you.',
+      },
+      {
+        workSlug: 'fieldhouse-landscapes-cotswold-garden',
+        client: 'Fieldhouse Landscapes',
+        blurb:
+          'Local, visual, before-and-after work — exactly what keeps a Google profile active and ranking.',
+      },
+      {
+        workSlug: 'ashcroft-joinery-oak-staircase',
+        client: 'Ashcroft Joinery',
+        blurb:
+          'A carousel, a case study and a website feature from one staircase — one job, a month of content.',
+      },
+    ],
+    faqs: [
+      {
+        q: 'Is there a contract?',
+        a: 'No. It rolls month to month and you can stop with one month’s notice. If it isn’t earning its keep, you shouldn’t be paying for it.',
+      },
+      {
+        q: 'What happens if I stop?',
+        a: 'You keep everything — every case study, photo set, post and page. It’s your business’s proof, not ours. That’s the whole difference from a directory listing.',
+      },
+      {
+        q: 'What if I don’t finish two jobs in a month?',
+        a: 'We use earlier jobs you’ve photographed, or roll the month over. Quiet months happen; the Google profile and review replies keep going regardless.',
+      },
+      {
+        q: 'How long until I see anything?',
+        a: 'Your Google profile is active within the first fortnight and your first two jobs are live in the first month. Search visibility builds over three to six months, and it compounds — which is why it’s worth starting before the busy season.',
+      },
+      {
+        q: 'Do you need my logins?',
+        a: 'Only manager access to your Google Business Profile, which you can remove any time. We never need your passwords.',
+      },
+    ],
+    pairsWith: ['job-story', 'google-business-posts', 'case-studies'],
+  },
+
   'social-posts': {
     slug: 'social-posts',
     name: 'Social posts',
@@ -92,7 +331,7 @@ export const SERVICES: Record<string, ServiceData> = {
       'A steady feed does the opposite. It keeps you in front of past customers and warm leads, so when the need comes up again — the next bathroom, the next garden, the next event — you’re the name they already have. Right now your best work is sitting in your camera roll, seen by no one. This is how it earns its keep.',
     ],
     whoItsFor:
-      'Any business whose work photographs well and whose next job often comes from being remembered: makers and designers, home-improvement and outdoor trades, hosts and venues, studios and salons. If you’re proud of what you produce but “doing the socials” keeps sliding to the bottom of the list — this is built for you.',
+      'Trades whose work photographs well and whose next job often comes from being remembered: bathroom and kitchen fitters, landscapers, joiners, roofers and builders. If you’re proud of what you hand over but “doing the socials” keeps sliding to the bottom of the list — this is built for you.',
     whatYouGet: [
       'Captions written in your voice — researched, never generic filler',
       'Posts formatted properly for the platform (Instagram, Facebook, LinkedIn)',
@@ -129,9 +368,9 @@ export const SERVICES: Record<string, ServiceData> = {
           'An overgrown plot to a sandstone terrace, told as the kind of transformation post people actually stop for.',
       },
       {
-        workSlug: 'foxglove-and-fern-wedding-florist',
-        client: 'Foxglove & Fern — one wedding, a season of posts',
-        blurb: 'A single day’s flowers turned into a carousel that does the selling.',
+        workSlug: 'marsh-vale-bathrooms-wet-room',
+        client: 'Marsh & Vale Bathrooms — a week of posts',
+        blurb: 'One wet room, from stripped-out ensuite to handover, told as posts people save.',
       },
     ],
     faqs: [
@@ -179,7 +418,7 @@ export const SERVICES: Record<string, ServiceData> = {
       'One project, written up properly, becomes the thing that wins the next three. It works on your website, in your inbox, and in a reply to “can you send me some examples?” Without it, your best argument for your price stays trapped on a phone.',
     ],
     whoItsFor:
-      'Anyone whose work is bought on trust and quality rather than the lowest number: makers, designers, installers, builders, hosts, and premium local services. If you’ve ever lost a job to a cheaper quote and thought *“if they could only see the difference”* — this is how you show it.',
+      'Any trade whose work is bought on trust and quality rather than the lowest number: fitters, installers, joiners, landscapers, roofers and builders. If you’ve ever lost a job to a cheaper quote and thought *“if they could only see the difference”* — this is how you show it.',
     whatYouGet: [
       'A written case study in a clear, repeatable structure: the project, the problem, what you did, why it worked',
       'Written in your voice — plain and confident, never corporate filler',
@@ -297,10 +536,10 @@ export const SERVICES: Record<string, ServiceData> = {
           'One wet-room job turned into a case study, a blog *and* an email that keeps the referrals coming — one job feeding the whole funnel.',
       },
       {
-        workSlug: 'the-old-cartshed-holiday-let',
-        client: 'The Old Cartshed',
+        workSlug: 'fieldhouse-landscapes-cotswold-garden',
+        client: 'Fieldhouse Landscapes',
         blurb:
-          'A holiday let that relied on booking sites and their commission — we built the content engine, email included, that fills the calendar directly.',
+          'A finished garden turned into the email that reminds past customers who to call for the next one.',
       },
     ],
     faqs: [
@@ -424,7 +663,7 @@ export const SERVICES: Record<string, ServiceData> = {
       'A neglected profile does the opposite. No recent posts, an old photo, a half-finished description — it quietly tells a ready-to-buy customer to keep scrolling to whoever looks more on it. This is some of the highest-intent visibility you can get, and most businesses leave it switched off.',
     ],
     whoItsFor:
-      'Any business that serves a local area and gets work from people searching nearby — trades, home services, hospitality, retail, clinics, studios. If “near me” searches could bring you customers, this is where you win or lose them.',
+      'Any trade that covers a local patch and gets work from homeowners searching nearby — bathroom fitter near me, landscaper in Cheltenham, roofer in Stroud. If those searches could bring you jobs, this is where you win or lose them.',
     whatYouGet: [
       'Regular Google Business posts — offers, updates, recent jobs',
       'Written to prompt the next action: call, message, enquire',
@@ -502,10 +741,10 @@ export const SERVICES: Record<string, ServiceData> = {
     ],
     proof: [
       {
-        workSlug: 'foxglove-and-fern-wedding-florist',
-        client: 'Foxglove & Fern',
+        workSlug: 'ashcroft-joinery-oak-staircase',
+        client: 'Ashcroft Joinery',
         blurb:
-          'One wedding turned into a case study, a carousel *and* a profile that does the selling — the listing working as hard as the content.',
+          'A profile that does the selling — the listing working as hard as the joinery.',
       },
     ],
     pairsWith: ['google-business-posts', 'social-posts', 'website-design-build'],
@@ -568,10 +807,10 @@ export const SERVICES: Record<string, ServiceData> = {
           'A portfolio, a social set and a site built to hold them — the finished rooms presented as carefully as they were designed.',
       },
       {
-        workSlug: 'the-old-cartshed-holiday-let',
-        client: 'The Old Cartshed',
+        workSlug: 'marsh-vale-bathrooms-wet-room',
+        client: 'Marsh & Vale Bathrooms',
         blurb:
-          'A beautiful barn nobody could find, given a home that drives direct bookings instead of paying commission.',
+          'A bathroom fitter’s site built around finished jobs, so every project page sells the next one.',
       },
     ],
     faqs: [
@@ -681,32 +920,14 @@ export function getAdjacent(slug: string): { prev: ServiceData; next: ServiceDat
   return { prev: SERVICES[prevSlug], next: SERVICES[nextSlug] };
 }
 
-export const BASE_URL = 'https://torqpoint.com';
+export { BASE_URL };
 
-/**
- * Per-page metadata. Sets a self-referencing canonical + og:url (the live
- * site otherwise inherits the homepage og:url from the root layout, which
- * the brief asks us to fix here).
- */
 export function serviceMetadata(slug: string) {
   const s = SERVICES[slug];
-  const url = `${BASE_URL}/services/${s.slug}/`;
-  return {
+  return pageMetadata({
+    path: `/services/${s.slug}/`,
     title: s.metaTitle,
     description: s.metaDescription,
-    alternates: { canonical: url },
-    openGraph: {
-      title: `${s.metaTitle} | Torqpoint`,
-      description: s.metaDescription,
-      url,
-      siteName: 'Torqpoint',
-      locale: 'en_GB',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: `${s.metaTitle} | Torqpoint`,
-      description: s.metaDescription,
-    },
-  };
+    og: s.isProduct ? 'pricing' : 'services',
+  });
 }

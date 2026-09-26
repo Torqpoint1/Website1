@@ -1,5 +1,7 @@
 ---
 title: "Local SEO for Gloucestershire Businesses: A Plain-English Start"
+audience: "trade"
+relatedService: "engine"
 category: "Local SEO"
 date: "2026-06-19"
 excerpt: "You don’t need to “do SEO” like a tech company. You need the right people in your area to find you when they’re ready to buy."

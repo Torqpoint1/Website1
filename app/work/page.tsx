@@ -3,17 +3,23 @@ import Link from 'next/link';
 import { getAllPosts } from '@/lib/content';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { WorkPlaceholder } from '@/components/WorkPlaceholder';
+import { pageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
+import { Picture } from '@/components/Picture';
 
-export const metadata: Metadata = {
-  title: 'Work',
+export const metadata: Metadata = pageMetadata({
+  path: '/work/',
+  title: 'Work — case studies for Gloucestershire trades',
   description:
-    'Concept projects — sample work showing what we\'d create for a business like yours. Not real client case studies.',
-  alternates: { canonical: '/work/' },
-};
+    'Case studies for Gloucestershire building trades — bathrooms, landscaping, joinery and more, written up the way they should be. See what we’d produce for your next job.',
+  og: 'work',
+});
 
 export default function WorkPage() {
-  const posts = getAllPosts('work');
+  // Real client work (concept: false) sorts above concept work.
+  const posts = getAllPosts('work')
+    .filter(p => !p.archived)
+    .sort((a, b) => Number(a.concept ?? false) - Number(b.concept ?? false));
   const isEmpty = posts.length === 0;
 
   return (
@@ -26,13 +32,12 @@ export default function WorkPage() {
               Work
             </p>
             <h1 className={styles.pageTitle}>
-              Sample work, <span className={styles.underline}>written up properly.</span>
+              Finished jobs, <span className={styles.underline}>written up properly.</span>
             </h1>
             <p className={styles.pageIntro}>
-              We&rsquo;re a new studio, so we haven&rsquo;t published real client case
-              studies yet. Instead, here are <strong>concept projects</strong> — sample
-              work that shows exactly what we&rsquo;d create for a business like yours.
-              The businesses are made up; the thinking and the standard are real.
+              What one job becomes: the case study, the before-and-after set, the posts
+              and the Google update — for bathroom fitters, landscapers and joiners across
+              Gloucestershire.
             </p>
           </ScrollReveal>
         </div>
@@ -63,7 +68,7 @@ export default function WorkPage() {
                   <div className={styles.cardCover}>
                     {post.concept && <span className={styles.conceptBadge}>Concept</span>}
                     {post.coverImage ? (
-                      <img
+                      <Picture
                         src={post.coverImage}
                         alt={[post.client, post.sector].filter(Boolean).join(' — ')}
                         className={styles.cardCoverImg}
@@ -95,6 +100,20 @@ export default function WorkPage() {
               ))}
             </ScrollReveal>
           )}
+
+          {!isEmpty && (
+            <ScrollReveal>
+              <aside className={styles.disclosure} aria-label="About these examples">
+                <span className={styles.disclosureBadge}>Concept</span>
+                <p>
+                  <strong>A straight answer about these.</strong> We&rsquo;re a new studio, so
+                  the projects marked <em>Concept</em> are sample work — the businesses are
+                  made up; the thinking, the writing and the standard are exactly what
+                  you&rsquo;d get. Real client work will appear here first as it lands.
+                </p>
+              </aside>
+            </ScrollReveal>
+          )}
         </div>
       </section>
 
@@ -103,11 +122,16 @@ export default function WorkPage() {
           <div className="container">
             <div className="cta-band__inner">
               <p className="cta-band__statement">
-                Want work like this for your business?
+                Want your next finished job written up like this?
               </p>
-              <Link href="/contact" className="btn btn-ghost-light">
-                Start a project
-              </Link>
+              <div className={styles.ctaPair}>
+                <Link href="/contact" className="btn btn-ghost-light">
+                  Start a project
+                </Link>
+                <Link href="/pricing" className={`btn ${styles.ctaSolid}`}>
+                  See what it costs
+                </Link>
+              </div>
             </div>
           </div>
         </section>

@@ -1,5 +1,6 @@
 import type { Post } from '@/lib/content';
 import { WorkPlaceholder } from '@/components/WorkPlaceholder';
+import { Picture } from '@/components/Picture';
 
 export function assetHas(post: Post, name: string): boolean {
   return post.assetImages?.some(g => g.endsWith(`/${name}.jpg`)) ?? false;
@@ -22,7 +23,7 @@ export function AssetPhoto({
 }) {
   const src = `/work/${slug}/${name}.jpg`;
   if (assetHas(post, name)) {
-    return <img src={src} alt={label} className={className} loading="lazy" />;
+    return <Picture src={src} alt={label} className={className} intrinsicSize={false} />;
   }
   return (
     <div className={className}>

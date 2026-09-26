@@ -76,3 +76,9 @@
   }
   .infoCol { order: -1; }
 }
+
+.directBlock {
+  display: grid;
+  gap: 12px;
+}
+.directBlock .infoLabel { margin-bottom: 0; }

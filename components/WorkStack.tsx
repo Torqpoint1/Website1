@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { WorkPlaceholder } from './WorkPlaceholder';
 import styles from './WorkStack.module.css';
+import { Picture } from './Picture';
 
 const EASE = 'cubic-bezier(.22,.61,.36,1)';
 
@@ -100,7 +101,7 @@ export function WorkStack({ items }: { items: Study[] }) {
             Selected work
           </p>
           <h2 className={styles.title}>
-            Six sample projects.<br />Swipe the stack.
+            One job, written up properly.<br />Swipe the stack.
           </h2>
         </div>
 
@@ -136,7 +137,7 @@ export function WorkStack({ items }: { items: Study[] }) {
                   <div className={styles.media}>
                     {s.image ? (
                       <>
-                        <img src={s.image} alt={`${s.brand} — sample work`} />
+                        <Picture src={s.image} alt={`${s.brand} — sample work`} />
                         <span className={styles.veil} style={{ background: s.tint }} />
                       </>
                     ) : (

@@ -1,5 +1,7 @@
 ---
 title: "The Page That Quietly Closes Sales: Rethinking Your ‘About’ Section"
+audience: "general"
+relatedService: "website-design-build"
 category: "Copy"
 date: "2026-05-08"
 excerpt: "It’s one of the most-visited pages on most sites — and one of the most wasted. Your About page can do real work."

@@ -1,5 +1,7 @@
 ---
-title: "Trust in Three Seconds: What Visitors Decide Before They Read"
+title: "Trust in Three Seconds: What Homeowners Decide Before They Call"
+audience: "trade"
+relatedService: "website-design-build"
 category: "First Impressions"
 date: "2026-06-05"
 excerpt: "Long before anyone reads your carefully written paragraph, they’ve already decided whether to take you seriously."
@@ -11,7 +13,7 @@ keywords:
   - "web design for service businesses"
 ---
 
-People form a judgement about a website almost instantly — well before they’ve read a word of your copy. That snap reaction decides whether they keep scrolling or hit the back button. The good news: the things that earn that early trust are within your control.
+A homeowner with three quotes to compare forms a judgement about your website almost instantly — well before they’ve read a word of your copy. That snap reaction decides whether they keep scrolling or hit the back button. The good news: the things that earn that early trust are within your control.
 
 ## Clarity beats cleverness
 
@@ -19,7 +21,7 @@ Within a second or two, a visitor should know what you do, who it’s for, and w
 
 ## Looking the part is shorthand for being the part
 
-Fair or not, a tidy, modern, well-organised site signals a tidy, modern, well-organised business. A cramped, dated one quietly suggests the opposite — even if your work is excellent.
+Fair or not, a tidy, modern, well-organised site signals a tidy, modern, well-organised business. A cramped, dated one quietly suggests the opposite — even if your finish work is the best in the county.
 
 ## Friction reads as risk
 

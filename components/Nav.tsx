@@ -4,10 +4,13 @@ import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Logo } from './Logo';
+import { PhoneIcon, WhatsAppIcon } from './offer/DirectContact';
+import { PHONE_DISPLAY, hasPhone, telHref, whatsappHref } from '@/lib/contact';
 import styles from './Nav.module.css';
 
 const navLinks = [
   { href: '/services', label: 'Services' },
+  { href: '/pricing', label: 'Pricing' },
   { href: '/work', label: 'Work' },
   { href: '/journal', label: 'Journal' },
   { href: '/about', label: 'About' },
@@ -82,7 +85,13 @@ export function Nav() {
           </nav>
 
           <div className={styles.actions}>
-            <Link href="/contact" className="btn btn-primary">
+            {hasPhone && (
+              <a href={telHref} className={styles.call} aria-label={`Call Torqpoint on ${PHONE_DISPLAY}`} data-track-place="nav">
+                <PhoneIcon className={styles.callIcon} />
+                <span className={styles.callNumber}>{PHONE_DISPLAY}</span>
+              </a>
+            )}
+            <Link href="/contact" className={`btn btn-primary ${styles.navCta}`}>
               Start a project
             </Link>
             <button
@@ -143,6 +152,18 @@ export function Nav() {
             <Link href="/contact" className="btn btn-primary" tabIndex={open ? 0 : -1}>
               Start a project
             </Link>
+            {hasPhone && (
+              <div className={styles.drawerDirect}>
+                <a href={whatsappHref} className={styles.drawerWa} tabIndex={open ? 0 : -1} target="_blank" rel="noopener noreferrer" data-track-place="drawer">
+                  <WhatsAppIcon className={styles.callIcon} />
+                  WhatsApp
+                </a>
+                <a href={telHref} className={styles.drawerTel} tabIndex={open ? 0 : -1} data-track-place="drawer">
+                  <PhoneIcon className={styles.callIcon} />
+                  Call
+                </a>
+              </div>
+            )}
           </div>
         </nav>
       </div>

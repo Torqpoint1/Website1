@@ -4,30 +4,21 @@ import { getPost } from '@/lib/content';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { FaqAccordion } from '@/components/services/Faq';
 import { WorkPlaceholder } from '@/components/WorkPlaceholder';
+import { ProductCards } from '@/components/offer/ProductCards';
+import { DirectContact } from '@/components/offer/DirectContact';
+import { pageMetadata } from '@/lib/seo';
+import { hasPhone } from '@/lib/contact';
 import styles from './page.module.css';
+import { Picture } from '@/components/Picture';
 
 const PAGE_URL = 'https://torqpoint.com/marketing-agency-gloucestershire/';
-const DESCRIPTION =
-  'A content and social media studio in Gloucestershire for Cotswold trades, makers and independent businesses. Beautiful work deserves to be seen. Let’s talk.';
 
-export const metadata: Metadata = {
-  title: 'Marketing Agency in Gloucestershire — Content & Social',
-  description: DESCRIPTION,
-  alternates: { canonical: PAGE_URL },
-  openGraph: {
-    title: 'Marketing Agency in Gloucestershire — Content & Social | Torqpoint',
-    description: DESCRIPTION,
-    url: PAGE_URL,
-    siteName: 'Torqpoint',
-    locale: 'en_GB',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Marketing Agency in Gloucestershire — Content & Social | Torqpoint',
-    description: DESCRIPTION,
-  },
-};
+export const metadata: Metadata = pageMetadata({
+  path: '/marketing-agency-gloucestershire/',
+  title: 'Marketing Agency in Gloucestershire for Trades',
+  description:
+    'A content and marketing studio for Gloucestershire building trades. Case studies, photos and a Google presence you own, instead of leads you rent. From £350.',
+});
 
 /* ── Content data ───────────────────────────────────────── */
 
@@ -81,30 +72,27 @@ const presenceServices = [
 
 const sectors = [
   {
-    name: 'Trades & construction',
-    desc: 'joiners, builders, bathroom and kitchen fitters, landscapers.',
+    name: 'Bathrooms & kitchens',
+    desc: 'fitters whose best jobs disappear the day the homeowner moves back in.',
   },
   {
-    name: 'Makers & craft',
-    desc: 'furniture, interiors, florists, studios.',
+    name: 'Landscaping & gardens',
+    desc: 'the before-and-afters that sell the next garden on their own.',
   },
   {
-    name: 'Home & property',
-    desc: 'interior designers, holiday lets, garden design.',
+    name: 'Joinery & carpentry',
+    desc: 'staircases, doors and fitted work where the detail is the argument.',
   },
   {
-    name: 'Independent local services',
-    desc: 'the Gloucestershire and Cotswold businesses that live and die on reputation and word of mouth.',
+    name: 'Roofing & extensions',
+    desc: 'big-ticket jobs where the homeowner wants proof before they commit.',
   },
 ];
 
 const workCards = [
-  { slug: 'foxglove-and-fern-wedding-florist', label: 'Foxglove & Fern', role: 'wedding florist' },
-  { slug: 'the-old-cartshed-holiday-let', label: 'The Old Cartshed', role: 'holiday let' },
-  { slug: 'maeve-clarke-interiors-townhouse', label: 'Maeve Clarke Interiors', role: 'townhouse project' },
-  { slug: 'marsh-vale-bathrooms-wet-room', label: 'Marsh Vale', role: 'bathrooms & wet room' },
-  { slug: 'fieldhouse-landscapes-cotswold-garden', label: 'Fieldhouse Landscapes', role: 'Cotswold garden' },
-  { slug: 'ashcroft-joinery-oak-staircase', label: 'Ashcroft Joinery', role: 'oak staircase' },
+  { slug: 'marsh-vale-bathrooms-wet-room', label: 'Marsh & Vale Bathrooms', role: 'wet room, Cheltenham' },
+  { slug: 'fieldhouse-landscapes-cotswold-garden', label: 'Fieldhouse Landscapes', role: 'garden, Cirencester' },
+  { slug: 'ashcroft-joinery-oak-staircase', label: 'Ashcroft Joinery', role: 'oak staircase, Stroud' },
 ];
 
 const differentiators = [
@@ -118,30 +106,30 @@ const differentiators = [
   },
   {
     name: 'Local, and glad of it.',
-    desc: 'We’re in Gloucestershire. We know the Cotswold market, the seasons, the customers you’re trying to reach.',
+    desc: 'We’re in Gloucestershire. We know the towns you cover, the seasons your work follows, and the homeowners you’re trying to reach.',
   },
   {
-    name: 'Substance over noise.',
-    desc: 'No vanity metrics, no jargon, no ten-point growth-hack threads. Work worth showing, shown well.',
+    name: 'We know how the trade works.',
+    desc: 'Run by someone who works in the construction supply chain every day — who understands how you quote, schedule and get paid.',
   },
 ];
 
 const steps = [
   {
     title: 'Talk.',
-    desc: 'A proper conversation about the business, the work, and where the enquiries need to come from. No pitch theatre.',
+    desc: 'Fifteen minutes on the phone about the jobs you want more of and the areas you cover. No pitch theatre.',
   },
   {
-    title: 'Plan.',
-    desc: 'A simple, clear plan of what we’ll make and where it goes — sized to your budget, not ours.',
+    title: 'Photograph the job.',
+    desc: 'Before, during and after, on your phone. We send a shot list so you know what to grab.',
   },
   {
-    title: 'Produce.',
-    desc: 'We create the content and set up (or take over) the channels.',
+    title: 'Send a voice note.',
+    desc: 'Two minutes from the van on WhatsApp. We write it up, in your voice, and send it back to approve.',
   },
   {
-    title: 'Publish & keep going.',
-    desc: 'It ships on a rhythm you can rely on, and we adjust as we learn what your audience responds to.',
+    title: 'It goes live — and stays yours.',
+    desc: 'On your website, your Google profile and your socials. Stop any time and you keep all of it.',
   },
 ];
 
@@ -149,20 +137,20 @@ const steps = [
    never drift out of sync (Google flags mismatches). */
 const faqs = [
   {
-    q: 'Do you only work with businesses in Gloucestershire?',
-    a: 'We’re based in Gloucestershire and know the local market best, so it’s our natural home — but we work with independent businesses and trades across the wider Cotswolds and beyond. If the work’s good and you want it seen, distance isn’t the deciding factor.',
+    q: 'Which areas do you cover?',
+    a: 'Gloucestershire and the Cotswolds — Gloucester, Cheltenham, Cirencester, Stroud, Tewkesbury and the villages in between. Most of the work happens over WhatsApp, so if you cover the edges of the county, that’s fine too.',
   },
   {
     q: 'I’m a tradesperson, not a “brand”. Is this really for me?',
-    a: 'Especially for you. Our best work is for people who make or build something real and haven’t had the time to show it properly. You don’t need to be a big name — you need work worth photographing, which you already have.',
+    a: 'Especially for you. It’s built for established trades — bathroom and kitchen fitters, landscapers, joiners, roofers, extension builders — with a team, a couple of vans, and jobs worth £5,000 and up. You don’t need to be a big name; you need finished jobs worth showing, which you already have.',
   },
   {
-    q: 'Do you do the whole lot, or can I just get content made?',
-    a: 'Both. Some clients hand over their social presence entirely; others just want great posts, articles or a newsletter produced and delivered ready to publish. We’ll fit around what you actually need.',
+    q: 'How is this different from Checkatrade or MyBuilder?',
+    a: 'Directories list you alongside your competitors, and lead-based platforms sell the same enquiry to several firms at once. You pay whether you win it or not, and when you stop paying it all disappears. We build things you keep — a case study, photos, a page on your own site, a Google profile that ranks.',
   },
   {
     q: 'What does it cost?',
-    a: 'It depends on how much you want made and how often. We size it to your budget rather than forcing you into a package — the honest answer comes out of a short conversation about what you’re trying to achieve.',
+    a: 'One job written up properly — a Job Story — is £350. Engine, which is two jobs a month plus your Google profile and review replies handled, is £450 a month with no contract. Full detail is on the pricing page.',
   },
   {
     q: 'Will I have to be in front of the camera?',
@@ -225,22 +213,23 @@ export default function MarketingAgencyGloucestershirePage() {
           <ScrollReveal stagger>
             <p className="eyebrow">
               <span className="point point--sm" aria-hidden="true" />
-              Content &amp; marketing · Gloucestershire
+              Content &amp; marketing for trades · Gloucestershire
             </p>
             <h1 className={styles.h1}>
-              Marketing agency in Gloucestershire
+              Marketing agency in Gloucestershire, built for trades
               <span className={styles.heroPoint} aria-hidden="true" />
             </h1>
             <p className={styles.standfirst}>
-              A content and social studio for Cotswold trades, makers and independent
-              businesses — the ones doing beautiful work that too few people ever see.
+              For bathroom and kitchen fitters, landscapers, joiners, roofers and
+              extension builders who are tired of paying directories for leads that go
+              to four other firms. We turn your finished jobs into proof you own.
             </p>
             <div className={styles.heroCtas}>
               <Link href="/contact" className="btn btn-primary">
-                Start a conversation
+                Book a call
               </Link>
-              <Link href="/work" className="btn btn-ghost">
-                See the work
+              <Link href="/pricing" className="btn btn-ghost">
+                See what it costs
               </Link>
             </div>
           </ScrollReveal>
@@ -251,9 +240,9 @@ export default function MarketingAgencyGloucestershirePage() {
       <section className={styles.strip} aria-label="Who we work with">
         <div className="container">
           <p className={styles.stripText}>
-            For florists, joiners, interior designers, landscapers, holiday lets and the
-            independent businesses of Gloucestershire and the wider Cotswolds. We make
-            the content and run the social presence. You get back to the work.
+            Bathrooms, kitchens, landscaping, joinery, roofing and extensions — across
+            Gloucester, Cheltenham, Cirencester, Stroud, Tewkesbury and the Cotswolds.
+            You send the photos. We do the rest. You get back on site.
           </p>
         </div>
       </section>
@@ -267,14 +256,15 @@ export default function MarketingAgencyGloucestershirePage() {
               <div className={styles.prose}>
                 <p>
                   You’ve built something worth looking at. The finished staircase, the
-                  planted garden, the room that finally works, the day that went
-                  perfectly. Then it goes up as one dark phone photo, or nowhere at all —
-                  and the next enquiry never sees it.
+                  planted garden, the wet room that finally works, the roof that’ll
+                  outlast the house. Then it goes up as one dark phone photo, or nowhere
+                  at all — and the next homeowner never sees it.
                 </p>
                 <p>
-                  Most local businesses aren’t short of quality. They’re short of time,
-                  and they’re short of anyone whose actual job is to make the work look
-                  as good online as it does in person.
+                  So the enquiries come from directories instead: pay per lead, shared with
+                  four other firms, gone the day you stop paying. Most good trades aren’t
+                  short of quality. They’re short of time, and short of anyone whose job
+                  is to make the work win the next quote.
                 </p>
                 <p>That’s the whole gap. It’s the one we fill.</p>
               </div>
@@ -287,12 +277,17 @@ export default function MarketingAgencyGloucestershirePage() {
       <section className={`section ${styles.section}`}>
         <div className="container">
           <ScrollReveal>
-            <h2 className={styles.h2}>Content and social, done properly.</h2>
+            <h2 className={styles.h2}>Two products, priced up front.</h2>
             <p className={styles.sectionIntro}>
-              Two things, done well, instead of ten things done thinly. We produce the
-              content and we run the presence — as an extension of your business, in a
-              voice that sounds like you.
+              One finished job written up properly, or the whole thing handled every
+              month. Both built from the photos already on your phone.
             </p>
+          </ScrollReveal>
+          <div className={styles.products}>
+            <ProductCards />
+          </div>
+          <ScrollReveal>
+            <h3 className={styles.goesInto}>What goes into them</h3>
           </ScrollReveal>
           <div className={styles.pillars}>
             <ScrollReveal>
@@ -335,11 +330,10 @@ export default function MarketingAgencyGloucestershirePage() {
       <section className={`section ${styles.section}`}>
         <div className="container">
           <ScrollReveal>
-            <h2 className={styles.h2}>Built for Cotswold trades, makers and local businesses.</h2>
+            <h2 className={styles.h2}>Built for established Gloucestershire trades.</h2>
             <p className={styles.sectionIntro}>
-              We work best with people who make or do something real, and want it seen by
-              the right people nearby. If you recognise your business here, we’ll get on
-              well:
+              Firms with a team, a couple of vans, and jobs worth £5,000 and up. If you
+              recognise your business here, we’ll get on well:
             </p>
           </ScrollReveal>
           <ScrollReveal className={styles.sectorGrid} stagger>
@@ -355,9 +349,9 @@ export default function MarketingAgencyGloucestershirePage() {
           </ScrollReveal>
           <ScrollReveal>
             <p className={styles.sectionOutro}>
-              You don’t need a marketing department. You need someone who treats your
-              content and social media like their own — which is where a studio, not an
-              agency machine, earns its place.
+              Sole trader just starting out? We’re probably not the right fit yet — but the{' '}
+              <Link href="/journal" className={styles.inlineLink}>journal</Link> is free, and
+              there’s no catch.
             </p>
           </ScrollReveal>
         </div>
@@ -369,8 +363,8 @@ export default function MarketingAgencyGloucestershirePage() {
           <ScrollReveal>
             <h2 className={styles.h2}>Some of the work.</h2>
             <p className={styles.sectionIntro}>
-              Proof beats promises. A few of the businesses we’ve made content for across
-              Gloucestershire and the Cotswolds:
+              Proof beats promises. Concept projects showing exactly what we’d produce
+              from one of your finished jobs:
             </p>
           </ScrollReveal>
           <ScrollReveal className={styles.workGrid} stagger>
@@ -378,9 +372,9 @@ export default function MarketingAgencyGloucestershirePage() {
               <Link key={card.slug} href={`/work/${card.slug}`} className={`card ${styles.workCard}`}>
                 <div className={styles.workCover}>
                   {card.coverImage ? (
-                    <img
+                    <Picture
                       src={card.coverImage}
-                      alt={`Content produced for ${card.client}, a Cotswold ${card.role}`}
+                      alt={`Concept content for ${card.client} — ${card.role}`}
                       className={styles.workCoverImg}
                       loading="lazy"
                     />
@@ -444,7 +438,7 @@ export default function MarketingAgencyGloucestershirePage() {
           <ScrollReveal>
             <div className={styles.midCta}>
               <Link href="/contact" className="btn btn-primary">
-                Start a conversation
+                Book a call
               </Link>
             </div>
           </ScrollReveal>
@@ -471,12 +465,12 @@ export default function MarketingAgencyGloucestershirePage() {
               <h2 className={styles.h2}>Based in Gloucestershire, working across the Cotswolds.</h2>
               <div className={styles.prose}>
                 <p>
-                  We’re a Gloucestershire studio, close enough to the businesses we work
-                  with to actually turn up, understand the local market, and shoot the
-                  work in person when it matters. From Gloucester and Cheltenham out
-                  through Cirencester, Stroud, Tewkesbury and the Cotswold villages, we
-                  work with independent businesses who want to be found by the people
-                  nearby — and to look, online, as good as they are in real life.
+                  We’re a Gloucestershire studio, close enough to the firms we work with
+                  to actually turn up, understand the local market, and see the work in
+                  person when it matters. From Gloucester and Cheltenham out through
+                  Cirencester, Stroud, Tewkesbury and the Cotswold villages, we work with
+                  trades who want to be found by the homeowners nearby — without paying
+                  per lead for the privilege.
                 </p>
                 <p>
                   If you’d like the background on how being found locally actually works,
@@ -495,16 +489,17 @@ export default function MarketingAgencyGloucestershirePage() {
       {/* 11 ── Final CTA */}
       <section className={`cta-band cta-band--forge ${styles.finalCta}`} aria-label="Call to action">
         <div className="container">
-          <h2 className={styles.finalHeading}>Let’s make your work impossible to miss.</h2>
+          <h2 className={styles.finalHeading}>Stop renting your leads. Start owning your proof.</h2>
           <p className={styles.finalText}>
-            If you’re a Gloucestershire or Cotswold business doing work you’re proud of,
-            and you’re tired of it going unseen, that’s exactly the problem we’re here
-            for.
+            If you run a Gloucestershire trade business doing work you’re proud of, and
+            you’re tired of paying for enquiries you share with four other firms, that’s
+            exactly the problem we’re here for.
           </p>
           <div className={styles.finalRow}>
             <Link href="/contact" className="btn btn-ghost-light">
-              Start a conversation
+              Book a call
             </Link>
+            {hasPhone && <DirectContact tone="forge" place="landing-cta" />}
             <p className={styles.finalContact}>
               Or email us directly:{' '}
               <a href="mailto:info@torqpoint.com">info@torqpoint.com</a>

@@ -1,5 +1,7 @@
 ---
 title: "How to Get Reviews Without Feeling Awkward"
+audience: "trade"
+relatedService: "engine"
 category: "Social Proof"
 date: "2026-06-30"
 excerpt: "Reviews are the most persuasive thing on your website — and asking for them feels like the most awkward. Here’s how to make it easy for both sides."
