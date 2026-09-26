@@ -20,6 +20,9 @@ const BRAND_TINT: Record<string, { bg: string; tint: string }> = {
   'fieldhouse-landscapes-cotswold-garden':  { bg: '#EEF0E6', tint: 'rgba(58,92,52,.22)' },
   'marsh-vale-bathrooms-wet-room':          { bg: '#EAEEF0', tint: 'rgba(52,82,96,.20)' },
   'ashcroft-joinery-oak-staircase':         { bg: '#F2ECE2', tint: 'rgba(120,86,52,.20)' },
+  'hollins-webb-kitchens-cottage-kitchen':  { bg: '#EDF0E8', tint: 'rgba(84,104,80,.20)' },
+  'severn-slate-roofing-victorian-reroof':  { bg: '#ECEDEF', tint: 'rgba(60,66,78,.20)' },
+  'cleeve-build-rear-extension':            { bg: '#F1EEE8', tint: 'rgba(96,92,84,.18)' },
 };
 import styles from './page.module.css';
 
@@ -104,7 +107,14 @@ const faqJsonLd = {
 
 export default function HomePage() {
   /* Trade studies lead; the adjacent interiors study sits last. */
-  const TRADE_FIRST = ['marsh-vale-bathrooms-wet-room', 'fieldhouse-landscapes-cotswold-garden', 'ashcroft-joinery-oak-staircase'];
+  const TRADE_FIRST = [
+    'marsh-vale-bathrooms-wet-room',
+    'hollins-webb-kitchens-cottage-kitchen',
+    'fieldhouse-landscapes-cotswold-garden',
+    'severn-slate-roofing-victorian-reroof',
+    'ashcroft-joinery-oak-staircase',
+    'cleeve-build-rear-extension',
+  ];
   const rank = (slug: string) => (TRADE_FIRST.includes(slug) ? TRADE_FIRST.indexOf(slug) : TRADE_FIRST.length);
   const studies: Study[] = getAllPosts('work')
     .filter(p => !p.archived)

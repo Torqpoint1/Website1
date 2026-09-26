@@ -21,6 +21,8 @@ export interface PostMeta {
   sector?: string;
   location?: string;
   concept?: boolean;
+  /** not built at all until set false (e.g. waiting on images) */
+  draft?: boolean;
   /** work: kept live at its URL but hidden from grids (off-target sector) */
   archived?: boolean;
   /** journal: 'trade' articles are listed first */
@@ -101,6 +103,7 @@ export function getPost(collection: string, slug: string): Post | null {
     sector: data.sector,
     location: data.location,
     concept: data.concept === true,
+    draft: data.draft === true,
     archived: data.archived === true,
     audience: data.audience === 'trade' ? 'trade' : data.audience === 'general' ? 'general' : undefined,
     relatedService: typeof data.relatedService === 'string' ? data.relatedService : undefined,
@@ -116,7 +119,7 @@ export function getPost(collection: string, slug: string): Post | null {
 export function getAllPosts(collection: string): Post[] {
   return getSlugs(collection)
     .map(slug => getPost(collection, slug))
-    .filter((p): p is Post => p !== null)
+    .filter((p): p is Post => p !== null && !p.draft)
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 

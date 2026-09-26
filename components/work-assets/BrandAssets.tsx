@@ -5,6 +5,7 @@ import { FieldhouseAssets } from './FieldhouseAssets';
 import { CartshedAssets } from './CartshedAssets';
 import { AshcroftAssets } from './AshcroftAssets';
 import { MarshValeAssets } from './MarshValeAssets';
+import { JobStoryAssets } from './JobStoryAssets';
 
 /* Renders the per-brand sample-asset section for a concept case study,
    each in its own scoped brand identity. */
@@ -23,6 +24,6 @@ export function BrandAssets({ post }: { post: Post }) {
     case 'marsh-vale-bathrooms-wet-room':
       return <MarshValeAssets post={post} />;
     default:
-      return null;
+      return <JobStoryAssets post={post} />;
   }
 }
