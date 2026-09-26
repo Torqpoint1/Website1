@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "A lean-to conservatory out, a kitchen extension in — told from footings to bifolds."
 client: "Cleeve Build"
 sector: "Extensions & renovations"

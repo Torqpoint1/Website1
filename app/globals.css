@@ -341,20 +341,18 @@ ul, ol { list-style: none; }
 .prose strong { color: var(--ink); font-weight: 700; }
 .prose ul { margin-block: 1em; padding-left: 0; }
 .prose ul li {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
+  position: relative;
   margin-bottom: 0.5em;
-  padding-left: 0;
+  padding-left: 16px;
 }
 .prose ul li::before {
   content: '';
-  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0.62em;
   width: 6px;
   height: 6px;
   background: var(--forge);
-  flex-shrink: 0;
-  margin-top: 0.55em;
 }
 .prose blockquote {
   margin: 1.4em 0;

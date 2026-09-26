@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "A slipping Victorian roof, stripped and re-slated — and finally seen."
 client: "Severn Slate & Roofing"
 sector: "Roofing"

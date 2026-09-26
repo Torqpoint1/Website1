@@ -1,5 +1,4 @@
 ---
-draft: true
 title: "A tired cottage kitchen, and the three enquiries that followed it."
 client: "Hollins & Webb Kitchens"
 sector: "Kitchen design & fitting"
