@@ -3,6 +3,7 @@
 import { useRef, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { WorkPlaceholder } from './WorkPlaceholder';
+import { ScrollReveal } from './ScrollReveal';
 import styles from './WorkStack.module.css';
 import { Picture } from './Picture';
 
@@ -94,7 +95,7 @@ export function WorkStack({ items }: { items: Study[] }) {
 
   return (
     <section className={styles.work} aria-roledescription="card stack" aria-label="Selected concept work">
-      <div className="container">
+      <ScrollReveal className="container" stagger>
         <div className={styles.head}>
           <p className="index-label">
             <span className="point point--sm" aria-hidden="true" />
@@ -179,7 +180,7 @@ export function WorkStack({ items }: { items: Study[] }) {
             <button onClick={() => go(cur + 1)} disabled={cur === N - 1} aria-label="Next">›</button>
           </div>
         </div>
-      </div>
+      </ScrollReveal>
     </section>
   );
 }
