@@ -1,0 +1,36 @@
+/* Full-viewport, non-interactive snow. Sits above content but below the nav
+   (z-index 100), kept faint so it never fights with text. */
+.snow {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.flake {
+  position: absolute;
+  top: -6%;
+  border-radius: 50%;
+  background: #ffffff;
+  /* a soft grey halo so the white flakes are faintly visible on the light
+     paper background too, and bright on the dark sections */
+  box-shadow: 0 0 2px rgba(120, 130, 140, 0.35);
+  will-change: transform;
+  animation-name: snowfall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+@keyframes snowfall {
+  0% {
+    transform: translate3d(0, -6vh, 0);
+  }
+  100% {
+    transform: translate3d(var(--drift, 20px), 106vh, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .snow { display: none; }
+}

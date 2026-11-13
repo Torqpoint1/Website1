@@ -1,7 +1,20 @@
 import Link from 'next/link';
 import { Logo } from './Logo';
 import { EMAIL, INSTAGRAM_URL, PHONE_DISPLAY, hasPhone, telHref, whatsappHref } from '@/lib/contact';
+import { FESTIVE } from '@/lib/festive';
 import styles from './Footer.module.css';
+
+function Snowflake({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={className}>
+      <g stroke="currentColor" strokeWidth="1.5" strokeLinecap="round">
+        <path d="M12 2v20M3.34 7l17.32 10M20.66 7L3.34 17" />
+        <path d="M12 6l-2.2 2.2M12 6l2.2 2.2M12 18l-2.2-2.2M12 18l2.2-2.2" />
+        <path d="M5.1 8.2l.8 3M18.9 15.8l-.8-3M18.9 8.2l-.8 3M5.1 15.8l.8-3" />
+      </g>
+    </svg>
+  );
+}
 
 const year = new Date().getFullYear();
 
@@ -18,6 +31,12 @@ export function Footer() {
                 Gloucestershire.
               </Link>
             </p>
+            {FESTIVE && (
+              <p className={styles.festive}>
+                <Snowflake className={styles.festiveIcon} />
+                Season&rsquo;s greetings — we&rsquo;re here right through the new year.
+              </p>
+            )}
           </div>
 
           <div className={styles.columns}>

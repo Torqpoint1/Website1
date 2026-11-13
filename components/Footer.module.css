@@ -28,6 +28,21 @@
 .location { color: var(--dark-heading); font-weight: 600; transition: color var(--t-fast); }
 .location:hover { color: var(--dark-eyebrow); }
 
+.festive {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 18px;
+  font-size: 13.5px;
+  color: var(--dark-body);
+}
+.festiveIcon {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  color: var(--forge);
+}
+
 .columns {
   display: grid;
   grid-template-columns: 1fr 1fr;

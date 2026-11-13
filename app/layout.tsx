@@ -4,6 +4,7 @@ import { SpeedInsights } from '@vercel/speed-insights/next';
 import './globals.css';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
+import { Snow } from '@/components/Snow';
 import { ClickTracker } from '@/components/ClickTracker';
 import { organizationSchema } from '@/lib/schema';
 import { BASE_URL, SITE_DESCRIPTION } from '@/lib/seo';
@@ -34,6 +35,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
         />
         <a href="#main-content" className="skip-link">Skip to main content</a>
+        <Snow />
         <Nav />
         <main id="main-content">{children}</main>
         <Footer />
