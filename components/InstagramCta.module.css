@@ -29,22 +29,68 @@
     radial-gradient(120% 120% at 100% 0%, rgba(238, 90, 30, 0.10), transparent 52%),
     var(--surface);
 }
-.feedHead {
+.feedIntro { margin-bottom: clamp(18px, 2.4vw, 26px); }
+.feedIntro .heading { margin: 12px 0 0; }
+
+/* Instagram-style profile preview row: avatar + handle + follow */
+.profile {
   display: flex;
+  align-items: center;
   flex-wrap: wrap;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 20px 32px;
-  margin-bottom: clamp(24px, 3vw, 36px);
+  gap: 14px;
+  padding: 14px 16px;
+  margin-bottom: clamp(20px, 2.6vw, 30px);
+  border: 1px solid var(--surface-2);
+  border-radius: 16px;
+  background: var(--paper);
 }
-.feedHead .heading { margin: 12px 0 10px; }
-.leadTight {
-  font-size: clamp(14px, 1.5vw, 16px);
-  color: var(--slate);
-  line-height: 1.55;
-  max-width: 46ch;
+.profileAvatar {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--ink);
+  border: 1px solid var(--surface-2);
 }
+.profileMeta {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+.profileName {
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+.profileHandle {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--forge-text);
+}
+.profileBio {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+.profile .followBtn { margin-left: auto; }
+
 .feedReveal { display: block; }
+
+/* Real avatar image in the fallback card header */
+.avatarImg {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+  background: var(--ink);
+}
+
+@media (max-width: 520px) {
+  .profile .followBtn { margin-left: 0; width: 100%; justify-content: center; }
+}
 
 /* ── Copy ──────────────────────────────────────────────── */
 .copy { max-width: 46ch; }

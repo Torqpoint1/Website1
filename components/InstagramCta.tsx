@@ -65,19 +65,29 @@ export function InstagramCta() {
       <section className={styles.ig} aria-labelledby="ig-heading">
         <div className="container">
           <div className={styles.feedPanel}>
-            <ScrollReveal className={styles.feedHead} stagger direction="left">
-              <div>
-                <p className="eyebrow">
-                  <span className="point point--sm" aria-hidden="true" />
-                  Instagram
-                </p>
-                <h2 id="ig-heading" className={styles.heading}>
-                  See the work <span className={styles.forge}>as it happens.</span>
-                </h2>
-                <p className={styles.leadTight}>
-                  Finished jobs, before-and-afters and the odd look behind the scenes.
-                  Tap any post to open it on Instagram.
-                </p>
+            <ScrollReveal className={styles.feedIntro} stagger direction="left">
+              <p className="eyebrow">
+                <span className="point point--sm" aria-hidden="true" />
+                Instagram
+              </p>
+              <h2 id="ig-heading" className={styles.heading}>
+                See the work <span className={styles.forge}>as it happens.</span>
+              </h2>
+            </ScrollReveal>
+
+            <ScrollReveal className={styles.profile} direction="up">
+              <img
+                className={styles.profileAvatar}
+                src="/torqpoint-instagram.jpg"
+                alt="Torqpoint’s Instagram profile picture"
+                width={56}
+                height={56}
+                loading="lazy"
+              />
+              <div className={styles.profileMeta}>
+                <span className={styles.profileName}>torqpoint.co</span>
+                <span className={styles.profileHandle}>@torqpoint.co</span>
+                <span className={styles.profileBio}>Content &amp; marketing studio · Gloucestershire</span>
               </div>
               <FollowButton />
             </ScrollReveal>
@@ -128,7 +138,7 @@ export function InstagramCta() {
           >
             <span className={styles.phone} aria-hidden="true">
               <span className={styles.phoneHead}>
-                <span className={styles.avatar}>Tp.</span>
+                <img className={styles.avatarImg} src="/torqpoint-instagram.jpg" alt="" width={46} height={46} loading="lazy" />
                 <span className={styles.phoneName}>
                   <b>torqpoint.co</b>
                   <i>Content &amp; marketing · Gloucestershire</i>
