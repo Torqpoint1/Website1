@@ -1,75 +1,89 @@
-/* Fairy-light string tucked just under the fixed nav, spanning the page.
-   Sits above content but below the nav (z-index 100). */
-.lights {
+/* Evergreen garland strung just under the fixed nav, across the page.
+   The pine rope is a repeating SVG background; lights + baubles sit on top. */
+.garland {
   position: fixed;
-  top: calc(var(--nav-h) - 1px);
+  top: calc(var(--nav-h) - 3px);
   left: 0;
   right: 0;
-  height: 22px;
+  height: 54px;
   z-index: 95;
   pointer-events: none;
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  padding-inline: clamp(8px, 3vw, 40px);
-}
-/* the wire */
-.lights::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(23, 26, 30, 0.16) 6%,
-    rgba(23, 26, 30, 0.16) 94%,
-    transparent
-  );
+  overflow: hidden;
+  background-repeat: repeat-x;
+  background-position: left top;
 }
 
-.bulb {
+.row {
+  display: flex;
+  height: 100%;
+}
+.unit {
   position: relative;
-  margin-top: 7px;
+  flex: 0 0 150px; /* must match SWAG in the component */
+  width: 150px;
+}
+
+/* ── Lights: one warm bulb nestled at each swag's low point ── */
+.bulb {
+  position: absolute;
+  top: 29px;
+  left: 50%;
   width: 8px;
   height: 10px;
+  transform: translateX(-50%);
   border-radius: 50% 50% 50% 50% / 44% 44% 56% 56%;
   animation: twinkle 3.4s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.28s);
+  animation-delay: calc(var(--i) * 0.3s);
 }
-/* short stem up to the wire */
-.bulb::before {
+.unit:nth-child(3n + 1) .bulb { background: var(--forge); box-shadow: 0 0 10px 1px rgba(238, 90, 30, 0.6); }
+.unit:nth-child(3n + 2) .bulb { background: #f6c35a; box-shadow: 0 0 10px 1px rgba(246, 195, 90, 0.6); }
+.unit:nth-child(3n + 3) .bulb { background: #fdf0d6; box-shadow: 0 0 11px 1px rgba(253, 240, 214, 0.85); }
+
+/* ── Baubles: hang from the swag on a short string ── */
+.bauble {
+  position: absolute;
+  top: 33px;
+  left: 50%;
+  width: 12px;
+  height: 12px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+}
+.bauble::before { /* string up to the garland */
   content: '';
   position: absolute;
-  top: -7px;
+  top: -6px;
   left: 50%;
   width: 1px;
-  height: 7px;
+  height: 6px;
   transform: translateX(-50%);
-  background: rgba(23, 26, 30, 0.22);
+  background: rgba(23, 26, 30, 0.3);
 }
-
-/* Warm, on-brand palette: forge, gold, warm white — cycled. */
-.bulb:nth-child(3n + 1) {
-  background: var(--forge);
-  box-shadow: 0 0 10px 1px rgba(238, 90, 30, 0.6);
+.bauble::after { /* cap */
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  transform: translateX(-50%);
+  border-radius: 1px;
+  background: #d9b24a;
 }
-.bulb:nth-child(3n + 2) {
-  background: #f2b63d;
-  box-shadow: 0 0 10px 1px rgba(242, 182, 61, 0.55);
+.baubleRed {
+  background: radial-gradient(circle at 35% 30%, #e0584b, #b22a21 70%);
+  box-shadow: 0 0 9px 0 rgba(200, 50, 40, 0.4);
 }
-.bulb:nth-child(3n + 3) {
-  background: #fcefd6;
-  box-shadow: 0 0 11px 1px rgba(252, 239, 214, 0.8);
+.baubleGold {
+  background: radial-gradient(circle at 35% 30%, #f3cd73, #c99a32 70%);
+  box-shadow: 0 0 9px 0 rgba(216, 170, 60, 0.45);
 }
 
 @keyframes twinkle {
-  0%, 100% { opacity: 1; filter: brightness(1.05); }
+  0%, 100% { opacity: 1; filter: brightness(1.08); }
   50%      { opacity: 0.5; filter: brightness(0.75); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bulb { animation: none; opacity: 0.9; }
+  .bulb { animation: none; opacity: 0.92; }
 }

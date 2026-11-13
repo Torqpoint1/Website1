@@ -384,3 +384,8 @@
   border-radius: var(--r);
   background: linear-gradient(135deg, #DDE5E8, #C9D3D7);
 }
+
+/* Festive: push the desktop two-column hero down so the garland clears the eyebrow. */
+:global(body.festive) .deskGrid {
+  padding-top: calc(var(--nav-h) + 54px);
+}

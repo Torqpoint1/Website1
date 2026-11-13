@@ -9,6 +9,7 @@ import { FairyLights } from '@/components/FairyLights';
 import { ClickTracker } from '@/components/ClickTracker';
 import { organizationSchema } from '@/lib/schema';
 import { BASE_URL, SITE_DESCRIPTION } from '@/lib/seo';
+import { FESTIVE } from '@/lib/festive';
 
 export const metadata: Metadata = {
   title: {
@@ -30,7 +31,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en-GB">
-      <body>
+      <body className={FESTIVE ? 'festive' : undefined}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}

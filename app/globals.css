@@ -71,6 +71,11 @@ body {
   position: relative;
 }
 
+/* Festive: give the content a little extra top room so the garland strung
+   under the nav has its own clear band and never sits over the first line.
+   (Hero/showcase add their own extra room in their CSS modules.) */
+body.festive #main-content { padding-top: 18px; }
+
 /* Subtle film-grain texture — adds an "expensive print" quality.
    z-index:-1 keeps it behind in-flow content but above the paper canvas,
    so it only shows through on paper gaps; cards/dark bands cover it.

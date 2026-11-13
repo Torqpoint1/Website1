@@ -150,3 +150,8 @@
   .scrollLine::after { animation: none; display: none; }
   .bgBlob { display: none; }
 }
+
+/* Festive: extra top room so the garland strung under the nav clears the hero. */
+:global(body.festive) .hero {
+  padding-top: calc(var(--nav-h) + clamp(92px, 15vw, 120px));
+}
