@@ -147,7 +147,7 @@ export default function ServicesPage() {
 
       {/* ── CTA Band ────────────────────────────────────── */}
       <section className="cta-band cta-band--dark" aria-label="Call to action">
-        <LightString units={14} />
+        <LightString units={18} />
         <div className="container">
           <div className="cta-band__inner">
             <p className="cta-band__statement">

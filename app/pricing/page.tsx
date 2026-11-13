@@ -195,7 +195,7 @@ export default function PricingPage() {
 
       {/* ── CTA ────────────────────────────────────────────── */}
       <section className={`cta-band cta-band--dark ${styles.cta}`} aria-label="Call to action">
-        <LightString units={14} />
+        <LightString units={18} />
         <div className="container">
           <ScrollReveal className={styles.ctaInner} stagger direction="left">
             <p className="cta-band__statement">

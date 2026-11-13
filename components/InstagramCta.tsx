@@ -6,7 +6,7 @@ import { INSTAGRAM_URL } from '@/lib/contact';
 import { BEHOLD_FEED_URL } from '@/lib/social';
 import Link from 'next/link';
 import { InstagramGrid, InstagramSkeleton, normaliseBehold, normaliseBeholdProfile, type IgPost, type IgProfile } from '@/components/InstagramFeed';
-import { TinselDrape } from '@/components/festive/FestiveDecor';
+import { LightString } from '@/components/festive/FestiveDecor';
 import styles from './InstagramCta.module.css';
 
 const LIMIT = 9;
@@ -83,7 +83,7 @@ export function InstagramCta() {
       <section className={styles.ig} aria-labelledby="ig-heading">
         <div className="container">
           <div className={styles.panelWrap}>
-            <TinselDrape className={styles.panelTinsel} width={230} angle={-4} />
+            <LightString className={styles.panelLights} units={11} wire="rgba(40,30,22,0.3)" tones={['forge', 'red', 'gold', 'green']} />
             <div className={styles.feedPanel}>
             <ScrollReveal className={styles.feedIntro} stagger direction="left">
               <p className="eyebrow">

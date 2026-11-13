@@ -6,9 +6,10 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 40px;
+  height: 46px;
   z-index: 3;
   pointer-events: none;
+  overflow: hidden;
   background-repeat: repeat-x;
   background-position: left top;
 }
@@ -31,17 +32,18 @@
 .bulb::before {
   content: '';
   position: absolute;
-  top: -5px;
+  top: -6px;
   left: 50%;
   width: 1px;
-  height: 6px;
+  height: 7px;
   transform: translateX(-50%);
-  background: rgba(255, 255, 255, 0.3);
+  background: var(--fl-wire, rgba(255, 255, 255, 0.3));
 }
 .forge { background: #ee5a1e; box-shadow: 0 0 10px 1px rgba(238, 90, 30, 0.6); }
-.gold  { background: #f6c35a; box-shadow: 0 0 10px 1px rgba(246, 195, 90, 0.6); }
+.gold  { background: #f3b43a; box-shadow: 0 0 10px 1px rgba(243, 180, 58, 0.6); }
 .cream { background: #fdf0d6; box-shadow: 0 0 11px 1px rgba(253, 240, 214, 0.85); }
-.red   { background: #e65a4b; box-shadow: 0 0 10px 1px rgba(224, 70, 55, 0.6); }
+.red   { background: #e34b3c; box-shadow: 0 0 10px 1px rgba(224, 70, 55, 0.6); }
+.green { background: #2f9e52; box-shadow: 0 0 10px 1px rgba(47, 158, 82, 0.55); }
 
 @keyframes flTwinkle {
   0%, 100% { opacity: 0.95; filter: brightness(1.06); }

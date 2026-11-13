@@ -13,7 +13,8 @@ function jitter(seed: number, n: number): number[] {
 }
 
 const UNIT = 112; // px per swag of wire
-const BULB_TONES = ['forge', 'gold', 'cream', 'red'] as const;
+type Tone = 'forge' | 'gold' | 'cream' | 'red' | 'green';
+const BULB_TONES: readonly Tone[] = ['forge', 'gold', 'cream', 'red'];
 
 /** A string of fairy lights hung across the top of a container: the wire
  *  sags in swags and the bulbs dangle at slightly irregular spots — never a
@@ -22,11 +23,13 @@ export function LightString({
   units = 12,
   wire = 'rgba(255,255,255,0.28)',
   tones = BULB_TONES,
+  seed = 0,
   className = '',
 }: {
   units?: number;
   wire?: string;
-  tones?: readonly ('forge' | 'gold' | 'cream' | 'red')[];
+  tones?: readonly Tone[];
+  seed?: number;
   className?: string;
 }) {
   if (!FESTIVE) return null;
@@ -38,16 +41,17 @@ export function LightString({
         `</svg>`,
     )}")`;
 
-  const jx = jitter(1171, units);
-  const jy = jitter(2273, units);
-  const js = jitter(3391, units);
-  const jc = jitter(4493, units);
+  const o = seed * 97;
+  const jx = jitter(1171 + o, units);
+  const jy = jitter(2273 + o, units);
+  const js = jitter(3391 + o, units);
+  const jc = jitter(4493 + o, units);
 
   return (
     <div
       className={`${styles.string} ${className}`}
       aria-hidden="true"
-      style={{ backgroundImage: wireSvg, backgroundSize: `${UNIT}px 40px` }}
+      style={{ backgroundImage: wireSvg, backgroundSize: `${UNIT}px 40px`, ['--fl-wire' as string]: wire }}
     >
       <div className={styles.row}>
         {Array.from({ length: units }).map((_, i) => {

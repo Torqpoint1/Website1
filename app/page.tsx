@@ -175,6 +175,7 @@ export default function HomePage() {
           <ScrollReveal className={styles.serviceGrid} stagger direction="scale">
             {services.map(({ name, desc }, i) => (
               <article key={name} className={`card ${styles.serviceCard}`}>
+                <LightString className={styles.cardLights} units={4} seed={i + 1} wire="rgba(40,30,22,0.3)" tones={['forge', 'red', 'gold', 'green']} />
                 <div className={styles.cardTop}>
                   <div className={styles.cardMarker} aria-hidden="true">
                     <span className="point point--md" />
@@ -249,7 +250,7 @@ export default function HomePage() {
 
       {/* ── How It Works (dark band) ───────────────────────── */}
       <section className={styles.howItWorks} aria-labelledby="how-heading">
-        <LightString units={14} />
+        <LightString units={18} />
         <div className="container">
           <ScrollReveal stagger direction="left">
             <p className="index-label" style={{ color: 'var(--dark-eyebrow)' }}>
@@ -307,7 +308,7 @@ export default function HomePage() {
 
       {/* ── CTA Band ──────────────────────────────────────── */}
       <section className={`cta-band cta-band--forge`} aria-label="Call to action">
-        <LightString units={14} wire="rgba(255,255,255,0.42)" tones={['cream', 'gold', 'cream']} />
+        <LightString units={18} wire="rgba(255,255,255,0.42)" tones={['cream', 'gold', 'cream']} />
         <div className="container">
           <ScrollReveal className="cta-band__inner" stagger direction="left">
             <p className="cta-band__statement">

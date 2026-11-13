@@ -120,7 +120,7 @@ export default function WorkPage() {
 
       {!isEmpty && (
         <section className="cta-band cta-band--forge" aria-label="Call to action">
-          <LightString units={14} wire="rgba(255,255,255,0.42)" tones={['cream', 'gold', 'cream']} />
+          <LightString units={18} wire="rgba(255,255,255,0.42)" tones={['cream', 'gold', 'cream']} />
           <div className="container">
             <div className="cta-band__inner">
               <p className="cta-band__statement">

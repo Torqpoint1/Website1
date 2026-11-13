@@ -490,7 +490,7 @@ export default function MarketingAgencyGloucestershirePage() {
 
       {/* 11 ── Final CTA */}
       <section className={`cta-band cta-band--forge ${styles.finalCta}`} aria-label="Call to action">
-        <LightString units={14} wire="rgba(255,255,255,0.42)" tones={['cream', 'gold', 'cream']} />
+        <LightString units={18} wire="rgba(255,255,255,0.42)" tones={['cream', 'gold', 'cream']} />
         <div className="container">
           <h2 className={styles.finalHeading}>Stop renting your visibility. Start owning your proof.</h2>
           <p className={styles.finalText}>
