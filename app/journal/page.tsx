@@ -74,6 +74,20 @@ export default function JournalPage() {
             </ScrollReveal>
           ) : (
             <>
+              {otherPosts.length > 0 && (
+                <div className={styles.group}>
+                  <ScrollReveal className={styles.groupHead} direction="left">
+                    <h2 className={styles.groupTitle}>
+                      <span className="point point--sm" aria-hidden="true" />
+                      Marketing &amp; websites
+                    </h2>
+                    <p className={styles.groupNote}>For every kind of local business — your site, your content, getting found.</p>
+                  </ScrollReveal>
+                  <ScrollReveal className={styles.postList} stagger staggerStep={0.06}>
+                    {otherPosts.map(post => <PostRow key={post.slug} post={post} />)}
+                  </ScrollReveal>
+                </div>
+              )}
               {tradePosts.length > 0 && (
                 <div className={styles.group}>
                   <ScrollReveal className={styles.groupHead} direction="left">
@@ -85,20 +99,6 @@ export default function JournalPage() {
                   </ScrollReveal>
                   <ScrollReveal className={styles.postList} stagger staggerStep={0.08}>
                     {tradePosts.map(post => <PostRow key={post.slug} post={post} />)}
-                  </ScrollReveal>
-                </div>
-              )}
-              {otherPosts.length > 0 && (
-                <div className={styles.group}>
-                  <ScrollReveal className={styles.groupHead} direction="left">
-                    <h2 className={styles.groupTitle}>
-                      <span className="point point--sm" aria-hidden="true" />
-                      Websites &amp; marketing
-                    </h2>
-                    <p className={styles.groupNote}>The wider picture — your site, your copy, getting found.</p>
-                  </ScrollReveal>
-                  <ScrollReveal className={styles.postList} stagger staggerStep={0.06}>
-                    {otherPosts.map(post => <PostRow key={post.slug} post={post} />)}
                   </ScrollReveal>
                 </div>
               )}
