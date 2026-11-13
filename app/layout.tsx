@@ -5,6 +5,7 @@ import './globals.css';
 import { Nav } from '@/components/Nav';
 import { Footer } from '@/components/Footer';
 import { Snow } from '@/components/Snow';
+import { FairyLights } from '@/components/FairyLights';
 import { ClickTracker } from '@/components/ClickTracker';
 import { organizationSchema } from '@/lib/schema';
 import { BASE_URL, SITE_DESCRIPTION } from '@/lib/seo';
@@ -37,6 +38,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <a href="#main-content" className="skip-link">Skip to main content</a>
         <Snow />
         <Nav />
+        <FairyLights />
         <main id="main-content">{children}</main>
         <Footer />
         <ClickTracker />
