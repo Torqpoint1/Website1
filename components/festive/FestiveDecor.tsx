@@ -53,9 +53,6 @@ export function LightString({
       aria-hidden="true"
       style={{ backgroundImage: wireSvg, backgroundSize: `${UNIT}px 40px`, ['--fl-wire' as string]: wire }}
     >
-      {/* anchor points where the string is tied to the corners */}
-      <span className={styles.anchor} style={{ left: '-2px' }} />
-      <span className={styles.anchor} style={{ right: '-2px' }} />
       <div className={styles.row}>
         {Array.from({ length: units }).map((_, i) => {
           const tone = tones[Math.floor(jc[i] * tones.length)];

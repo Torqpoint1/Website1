@@ -24,11 +24,11 @@
   gap: 16px;
   position: relative;
 }
-/* Fairy lights strung across the top edge of each card, tied at the corners */
+/* Fairy lights resting on the top edge of each card, between the corners */
 .cardLights {
-  top: -6px;
-  left: 0;
-  right: 0;
+  top: -4px;
+  left: 20px;
+  right: 20px;
 }
 
 .cardTop {

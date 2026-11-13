@@ -17,16 +17,6 @@
   display: flex;
   height: 100%;
 }
-/* small knot where the string is tied off at each end */
-.anchor {
-  position: absolute;
-  top: 2px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--fl-wire, rgba(255, 255, 255, 0.4));
-  z-index: 1;
-}
 .unit {
   position: relative;
   flex: 0 0 112px; /* must match UNIT in the component */

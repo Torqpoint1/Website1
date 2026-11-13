@@ -115,7 +115,7 @@
   position: relative;
 }
 .panelLights {
-  top: -6px;
-  left: 0;
-  right: 0;
+  top: -4px;
+  left: 22px;
+  right: 22px;
 }
