@@ -32,77 +32,105 @@
 .feedIntro { margin-bottom: clamp(18px, 2.4vw, 26px); }
 .feedIntro .heading { margin: 12px 0 0; }
 
-/* Instagram-style profile header: avatar, name, stats, bio, link, actions */
+/* Instagram-style profile header: avatar + one aligned column */
 .profile {
   display: flex;
-  flex-direction: column;
-  gap: 16px;
-  padding: clamp(18px, 2.4vw, 26px);
+  align-items: flex-start;
+  gap: clamp(18px, 3vw, 32px);
+  padding: clamp(20px, 2.6vw, 30px);
   margin-bottom: clamp(20px, 2.6vw, 30px);
   border: 1px solid var(--surface-2);
   border-radius: 18px;
   background: var(--paper);
 }
-
-.profileTop {
-  display: flex;
-  align-items: center;
-  gap: clamp(16px, 3vw, 28px);
-}
 .profileAvatar {
-  width: clamp(72px, 10vw, 92px);
-  height: clamp(72px, 10vw, 92px);
+  width: clamp(76px, 9vw, 92px);
+  height: clamp(76px, 9vw, 92px);
   flex-shrink: 0;
   border-radius: 50%;
   object-fit: cover;
   background: var(--ink);
   border: 1px solid var(--surface-2);
 }
-.profileHeadCol {
+
+/* Everything to the right of the avatar shares one left edge. */
+.profileMain {
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  gap: 3px;
-  min-width: 0;
 }
+.identity { display: flex; flex-direction: column; gap: 2px; }
 .profileName {
   font-weight: 700;
-  font-size: clamp(19px, 2.4vw, 24px);
+  font-size: clamp(19px, 2.3vw, 24px);
   letter-spacing: -0.02em;
-  color: var(--ink);
   line-height: 1.1;
+  color: var(--ink);
 }
 .profileHandle {
   font-size: 13px;
   font-weight: 600;
   color: var(--forge-text);
 }
+
 .stats {
   display: flex;
   flex-wrap: wrap;
-  gap: 6px 20px;
-  margin-top: 8px;
+  align-items: center;
+  gap: 4px 22px;
+  margin-top: 12px;
   font-size: 14px;
   color: var(--muted);
 }
-.stats b {
-  color: var(--ink);
+.stat b { color: var(--ink); font-weight: 700; }
+
+/* Live follower count — pulsing dot + gently pulsing number */
+.liveStat {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.liveDot {
+  position: relative;
+  width: 8px;
+  height: 8px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--forge);
+}
+.liveDot::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--forge);
+  animation: liveRing 1.9s ease-out infinite;
+}
+.liveNum {
+  color: var(--forge);
   font-weight: 700;
+  animation: livePulse 1.9s ease-in-out infinite;
+}
+@keyframes liveRing {
+  0%   { transform: scale(1);   opacity: 0.55; }
+  100% { transform: scale(2.8); opacity: 0; }
+}
+@keyframes livePulse {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.55; }
 }
 
-/* Body: category + bio + link */
-.profileBody {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
 .category {
+  margin-top: 16px;
   font-size: 13px;
   font-weight: 600;
   color: var(--slate);
 }
 .bio {
+  margin-top: 6px;
   font-size: 14.5px;
-  line-height: 1.5;
+  line-height: 1.55;
   color: var(--ink);
   white-space: pre-line;
 }
@@ -110,31 +138,40 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  margin-top: 2px;
+  align-self: flex-start;
+  margin-top: 10px;
   font-size: 14px;
   font-weight: 700;
   color: var(--forge-text);
   transition: color var(--t-fast);
-  align-self: flex-start;
 }
 .bioLink:hover { color: var(--forge); }
 .linkIcon { width: 16px; height: 16px; }
 
-/* Actions */
 .profileActions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
+  margin-top: 20px;
 }
-.secondaryBtn { flex-shrink: 0; }
+.profileActions .followBtn,
+.secondaryBtn { justify-content: center; }
+@media (min-width: 560px) {
+  .profileActions .followBtn,
+  .secondaryBtn { min-width: 190px; }
+}
 
-@media (min-width: 680px) {
+/* On narrow phones, stack the avatar above the details. */
+@media (max-width: 480px) {
+  .profile { flex-direction: column; align-items: flex-start; gap: 14px; }
+  .profileActions { width: 100%; }
   .profileActions .followBtn,
-  .profileActions .secondaryBtn { min-width: 180px; justify-content: center; }
+  .secondaryBtn { flex: 1 1 auto; min-width: 0; }
 }
-@media (max-width: 420px) {
-  .profileActions .followBtn,
-  .profileActions .secondaryBtn { flex: 1; justify-content: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  .liveDot::after { animation: none; }
+  .liveNum { animation: none; }
 }
 
 .feedReveal { display: block; }

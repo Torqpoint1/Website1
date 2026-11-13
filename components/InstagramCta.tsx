@@ -93,29 +93,34 @@ export function InstagramCta() {
             </ScrollReveal>
 
             <ScrollReveal className={styles.profile} direction="up">
-              <div className={styles.profileTop}>
-                <img
-                  className={styles.profileAvatar}
-                  src="/torqpoint-instagram.jpg"
-                  alt="Torqpoint’s Instagram profile picture"
-                  width={88}
-                  height={88}
-                  loading="lazy"
-                />
-                <div className={styles.profileHeadCol}>
+              <img
+                className={styles.profileAvatar}
+                src="/torqpoint-instagram.jpg"
+                alt="Torqpoint’s Instagram profile picture"
+                width={88}
+                height={88}
+                loading="lazy"
+              />
+
+              <div className={styles.profileMain}>
+                <div className={styles.identity}>
                   <span className={styles.profileName}>{DISPLAY_NAME}</span>
                   <span className={styles.profileHandle}>@{p.username}</span>
-                  {p.followers !== null && (
-                    <div className={styles.stats}>
-                      <span><b>{fmt(p.followers)}</b> followers</span>
-                      {p.following !== null && <span><b>{fmt(p.following)}</b> following</span>}
-                    </div>
-                  )}
                 </div>
-              </div>
 
-              <div className={styles.profileBody}>
-                <span className={styles.category}>{CATEGORY}</span>
+                {p.followers !== null && (
+                  <div className={styles.stats}>
+                    <span className={styles.liveStat}>
+                      <span className={styles.liveDot} aria-hidden="true" />
+                      <b className={styles.liveNum}>{fmt(p.followers)}</b> followers
+                    </span>
+                    {p.following !== null && (
+                      <span className={styles.stat}><b>{fmt(p.following)}</b> following</span>
+                    )}
+                  </div>
+                )}
+
+                <p className={styles.category}>{CATEGORY}</p>
                 <p className={styles.bio}>{p.bio}</p>
                 <a
                   className={styles.bioLink}
@@ -128,13 +133,13 @@ export function InstagramCta() {
                   </svg>
                   torqpoint.com
                 </a>
-              </div>
 
-              <div className={styles.profileActions}>
-                <FollowButton />
-                <Link href="/contact" className={`btn btn-ghost ${styles.secondaryBtn}`} data-track="book_call_click" data-track-place="home-ig">
-                  Book a call
-                </Link>
+                <div className={styles.profileActions}>
+                  <FollowButton />
+                  <Link href="/contact" className={`btn btn-ghost ${styles.secondaryBtn}`} data-track="book_call_click" data-track-place="home-ig">
+                    Book a call
+                  </Link>
+                </div>
               </div>
             </ScrollReveal>
 
