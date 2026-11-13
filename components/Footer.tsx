@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Logo } from './Logo';
 import { EMAIL, INSTAGRAM_URL, PHONE_DISPLAY, hasPhone, telHref, whatsappHref } from '@/lib/contact';
 import { FESTIVE } from '@/lib/festive';
+import { TINSEL_BG, TINSEL_TILE } from './FairyLights';
 import styles from './Footer.module.css';
 
 function Snowflake({ className }: { className?: string }) {
@@ -21,6 +22,13 @@ const year = new Date().getFullYear();
 export function Footer() {
   return (
     <footer className={styles.footer} role="contentinfo">
+      {FESTIVE && (
+        <div
+          className={styles.tinsel}
+          aria-hidden="true"
+          style={{ backgroundImage: TINSEL_BG, backgroundSize: TINSEL_TILE }}
+        />
+      )}
       <div className={`container ${styles.inner}`}>
         <div className={styles.top}>
           <div className={styles.brand}>
