@@ -328,10 +328,10 @@ export function ServicePage({ slug }: { slug: string }) {
             <p className={styles.partOfText}>
               <span className="point point--sm" aria-hidden="true" />
               Comes as part of a{' '}
-              <Link href="/services/job-story/">Job Story</Link> (£350) or{' '}
-              <Link href="/services/engine/">Engine</Link> (from £450 a month).
+              <Link href="/services/job-story/">Job Story</Link> or{' '}
+              <Link href="/services/engine/">Engine</Link>.
               <Link href="/pricing/" className={styles.partOfLink}>
-                See pricing <span aria-hidden="true">→</span>
+                See the plans <span aria-hidden="true">→</span>
               </Link>
             </p>
           </div>
@@ -434,7 +434,7 @@ export function ServicePage({ slug }: { slug: string }) {
               </Link>
               {!service.isProduct && (
                 <Link href="/pricing/" className={`btn ${styles.ctaSolidLight}`}>
-                  See what it costs
+                  See the plans
                 </Link>
               )}
             </div>

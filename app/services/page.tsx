@@ -9,7 +9,7 @@ export const metadata: Metadata = pageMetadata({
   path: '/services/',
   title: 'Services — Job Story and Engine',
   description:
-    'Two products for Gloucestershire businesses: a Job Story (£350) turns one finished project into proof you keep; Engine (from £450/month) does it every month and manages your Google profile.',
+    'Two products for Gloucestershire businesses: a Job Story turns one finished project into proof you keep; Engine does it every month and manages your Google profile. Book a call for pricing.',
   og: 'services',
 });
 

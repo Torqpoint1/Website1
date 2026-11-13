@@ -160,7 +160,7 @@ export function ServiceShowcase() {
             </p>
             <div className={styles.ctas}>
               <Link href="/contact" className="btn btn-primary" data-track="book_call_click" data-track-place="hero">Book a call</Link>
-              <Link href="/pricing" className="btn btn-ghost" data-track="see_pricing_click" data-track-place="hero">See what it costs</Link>
+              <Link href="/pricing" className="btn btn-ghost" data-track="see_pricing_click" data-track-place="hero">See the plans</Link>
             </div>
           </div>
 

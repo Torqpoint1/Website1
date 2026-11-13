@@ -17,7 +17,7 @@ export const metadata: Metadata = pageMetadata({
   path: '/marketing-agency-gloucestershire/',
   title: 'Marketing Agency in Gloucestershire',
   description:
-    'A content and marketing studio for Gloucestershire businesses. Case studies, photos, articles and a Google presence you own, instead of leads you rent. From £350.',
+    'A content and marketing studio for Gloucestershire businesses. Case studies, photos, articles and a Google presence you own, instead of leads you rent. Book a call for pricing.',
 });
 
 /* ── Content data ───────────────────────────────────────── */
@@ -150,7 +150,7 @@ const faqs = [
   },
   {
     q: 'What does it cost?',
-    a: 'One job written up properly — a Job Story — is £350. Engine, which is two jobs a month plus your Google profile and review replies handled, is £450 a month with no contract. Full detail is on the pricing page.',
+    a: 'There are two ways to work with us: one job written up properly as a one-off (a Job Story), or everything handled every month (Engine), with no contract. We’ve taken prices off the site while we finalise them — book a quick call and we’ll give you a straight figure for your business.',
   },
   {
     q: 'Will I have to be in front of the camera?',
@@ -230,7 +230,7 @@ export default function MarketingAgencyGloucestershirePage() {
                 Book a call
               </Link>
               <Link href="/pricing" className="btn btn-ghost">
-                See what it costs
+                See the plans
               </Link>
             </div>
           </ScrollReveal>

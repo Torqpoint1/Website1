@@ -41,7 +41,7 @@ export function ProductCards({ headingLevel = 'h3' }: { headingLevel?: 'h2' | 'h
             </Heading>
             <p className={styles.tagline}>{p.tagline}</p>
 
-            {p.price && (
+            {p.price ? (
               <div className={styles.priceBlock}>
                 <p className={styles.price}>
                   <span className={styles.amount}>{p.price.amount}</span>
@@ -54,6 +54,10 @@ export function ProductCards({ headingLevel = 'h3' }: { headingLevel?: 'h2' | 'h
                     {p.price.founderRate}
                   </p>
                 )}
+              </div>
+            ) : (
+              <div className={styles.priceBlock}>
+                <p className={styles.qualifier}>Pricing on request — book a quick call for a straight figure.</p>
               </div>
             )}
 

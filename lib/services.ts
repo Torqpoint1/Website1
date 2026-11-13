@@ -115,22 +115,15 @@ export const SERVICES: Record<string, ServiceData> = {
     tier: 1,
     isProduct: true,
     tagline: 'One finished job, captured before, during and after — and turned into proof you keep.',
-    price: {
-      amount: '£350',
-      value: '350',
-      unit: 'per job',
-      qualifier: 'Fixed price, no contract',
-      founderRate: '£150 for our first three clients',
-    },
-    metaTitle: 'Job Story — one job, written up properly (£350)',
+    metaTitle: 'Job Story — one job, written up properly',
     metaDescription:
-      'One finished project turned into a case study page, a before-and-after photo set, four social posts, a Google Business post and a review request. £350 fixed, for Gloucestershire businesses.',
+      'One finished project turned into a case study page, a before-and-after photo set, four social posts, a Google Business post and a review request. For Gloucestershire businesses.',
     eyebrow: 'Product · Job Story',
     h1: 'One finished job, turned into *proof you keep.*',
     standfirst:
       'You photograph the work as you go and send us a quick voice note. We turn it into a case study page, a before-and-after set, four social posts, a Google Business post and a review request — everything a customer needs to pick you over the alternatives.',
     primaryCta: { label: 'Book a call', href: '/contact/?interest=job-story' },
-    secondaryCta: { label: 'See pricing', href: '/pricing/' },
+    secondaryCta: { label: 'See the plans', href: '/pricing/' },
     shortVersion:
       'A Job Story is one job, told properly — from the first survey photo to handover. It becomes a page on your own website, a photo set on your Google profile, and a week of posts on your socials. You pay for it once and it keeps working on every customer who looks you up afterwards.',
     whyItMatters: [
@@ -204,7 +197,7 @@ export const SERVICES: Record<string, ServiceData> = {
       },
       {
         q: 'Can I turn this into something monthly?',
-        a: 'Yes — that’s Engine. Two Job Stories a month, plus your Google Business Profile managed and your reviews answered, from £450 a month.',
+        a: 'Yes — that’s Engine. Two Job Stories a month, plus your Google Business Profile managed and your reviews answered. Book a call and we’ll talk through what suits you.',
       },
     ],
     pairsWith: ['engine', 'case-studies', 'google-business-posts'],
@@ -216,22 +209,16 @@ export const SERVICES: Record<string, ServiceData> = {
     tier: 1,
     isProduct: true,
     tagline: 'Two jobs written up every month, your Google profile managed and every review answered.',
-    price: {
-      amount: '£450',
-      value: '450',
-      unit: 'a month',
-      qualifier: 'Rolling monthly, one month’s notice',
-      founderRate: 'Founding rate — £650 a month standard',
-    },
-    metaTitle: 'Engine — monthly content & marketing (from £450/month)',
+    price: undefined,
+    metaTitle: 'Engine — monthly content & marketing',
     metaDescription:
-      'Two finished projects written up every month, your Google Business Profile managed and every review answered. From £450 a month, no contract. For Gloucestershire businesses.',
+      'Two finished projects written up every month, your Google Business Profile managed and every review answered. No contract. For Gloucestershire businesses.',
     eyebrow: 'Product · Engine',
     h1: 'Your finished jobs, *working for you every month.*',
     standfirst:
       'Two jobs written up every month, your Google Business Profile kept active, and every review replied to — so the work you’ve already done keeps bringing in the next enquiry. No per-lead fees, no contract, no sharing the enquiry with four other firms.',
     primaryCta: { label: 'Book a call', href: '/contact/?interest=engine' },
-    secondaryCta: { label: 'See pricing', href: '/pricing/' },
+    secondaryCta: { label: 'See the plans', href: '/pricing/' },
     shortVersion:
       'Engine is the monthly version of a Job Story, plus the upkeep most firms never get round to. Each month we write up two of your finished jobs, keep your Google Business Profile active and complete, reply to every review, and send you a short report. You send photos and voice notes; we do everything else.',
     whyItMatters: [

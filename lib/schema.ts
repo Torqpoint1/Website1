@@ -38,23 +38,30 @@ export function productOffer(p: { name: string; slug: string; description: strin
   };
 }
 
+/** Price-free service catalogue for the Organization schema (prices removed for now). */
 export const PRODUCT_OFFERS = [
-  productOffer({
-    name: 'Job Story',
-    slug: 'job-story',
-    description:
-      'One finished job turned into a case study page, a before-and-after photo set, four social posts, a Google Business post and a review request.',
-    price: '350',
-    unit: 'job',
-  }),
-  productOffer({
-    name: 'Engine',
-    slug: 'engine',
-    description:
-      'Two Job Stories a month, Google Business Profile management, review responses, and a monthly report and call.',
-    price: '450',
-    unit: 'month',
-  }),
+  {
+    '@type': 'Offer',
+    itemOffered: {
+      '@type': 'Service',
+      name: 'Job Story',
+      description:
+        'One finished job turned into a case study page, a before-and-after photo set, four social posts, a Google Business post and a review request.',
+      provider: { '@id': ORGANIZATION_ID },
+      areaServed: { '@type': 'AdministrativeArea', name: 'Gloucestershire' },
+    },
+  },
+  {
+    '@type': 'Offer',
+    itemOffered: {
+      '@type': 'Service',
+      name: 'Engine',
+      description:
+        'Two Job Stories a month, Google Business Profile management, review responses, and a monthly report and call.',
+      provider: { '@id': ORGANIZATION_ID },
+      areaServed: { '@type': 'AdministrativeArea', name: 'Gloucestershire' },
+    },
+  },
 ];
 
 export const organizationSchema = {
@@ -67,7 +74,6 @@ export const organizationSchema = {
     'A content and marketing studio for Gloucestershire businesses. We turn the work you do into case studies, photos, articles and a Google presence you own — instead of leads you rent from directories.',
   email: EMAIL,
   ...(hasPhone ? { telephone: PHONE_E164 } : {}),
-  priceRange: '££',
   image: 'https://torqpoint.com/icon.png',
   logo: 'https://torqpoint.com/icon.png',
   areaServed: [

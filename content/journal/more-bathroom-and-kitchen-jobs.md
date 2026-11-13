@@ -47,4 +47,4 @@ Every job you write up, every review you reply to, every post on your profile st
 
 ## Want it done for you?
 
-That’s exactly what a [Job Story](/services/job-story/) does with one finished bathroom or kitchen — from £350, no contract. Or email [info@torqpoint.com](mailto:info@torqpoint.com) and tell us about your last job.
+That’s exactly what a [Job Story](/services/job-story/) does with one finished bathroom or kitchen — no contract, and everything yours to keep. Or email [info@torqpoint.com](mailto:info@torqpoint.com) and tell us about your last job.

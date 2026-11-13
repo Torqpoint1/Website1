@@ -51,7 +51,7 @@ export function Hero() {
                 Book a call
               </Link>
               <Link href="/pricing" className="btn btn-ghost" data-track="see_pricing_click" data-track-place="hero">
-                See what it costs
+                See the plans
               </Link>
             </div>
           </div>

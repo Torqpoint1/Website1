@@ -129,7 +129,7 @@ export default function WorkPage() {
                   Start a project
                 </Link>
                 <Link href="/pricing" className={`btn ${styles.ctaSolid}`}>
-                  See what it costs
+                  See the plans
                 </Link>
               </div>
             </div>

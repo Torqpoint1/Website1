@@ -4,7 +4,6 @@ import styles from './CompareTable.module.css';
 type Mark = 'yes' | 'no' | null;
 
 const ROWS: { label: string; them: string; us: string; themMark?: Mark; usMark?: Mark }[] = [
-  { label: 'Typical annual cost', them: '£1,200–£2,000+', us: '£5,400 (£450 a month)' },
   { label: 'Who else sees the enquiry', them: 'Several competing firms', us: 'Only you', themMark: 'no', usMark: 'yes' },
   { label: 'You own the profile', them: 'No', us: 'Yes', themMark: 'no', usMark: 'yes' },
   { label: 'Pay whether you win or not', them: 'Yes', us: 'No — nothing per lead', themMark: 'no', usMark: 'yes' },

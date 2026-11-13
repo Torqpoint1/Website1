@@ -130,7 +130,7 @@ export default function AboutPage() {
                 Book a call
               </Link>
               <Link href="/pricing" className={`btn ${styles.ctaSolid}`}>
-                See what it costs
+                See the plans
               </Link>
             </div>
           </div>

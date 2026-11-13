@@ -75,7 +75,7 @@ const faqs = [
   },
   {
     q: 'What does it cost?',
-    a: 'One project written up properly is £350. Ongoing content is £450 a month, which covers two projects written up, your Google Business Profile managed, and review replies handled. No contract, one month’s notice. Full detail on the pricing page.',
+    a: 'We keep it simple: two ways to work with us — one finished project written up as a one-off, or everything handled every month, with no contract. We’ve taken prices off the site while we finalise them, so book a quick call and we’ll give you a straight figure for your business.',
   },
   {
     q: 'How is this different from a directory or lead platform?',
@@ -222,11 +222,11 @@ export default function HomePage() {
             </p>
             <h2 id="pricing-heading">
               Two things to buy.{' '}
-              <span className={styles.forge}>Prices on the page.</span>
+              <span className={styles.forge}>Simple either way.</span>
             </h2>
             <p>
-              No quotes to chase, no per-lead fees, no contract. Start with one job
-              written up, or have it all handled every month.
+              No per-lead fees, no contract. Start with one project written up, or have
+              it all handled every month — book a call and we’ll give you a price.
             </p>
           </ScrollReveal>
 
@@ -319,7 +319,7 @@ export default function HomePage() {
                 Book a call
               </Link>
               <Link href="/pricing" className={`btn ${styles.ctaSolid}`} data-track="see_pricing_click" data-track-place="home-cta">
-                See what it costs
+                See the plans
               </Link>
             </div>
           </ScrollReveal>

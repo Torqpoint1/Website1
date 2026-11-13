@@ -13,9 +13,9 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = pageMetadata({
   path: '/pricing/',
-  title: 'Pricing — content & marketing from £350',
+  title: 'Pricing — content & marketing, Gloucestershire',
   description:
-    'Straightforward pricing for content and marketing in Gloucestershire. One project written up from £350, or ongoing content from £450 a month. No contract, no per-lead fees.',
+    'Two simple ways to work with us: one project written up as a one-off, or everything handled every month. No contract, no per-lead fees. Book a call for a price.',
   og: 'pricing',
 });
 
@@ -42,7 +42,7 @@ const faqs = [
   },
   {
     q: 'What’s the founding rate?',
-    a: 'Our first three clients get Job Stories at £150 and Engine at £450 a month (standard £650). In return we ask for permission to use the work as a case study, an honest testimonial, and two introductions to firms you rate.',
+    a: 'We’re a new studio, so our first three clients get our best rate on both a Job Story and Engine. In return we ask for permission to use the work as a case study, an honest testimonial, and two introductions to firms you rate. Book a call and we’ll talk through the numbers.',
   },
 ];
 
@@ -84,12 +84,13 @@ export default function PricingPage() {
               Pricing
             </p>
             <h1 id="pricing-heading" className={styles.title}>
-              Straight prices. <em>No per-lead fees.</em>
+              Two simple plans. <em>No per-lead fees.</em>
             </h1>
             <p className={styles.intro}>
-              Two things to buy, both priced up front. One finished job written up
-              properly, or the whole thing handled every month. No contract, and
-              everything we make is yours to keep.
+              Two ways to work with us: one finished project written up properly, or the
+              whole thing handled every month. No contract, and everything we make is
+              yours to keep. We’ve taken prices off the site while we finalise them —
+              book a quick call and we’ll give you a straight figure for your business.
             </p>
           </ScrollReveal>
 
@@ -152,9 +153,9 @@ export default function PricingPage() {
             </div>
             <div className={styles.foundingBody}>
               <p>
-                We&rsquo;re a new studio, so our first three clients get Job Stories at{' '}
-                <strong>£150</strong> and Engine at <strong>£450 a month</strong>{' '}
-                (standard £650).
+                We&rsquo;re a new studio, so our first three clients get our{' '}
+                <strong>best rate</strong> on both a Job Story and Engine — well below
+                what they&rsquo;ll be once we&rsquo;re established.
               </p>
               <p>In return, we ask for three things:</p>
               <ol className={styles.asks}>

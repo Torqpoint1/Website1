@@ -110,7 +110,7 @@ export default async function JournalPostPage({ params }: Props) {
                 data-track="journal_cta_click"
                 data-track-place={`journal:${post.slug}`}
               >
-                See what it costs
+                See the plans
               </Link>
               <Link
                 href={`/services/${related.slug}/`}

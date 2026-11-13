@@ -44,4 +44,4 @@ Ask every new enquiry how they found you, and write it down. After six months yo
 
 ## What does it cost with us?
 
-One job written up is £350. Engine — two jobs a month, your Google profile and reviews handled — is £450 a month, no contract. Everything’s on the [pricing page](/pricing/).
+There are two ways to work with us: one job written up as a one-off (a Job Story), or two jobs a month plus your Google profile and reviews handled (Engine), with no contract. Book a call and we’ll give you a straight figure — the [pricing page](/pricing/) has the detail.
