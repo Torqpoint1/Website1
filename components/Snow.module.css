@@ -22,12 +22,25 @@
   animation-iteration-count: infinite;
 }
 
+/* Snowflake-glyph flakes: drop the dot styling and render the character,
+   kept soft so it never fights with text. */
+.glyph {
+  width: auto;
+  height: auto;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: #ffffff;
+  line-height: 1;
+  text-shadow: 0 0 3px rgba(120, 130, 140, 0.45);
+}
+
 @keyframes snowfall {
   0% {
-    transform: translate3d(0, -6vh, 0);
+    transform: translate3d(0, -6vh, 0) rotate(0deg);
   }
   100% {
-    transform: translate3d(var(--drift, 20px), 106vh, 0);
+    transform: translate3d(var(--drift, 20px), 106vh, 0) rotate(var(--spin, 0deg));
   }
 }
 
