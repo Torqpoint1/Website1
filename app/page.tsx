@@ -12,6 +12,7 @@ import { WhoItsFor } from '@/components/offer/WhoItsFor';
 import { Testimonials } from '@/components/Testimonials';
 import { getAllPosts } from '@/lib/content';
 import { CapabilityGrid } from '@/components/offer/CapabilityGrid';
+import { InstagramCta } from '@/components/InstagramCta';
 import { pageMetadata, SITE_DESCRIPTION } from '@/lib/seo';
 
 /* Per-brand card background + photo tint for the Selected work stack. */
@@ -241,6 +242,9 @@ export default function HomePage() {
           <WorkStack items={studies} />
         </ScrollReveal>
       )}
+
+      {/* ── Instagram promo ────────────────────────────────── */}
+      <InstagramCta />
 
       {/* ── How It Works (dark band) ───────────────────────── */}
       <section className={styles.howItWorks} aria-labelledby="how-heading">

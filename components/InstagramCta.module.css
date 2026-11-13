@@ -1,0 +1,137 @@
+.ig {
+  padding-block: clamp(24px, 4vw, 56px);
+}
+
+.panel {
+  position: relative;
+  display: grid;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+  padding: clamp(30px, 5vw, 64px);
+  border-radius: var(--r-xl);
+  border: 1px solid var(--surface-2);
+  background:
+    radial-gradient(130% 150% at 100% 0%, rgba(238, 90, 30, 0.12), transparent 55%),
+    var(--surface);
+  overflow: hidden;
+}
+@media (min-width: 860px) {
+  .panel { grid-template-columns: 1.08fr 0.92fr; }
+}
+
+/* ── Copy ──────────────────────────────────────────────── */
+.copy { max-width: 46ch; }
+.heading {
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--ink);
+  margin: 14px 0 18px;
+}
+.forge { color: var(--forge); }
+.lead {
+  font-size: clamp(15px, 1.7vw, 18px);
+  color: var(--slate);
+  line-height: 1.65;
+  margin-bottom: 28px;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+.followBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.btnGlyph { width: 20px; height: 20px; }
+.handle {
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--muted);
+  letter-spacing: -0.01em;
+}
+
+/* ── Visual: a stylised profile peek (decorative, not real posts) ── */
+.visual {
+  display: block;
+  justify-self: center;
+  width: 100%;
+  max-width: 360px;
+}
+.phone {
+  position: relative;
+  display: block;
+  padding: 18px;
+  border-radius: 22px;
+  background: var(--paper);
+  border: 1px solid var(--surface-2);
+  box-shadow: 0 32px 64px -34px rgba(23, 26, 30, 0.38);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.45s var(--t);
+}
+.visual:hover .phone {
+  transform: translateY(-5px);
+  box-shadow: 0 40px 72px -34px rgba(23, 26, 30, 0.45);
+}
+.phoneHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.avatar {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--forge);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-serif);
+  font-weight: 600;
+  font-size: 17px;
+}
+.phoneName { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.phoneName b { font-size: 15px; color: var(--ink); }
+.phoneName i { font-style: normal; font-size: 11px; color: var(--muted); }
+
+.gridTiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+.gridTiles span {
+  aspect-ratio: 1;
+  border-radius: 7px;
+  background: linear-gradient(135deg, var(--surface-2), #E4E2D9);
+}
+.gridTiles span:nth-child(2) { background: linear-gradient(135deg, rgba(238, 90, 30, 0.28), rgba(238, 90, 30, 0.08)); }
+.gridTiles span:nth-child(4) { background: linear-gradient(135deg, var(--ink), #2A2F36); }
+.gridTiles span:nth-child(5) { background: linear-gradient(135deg, rgba(238, 90, 30, 0.16), var(--surface-2)); }
+
+.phoneGlyph {
+  position: absolute;
+  right: -14px;
+  bottom: -14px;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: var(--forge);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 16px 32px -12px rgba(238, 90, 30, 0.6);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.visual:hover .phoneGlyph { transform: rotate(-8deg) scale(1.06); }
+.bigGlyph { width: 30px; height: 30px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .phone, .phoneGlyph { transition: none; }
+  .visual:hover .phone { transform: none; }
+  .visual:hover .phoneGlyph { transform: none; }
+}
