@@ -1,0 +1,88 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  width: 100%;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+@media (min-width: 560px) {
+  .grid { grid-template-columns: repeat(4, 1fr); }
+}
+
+.cell { margin: 0; }
+
+.tile {
+  position: relative;
+  display: block;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--surface-2);
+  border: 1px solid var(--surface-2);
+}
+.tile img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tile:hover img { transform: scale(1.06); }
+.tile:focus-visible { outline: 3px solid var(--forge); outline-offset: 3px; }
+
+/* Hover overlay with the Instagram glyph */
+.overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background: rgba(23, 26, 30, 0);
+  opacity: 0;
+  transition: opacity 0.3s var(--t), background 0.3s var(--t);
+}
+.tile:hover .overlay,
+.tile:focus-visible .overlay {
+  opacity: 1;
+  background: rgba(23, 26, 30, 0.34);
+}
+.glyph {
+  width: 30px;
+  height: 30px;
+  transform: scale(0.8);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.tile:hover .glyph { transform: scale(1); }
+
+/* Video / album marker */
+.badge {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  z-index: 2;
+  font-size: 12px;
+  line-height: 1;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Loading skeleton */
+.skeleton {
+  background: linear-gradient(100deg, var(--surface-2) 30%, #ECEAE3 50%, var(--surface-2) 70%);
+  background-size: 200% 100%;
+  animation: shimmer 1.3s linear infinite;
+}
+@keyframes shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tile img, .glyph { transition: none; }
+  .tile:hover img { transform: none; }
+  .skeleton { animation: none; }
+}
