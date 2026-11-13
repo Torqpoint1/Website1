@@ -24,9 +24,9 @@
   position: relative;
 }
 .panelLights {
-  top: -14px;
-  left: clamp(10px, 3vw, 40px);
-  right: clamp(10px, 3vw, 40px);
+  top: -6px;
+  left: 0;
+  right: 0;
 }
 
 /* ── Connected: header + live feed grid ────────────────── */

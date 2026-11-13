@@ -24,11 +24,18 @@
   gap: 16px;
   position: relative;
 }
-/* Fairy lights draped over the top edge of each card */
+/* Fairy lights strung across the top edge of each card, tied at the corners */
 .cardLights {
-  top: -16px;
-  left: 14px;
-  right: 14px;
+  top: -6px;
+  left: 0;
+  right: 0;
+}
+
+/* A free-standing garland strung across the page between sections */
+.festiveSwag {
+  position: relative;
+  height: 54px;
+  margin: clamp(12px, 2vw, 28px) 0 clamp(36px, 6vw, 72px);
 }
 
 .cardTop {
