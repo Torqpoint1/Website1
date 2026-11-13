@@ -14,7 +14,7 @@ export const metadata: Metadata = pageMetadata({
 
 const credentials = [
   { big: 'Gloucestershire', small: 'based in the county we work across' },
-  { big: 'A studio', small: 'writers, designers and editors, not a call centre' },
+  { big: 'A studio', small: 'one point of contact, never a call centre' },
   { big: 'Owned by you', small: 'everything we make is yours to keep' },
 ];
 
@@ -70,11 +70,12 @@ export default function AboutPage() {
               looks online — is the whole reason we exist.
             </p>
             <p>
-              We’re a small team with different jobs: writers who turn a voice note into
-              a case study, designers who make everyday photos look considered, and
-              editors who keep it all sounding like you rather than like us. When a job
-              needs a proper photographer or a specialist, we bring one in from the
-              people we trust. You get one point of contact and one consistent standard.
+              You send the raw material — a few photos and a voice note — and it comes
+              back as finished work: written, shaped and edited until it sounds like you,
+              not like us. When a job calls for a proper photographer or a specialist, we
+              bring one in from the people we trust. Throughout, you deal with one point
+              of contact and one consistent standard — no account managers relaying
+              messages, no production line.
             </p>
             <p>
               What we don’t do is lock you in or dress it up. No jargon, no retainer you
