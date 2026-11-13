@@ -17,7 +17,7 @@ export const metadata: Metadata = pageMetadata({
   path: '/marketing-agency-gloucestershire/',
   title: 'Marketing Agency in Gloucestershire',
   description:
-    'A content and marketing studio for Gloucestershire businesses. Case studies, photos, articles and a Google presence you own, instead of leads you rent. Book a call for pricing.',
+    'A content and marketing studio for Gloucestershire businesses. Case studies, photos, articles and a Google presence you own, instead of leads you rent. Contact us for pricing.',
 });
 
 /* ── Content data ───────────────────────────────────────── */
@@ -227,7 +227,7 @@ export default function MarketingAgencyGloucestershirePage() {
             </p>
             <div className={styles.heroCtas}>
               <Link href="/contact" className="btn btn-primary">
-                Book a call
+                Contact us
               </Link>
               <Link href="/pricing" className="btn btn-ghost">
                 See the plans
@@ -439,7 +439,7 @@ export default function MarketingAgencyGloucestershirePage() {
           <ScrollReveal>
             <div className={styles.midCta}>
               <Link href="/contact" className="btn btn-primary">
-                Book a call
+                Contact us
               </Link>
             </div>
           </ScrollReveal>
@@ -498,7 +498,7 @@ export default function MarketingAgencyGloucestershirePage() {
           </p>
           <div className={styles.finalRow}>
             <Link href="/contact" className="btn btn-ghost-light">
-              Book a call
+              Contact us
             </Link>
             {hasPhone && <DirectContact tone="forge" place="landing-cta" />}
             <p className={styles.finalContact}>

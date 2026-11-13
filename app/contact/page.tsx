@@ -10,7 +10,7 @@ export const metadata: Metadata = pageMetadata({
   path: '/contact/',
   title: 'Contact — book a call',
   description:
-    'Book a call with Torqpoint. Tell us about your Gloucestershire business in a few lines — we reply the same working day if you get in touch before 4pm.',
+    'Contact Torqpoint. Tell us about your Gloucestershire business in a few lines — we reply the same working day if you get in touch before 4pm.',
 });
 
 export default function ContactPage() {

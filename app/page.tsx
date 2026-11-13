@@ -312,7 +312,7 @@ export default function HomePage() {
             </p>
             <div className={styles.ctaPair}>
               <Link href="/contact" className="btn btn-ghost-light" data-track="book_call_click" data-track-place="home-cta">
-                Book a call
+                Contact us
               </Link>
               <Link href="/pricing" className={`btn ${styles.ctaSolid}`} data-track="see_pricing_click" data-track-place="home-cta">
                 See the plans

@@ -132,7 +132,7 @@ export default async function JournalPostPage({ params }: Props) {
               Stop renting your leads. Start owning your proof.
             </p>
             <Link href="/contact" className="btn btn-ghost-light">
-              Book a call
+              Contact us
             </Link>
           </div>
         </div>

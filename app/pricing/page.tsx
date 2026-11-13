@@ -15,7 +15,7 @@ export const metadata: Metadata = pageMetadata({
   path: '/pricing/',
   title: 'Pricing — content & marketing, Gloucestershire',
   description:
-    'Two simple ways to work with us: one project written up as a one-off, or everything handled every month. No contract, no per-lead fees. Book a call for a price.',
+    'Two simple ways to work with us: one project written up as a one-off, or everything handled every month. No contract, no per-lead fees. Contact us for a price.',
   og: 'pricing',
 });
 
@@ -42,7 +42,7 @@ const faqs = [
   },
   {
     q: 'What’s the founding rate?',
-    a: 'We’re a new studio, so our first three clients get our best rate on both a Job Story and Engine. In return we ask for permission to use the work as a case study, an honest testimonial, and two introductions to firms you rate. Book a call and we’ll talk through the numbers.',
+    a: 'We’re a new studio, so our first three clients get our best rate on both a Job Story and Engine. In return we ask for permission to use the work as a case study, an honest testimonial, and two introductions to firms you rate. Contact us and we’ll talk through the numbers.',
   },
 ];
 
@@ -201,7 +201,7 @@ export default function PricingPage() {
             </p>
             <div className={styles.ctaActions}>
               <Link href="/contact/" className="btn btn-primary" data-track="book_call_click">
-                Book a call
+                Contact us
               </Link>
               <DirectContact tone="dark" place="pricing-cta" />
             </div>

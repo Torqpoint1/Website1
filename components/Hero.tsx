@@ -48,7 +48,7 @@ export function Hero() {
 
             <div className={styles.ctas} data-hero>
               <Link href="/contact" className="btn btn-primary" data-track="book_call_click" data-track-place="hero">
-                Book a call
+                Contact us
               </Link>
               <Link href="/pricing" className="btn btn-ghost" data-track="see_pricing_click" data-track-place="hero">
                 See the plans

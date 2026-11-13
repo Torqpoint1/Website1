@@ -122,9 +122,9 @@ export function InstagramCta() {
 
                 <p className={styles.category}>{CATEGORY}</p>
                 <p className={styles.bio}>{p.bio}</p>
-                <a
+                <Link
                   className={styles.bioLink}
-                  href="https://torqpoint.com"
+                  href="/contact/"
                   data-track="instagram_biolink_click"
                   data-track-place="home-ig"
                 >
@@ -132,12 +132,12 @@ export function InstagramCta() {
                     <path d="M9 15l6-6M8.5 10.5l-1 1a3.2 3.2 0 0 0 4.5 4.5l1-1M15.5 13.5l1-1a3.2 3.2 0 0 0-4.5-4.5l-1 1" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
                   torqpoint.com
-                </a>
+                </Link>
 
                 <div className={styles.profileActions}>
                   <FollowButton />
                   <Link href="/contact" className={`btn btn-ghost ${styles.secondaryBtn}`} data-track="book_call_click" data-track-place="home-ig">
-                    Book a call
+                    Contact us
                   </Link>
                 </div>
               </div>

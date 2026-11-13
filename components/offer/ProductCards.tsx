@@ -78,7 +78,7 @@ export function ProductCards({ headingLevel = 'h3' }: { headingLevel?: 'h2' | 'h
                 className={`btn ${featured ? 'btn-primary' : 'btn-ghost'} ${styles.cta}`}
                 data-track="product_cta_click"
               >
-                Book a call
+                Contact us
               </Link>
               <Link href={`/services/${slug}/`} className={styles.more}>
                 How {p.name} works <span aria-hidden="true">→</span>

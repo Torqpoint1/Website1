@@ -9,7 +9,7 @@ export const metadata: Metadata = pageMetadata({
   path: '/services/',
   title: 'Services — Job Story and Engine',
   description:
-    'Two products for Gloucestershire businesses: a Job Story turns one finished project into proof you keep; Engine does it every month and manages your Google profile. Book a call for pricing.',
+    'Two products for Gloucestershire businesses: a Job Story turns one finished project into proof you keep; Engine does it every month and manages your Google profile. Contact us for pricing.',
   og: 'services',
 });
 
@@ -152,7 +152,7 @@ export default function ServicesPage() {
               Not sure which? Fifteen minutes on the phone will tell you.
             </p>
             <Link href="/contact" className="btn btn-ghost-light">
-              Book a call
+              Contact us
             </Link>
           </div>
         </div>

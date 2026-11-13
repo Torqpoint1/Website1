@@ -43,7 +43,7 @@ export function Footer() {
               <p className={styles.colHeading}>Get in touch</p>
               <ul className={styles.colLinks}>
                 <li>
-                  <Link href="/contact" className={styles.colLink}>Book a call</Link>
+                  <Link href="/contact" className={styles.colLink}>Contact us</Link>
                 </li>
                 {hasPhone && (
                   <>

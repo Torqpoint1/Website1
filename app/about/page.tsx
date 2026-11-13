@@ -128,7 +128,7 @@ export default function AboutPage() {
             </p>
             <div className={styles.ctaPair}>
               <Link href="/contact" className="btn btn-ghost-light">
-                Book a call
+                Contact us
               </Link>
               <Link href="/pricing" className={`btn ${styles.ctaSolid}`}>
                 See the plans

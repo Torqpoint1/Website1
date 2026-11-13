@@ -430,7 +430,7 @@ export function ServicePage({ slug }: { slug: string }) {
             </p>
             <div className={styles.ctaPair}>
               <Link href="/contact/" className="btn btn-ghost-light">
-                Book a call
+                Contact us
               </Link>
               {!service.isProduct && (
                 <Link href="/pricing/" className={`btn ${styles.ctaSolidLight}`}>
