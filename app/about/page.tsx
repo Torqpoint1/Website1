@@ -1,33 +1,27 @@
 import type { Metadata } from 'next';
-import fs from 'fs';
-import path from 'path';
 import Link from 'next/link';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { pageMetadata } from '@/lib/seo';
 import styles from './page.module.css';
-import { Picture } from '@/components/Picture';
 
 export const metadata: Metadata = pageMetadata({
   path: '/about/',
-  title: 'About — Luke Deakin, founder',
+  title: 'About — the studio',
   description:
-    'Torqpoint is a content and marketing studio for Gloucestershire building trades, run by someone who works in the construction supply chain every day.',
+    'Torqpoint is a content and marketing studio in Gloucestershire. We turn the work local businesses do into case studies, photos and a Google presence they own.',
   og: 'about',
 });
 
-const FOUNDER_PHOTO = '/about/luke-deakin.jpg';
-const hasFounderPhoto = fs.existsSync(path.join(process.cwd(), 'public', FOUNDER_PHOTO));
-
 const credentials = [
-  { big: 'Day job', small: 'inside the construction supply chain' },
-  { big: 'Local', small: 'based in Gloucestershire, working across the Cotswolds' },
-  { big: 'One focus', small: 'established home-improvement trades' },
+  { big: 'Gloucestershire', small: 'based in the county we work across' },
+  { big: 'A studio', small: 'writers, designers and editors, not a call centre' },
+  { big: 'Owned by you', small: 'everything we make is yours to keep' },
 ];
 
 const values = [
   {
     name: 'No jargon',
-    desc: 'Plain words about your jobs, in your voice. If it could have been written about any firm, it doesn’t go out.',
+    desc: 'Plain words about your work, in your voice. If it could have been written about any business, it doesn’t go out.',
   },
   {
     name: 'No retainer you can’t leave',
@@ -35,7 +29,7 @@ const values = [
   },
   {
     name: 'No vanity metrics',
-    desc: 'The point is enquiries and quotes won — not likes, reach or a monthly report nobody reads.',
+    desc: 'The point is enquiries and work won — not likes, reach or a monthly report nobody reads.',
   },
 ];
 
@@ -51,60 +45,43 @@ export default function AboutPage() {
               About
             </p>
             <h1 className={styles.pageTitle}>
-              Built by someone who knows how{' '}
-              <span className={styles.underline}>jobs get won.</span>
+              A studio built to make good work{' '}
+              <span className={styles.underline}>impossible to miss.</span>
             </h1>
           </ScrollReveal>
         </div>
       </div>
 
-      {/* ── Founder ─────────────────────────────────────── */}
+      {/* ── Studio ──────────────────────────────────────── */}
       <section className={`section ${styles.bodySection}`} aria-labelledby="about-body">
         <div className="container">
-          <div className={styles.founderGrid}>
-            <ScrollReveal className={styles.portraitCol} direction="left">
-              <figure className={styles.portrait}>
-                {hasFounderPhoto ? (
-                  <Picture
-                    src={FOUNDER_PHOTO}
-                    alt="Luke Deakin, founder of Torqpoint, on site"
-                    width={800}
-                    height={1000}
-                    className={styles.portraitImg}
-                  />
-                ) : (
-                  <div className={styles.portraitFallback} aria-hidden="true">
-                    <span className={styles.monogram}>LD</span>
-                  </div>
-                )}
-                <figcaption className={styles.portraitCaption}>
-                  <strong>Luke Deakin</strong>
-                  <span>Founder, Torqpoint · Gloucestershire</span>
-                </figcaption>
-              </figure>
-            </ScrollReveal>
-
-            <ScrollReveal className={styles.bodyText} stagger>
-              <h2 id="about-body" className={styles.srOnly}>About the founder</h2>
-              <p className={styles.leadPara}>
-                I spend my working week inside the construction supply chain —
-                coordinating manufacturers, merchants, installers and site teams, and
-                watching where jobs get won and lost.
-              </p>
-              <p>
-                What I kept noticing is that the firms doing the best work are often the
-                worst at showing it. A £20,000 bathroom gets two phone photos and then
-                disappears, while the firm down the road with half the craft and a decent
-                Instagram takes the next enquiry.
-              </p>
-              <p>
-                Torqpoint exists to fix that specific problem, for that specific kind of
-                business. No jargon, no retainer you can&rsquo;t leave, no vanity metrics —
-                just your finished work, written up and put where people can find it.
-              </p>
-              <p className={styles.founder}>— Luke Deakin, founder</p>
-            </ScrollReveal>
-          </div>
+          <ScrollReveal className={styles.bodyText} stagger>
+            <h2 id="about-body" className={styles.srOnly}>About the studio</h2>
+            <p className={styles.leadPara}>
+              Torqpoint is a content and marketing studio in Gloucestershire. We take
+              the work local businesses are proud of and make sure the next customer
+              actually sees it.
+            </p>
+            <p>
+              Across the county, the businesses doing the best work are often the worst
+              at showing it. A project worth thousands gets two phone photos and then
+              disappears, while a competitor with half the craft and a decent feed takes
+              the next enquiry. That gap — between how good the work is and how good it
+              looks online — is the whole reason we exist.
+            </p>
+            <p>
+              We’re a small team with different jobs: writers who turn a voice note into
+              a case study, designers who make everyday photos look considered, and
+              editors who keep it all sounding like you rather than like us. When a job
+              needs a proper photographer or a specialist, we bring one in from the
+              people we trust. You get one point of contact and one consistent standard.
+            </p>
+            <p>
+              What we don’t do is lock you in or dress it up. No jargon, no retainer you
+              can’t leave, no vanity metrics — just your work, written up and put where
+              people can find it, and kept entirely yours.
+            </p>
+          </ScrollReveal>
 
           <ScrollReveal className={styles.credentials} stagger staggerStep={0.1}>
             {credentials.map(c => (
@@ -146,7 +123,7 @@ export default function AboutPage() {
         <div className="container">
           <div className="cta-band__inner">
             <p className="cta-band__statement">
-              Want to see what one of your finished jobs could become?
+              Want to see what your best work could become?
             </p>
             <div className={styles.ctaPair}>
               <Link href="/contact" className="btn btn-ghost-light">

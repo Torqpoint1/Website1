@@ -8,9 +8,9 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = pageMetadata({
   path: '/journal/',
-  title: 'Journal — marketing for trades, in plain English',
+  title: 'Journal — marketing in plain English',
   description:
-    'Plain-spoken pieces for Gloucestershire trades: directory leads, Google reviews, photographing jobs, getting found locally. No hype, no jargon.',
+    'Plain-spoken pieces for Gloucestershire businesses: directory leads, Google reviews, photographing your work, getting found locally. No hype, no jargon.',
   og: 'journal',
 });
 
@@ -50,7 +50,7 @@ export default function JournalPage() {
               <span className={styles.underline}>properly.</span>
             </h1>
             <p className={styles.pageIntro}>
-              Plain-spoken pieces for trades who&rsquo;d rather win work on their
+              Plain-spoken pieces for businesses that&rsquo;d rather win work on their
               reputation than pay per lead. Free, no catch, no jargon.
             </p>
           </ScrollReveal>
@@ -79,7 +79,7 @@ export default function JournalPage() {
                   <ScrollReveal className={styles.groupHead} direction="left">
                     <h2 className={styles.groupTitle}>
                       <span className="point point--sm" aria-hidden="true" />
-                      For trades
+                      For trades &amp; builders
                     </h2>
                     <p className={styles.groupNote}>Start here if you fit, finish or build for a living.</p>
                   </ScrollReveal>

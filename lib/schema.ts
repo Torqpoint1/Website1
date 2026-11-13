@@ -64,13 +64,12 @@ export const organizationSchema = {
   name: 'Torqpoint',
   url: 'https://torqpoint.com/',
   description:
-    'A content and marketing studio for Gloucestershire building trades. We turn finished jobs into case studies, photos and a Google presence the business owns — instead of leads it rents from directories.',
+    'A content and marketing studio for Gloucestershire businesses. We turn the work you do into case studies, photos, articles and a Google presence you own — instead of leads you rent from directories.',
   email: EMAIL,
   ...(hasPhone ? { telephone: PHONE_E164 } : {}),
   priceRange: '££',
   image: 'https://torqpoint.com/icon.png',
   logo: 'https://torqpoint.com/icon.png',
-  founder: { '@type': 'Person', name: 'Luke Deakin' },
   areaServed: [
     { '@type': 'AdministrativeArea', name: 'Gloucestershire' },
     { '@type': 'Place', name: 'The Cotswolds' },
@@ -95,15 +94,15 @@ export const organizationSchema = {
   ],
   sameAs: ['https://www.instagram.com/torqpoint.co/'],
   knowsAbout: [
-    'Marketing for building trades',
-    'Case studies for tradespeople',
-    'Local SEO for home improvement businesses',
+    'Content marketing for small businesses',
+    'Case studies and customer stories',
+    'Local SEO in Gloucestershire',
     'Google Business Profile management',
-    'Content marketing Gloucestershire',
+    'Social media and email marketing',
   ],
   hasOfferCatalog: {
     '@type': 'OfferCatalog',
-    name: 'Content and marketing for trades',
+    name: 'Content and marketing for Gloucestershire businesses',
     itemListElement: PRODUCT_OFFERS,
   },
 };

@@ -10,7 +10,7 @@ const INCLUDES: Record<string, string[]> = {
     'Before, during & after photo set',
     'Four social posts',
     'Google Business Profile post',
-    'Review request for the homeowner',
+    'Review request for the customer',
   ],
   engine: [
     'Two Job Stories every month',

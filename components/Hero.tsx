@@ -29,7 +29,7 @@ export function Hero() {
           <div className={styles.content}>
             <p className={`eyebrow ${styles.eyebrow}`} data-hero>
               <span className="point point--sm" aria-hidden="true" />
-              Content &amp; marketing for trades · Gloucestershire
+              Content &amp; marketing studio · Gloucestershire
             </p>
 
             <h1 className={styles.headline} data-hero>
@@ -40,10 +40,10 @@ export function Hero() {
             </h1>
 
             <p className={`${styles.lead} font-serif`} data-hero>
-              Directory sites charge you every month to hand the same enquiry to
-              four other firms. We turn your finished jobs into case studies, photos
-              and a Google presence that <em>belong to you</em> — and keep working
-              long after the invoice is paid.
+              Most businesses rent their visibility — from directories, ad platforms
+              and algorithms that can switch it off tomorrow. We turn the work you do
+              into case studies, photos, articles and a Google presence that{' '}
+              <em>belong to you</em> — and keep working long after the invoice is paid.
             </p>
 
             <div className={styles.ctas} data-hero>

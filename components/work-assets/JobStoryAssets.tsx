@@ -41,7 +41,7 @@ export function JobStoryAssets({ post }: { post: Post }) {
                 <Picture src={during} alt={`${label} — work in progress`} className={styles.duringImg} intrinsicSize={false} />
                 <figcaption className={styles.caption}>
                   <span className={styles.stage}>During</span>
-                  The bit homeowners never see — and the photo that wins the argument on price.
+                  The bit customers never see — and the photo that wins the argument on price.
                 </figcaption>
               </figure>
             </ScrollReveal>

@@ -13,9 +13,9 @@ import styles from './page.module.css';
 
 export const metadata: Metadata = pageMetadata({
   path: '/pricing/',
-  title: 'Pricing — trades marketing from £350',
+  title: 'Pricing — content & marketing from £350',
   description:
-    'Straightforward pricing for trades marketing in Gloucestershire. One job written up from £350, or ongoing content from £450 a month. No contract, no per-lead fees.',
+    'Straightforward pricing for content and marketing in Gloucestershire. One project written up from £350, or ongoing content from £450 a month. No contract, no per-lead fees.',
   og: 'pricing',
 });
 
@@ -34,7 +34,7 @@ const faqs = [
   },
   {
     q: 'How long until I see anything?',
-    a: 'Your first Job Story comes back within five working days, ready to send to the next homeowner who asks for examples. On Engine, your Google profile is active within a fortnight; search visibility builds over three to six months and keeps compounding.',
+    a: 'Your first Job Story comes back within five working days, ready to send to the next customer who asks for examples. On Engine, your Google profile is active within a fortnight; search visibility builds over three to six months and keeps compounding.',
   },
   {
     q: 'Can I start with one Job Story and move to Engine later?',

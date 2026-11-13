@@ -10,7 +10,7 @@ import { BASE_URL, SITE_DESCRIPTION } from '@/lib/seo';
 
 export const metadata: Metadata = {
   title: {
-    default: 'Torqpoint — Content & Marketing for Trades, Gloucestershire',
+    default: 'Torqpoint — Content & Marketing Studio, Gloucestershire',
     template: '%s | Torqpoint',
   },
   description: SITE_DESCRIPTION,

@@ -33,7 +33,7 @@ const cards: Card[] = [
   },
   {
     label: 'Before & after set',
-    desc: 'Edited, ordered and captioned — the proof a homeowner asks for.',
+    desc: 'Edited, ordered and captioned — the proof a customer asks for.',
     rot: -3,
     tx: -14,
     w: 312,
@@ -78,7 +78,7 @@ const cards: Card[] = [
   },
   {
     label: 'Review request',
-    desc: 'Written for you to send the homeowner on handover day.',
+    desc: 'Written for you to send the customer once the work is done.',
     rot: 3,
     tx: 16,
     w: 284,
@@ -144,7 +144,7 @@ export function ServiceShowcase() {
           <div className={styles.deskText}>
             <p className={`eyebrow ${styles.eyebrow}`}>
               <span className="point point--sm" aria-hidden="true" />
-              Content &amp; marketing for trades · Gloucestershire
+              Content &amp; marketing studio · Gloucestershire
             </p>
             <h1 className={styles.headline}>
               Stop renting your leads. Start owning your{' '}
@@ -153,10 +153,10 @@ export function ServiceShowcase() {
               </span>
             </h1>
             <p className={`${styles.lead} font-serif`}>
-              Directory sites charge you every month to hand the same enquiry to
-              four other firms. We turn your finished jobs into case studies, photos
-              and a Google presence that <em>belong to you</em> — and keep working
-              long after the invoice is paid.
+              Most businesses rent their visibility — from directories, ad platforms
+              and algorithms that can switch it off tomorrow. We turn the work you do
+              into case studies, photos, articles and a Google presence that{' '}
+              <em>belong to you</em> — and keep working long after the invoice is paid.
             </p>
             <div className={styles.ctas}>
               <Link href="/contact" className="btn btn-primary" data-track="book_call_click" data-track-place="hero">Book a call</Link>

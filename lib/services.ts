@@ -124,27 +124,27 @@ export const SERVICES: Record<string, ServiceData> = {
     },
     metaTitle: 'Job Story — one job, written up properly (£350)',
     metaDescription:
-      'One finished job turned into a case study page, a before-and-after photo set, four social posts, a Google Business post and a review request. £350 fixed, for Gloucestershire trades.',
+      'One finished project turned into a case study page, a before-and-after photo set, four social posts, a Google Business post and a review request. £350 fixed, for Gloucestershire businesses.',
     eyebrow: 'Product · Job Story',
     h1: 'One finished job, turned into *proof you keep.*',
     standfirst:
-      'You photograph the job as you go and send us a voice note from the van. We turn it into a case study page, a before-and-after set, four social posts, a Google Business post and a review request — everything a homeowner needs to pick you over the other two quotes.',
+      'You photograph the work as you go and send us a quick voice note. We turn it into a case study page, a before-and-after set, four social posts, a Google Business post and a review request — everything a customer needs to pick you over the alternatives.',
     primaryCta: { label: 'Book a call', href: '/contact/?interest=job-story' },
     secondaryCta: { label: 'See pricing', href: '/pricing/' },
     shortVersion:
-      'A Job Story is one job, told properly — from the first survey photo to handover. It becomes a page on your own website, a photo set on your Google profile, and a week of posts on your socials. You pay for it once and it keeps working on every homeowner who looks you up afterwards.',
+      'A Job Story is one job, told properly — from the first survey photo to handover. It becomes a page on your own website, a photo set on your Google profile, and a week of posts on your socials. You pay for it once and it keeps working on every customer who looks you up afterwards.',
     whyItMatters: [
-      'A homeowner comparing three quotes has almost nothing to go on except the number at the bottom. A finished job written up properly — the before, the problem you solved, the snagging you sorted, the handover — gives them a reason to pick you that isn’t the lowest price.',
+      'A customer comparing three quotes has almost nothing to go on except the number at the bottom. A finished job written up properly — the before, the problem you solved, the snagging you sorted, the handover — gives them a reason to pick you that isn’t the lowest price.',
       'And unlike a directory lead, it doesn’t expire or get shared with four other firms. The case study sits on your site, the photos sit on your Google profile, and both keep working on the next customer, and the one after that.',
     ],
     whoItsFor:
-      'Established trades with a job worth showing off — a bathroom, kitchen, garden, staircase, roof or extension worth £5,000 or more. If you’ve ever handed a customer your phone and scrolled the camera roll to prove you’re good, start here.',
+      'Established businesses with a finished project worth showing off — a bathroom, kitchen or garden, a styled interior, an event, a refurbished shop or a standout piece of work worth £5,000 or more. If you’ve ever handed a customer your phone and scrolled the camera roll to prove you’re good, start here.',
     whatYouGet: [
       'A case study page for your website — the brief, the problem, the fit, the handover',
       'A before, during and after photo set, edited, ordered and captioned',
       'Four social posts built from the job, ready to publish',
       'A Google Business Profile post, so the job shows up where local searches start',
-      'A review request written for you to send the homeowner',
+      'A review request written for you to send the customer',
       'All of it yours to keep — use it anywhere, for as long as you like',
     ],
     howItWorks: [
@@ -154,7 +154,7 @@ export const SERVICES: Record<string, ServiceData> = {
       },
       {
         title: 'Send us a voice note.',
-        desc: 'Two or three minutes on WhatsApp from the van: what the customer wanted, what was tricky, what you’re proud of.',
+        desc: 'Two or three minutes on WhatsApp: what the customer wanted, what was tricky, what you’re proud of.',
       },
       {
         title: 'We write it up.',
@@ -176,7 +176,7 @@ export const SERVICES: Record<string, ServiceData> = {
         workSlug: 'fieldhouse-landscapes-cotswold-garden',
         client: 'Fieldhouse Landscapes',
         blurb:
-          'An overgrown plot to a sandstone terrace, told as the before-and-after a homeowner actually stops for.',
+          'An overgrown plot to a sandstone terrace, told as the before-and-after a customer actually stops for.',
       },
       {
         workSlug: 'ashcroft-joinery-oak-staircase',
@@ -200,7 +200,7 @@ export const SERVICES: Record<string, ServiceData> = {
       },
       {
         q: 'Do I need the customer’s permission?',
-        a: 'We’ll guide you on it. Most homeowners are happy to be featured, and plenty of strong case studies don’t name the customer or show the address at all.',
+        a: 'We’ll guide you on it. Most customers are happy to be featured, and plenty of strong case studies don’t name the customer or show the address at all.',
       },
       {
         q: 'Can I turn this into something monthly?',
@@ -223,9 +223,9 @@ export const SERVICES: Record<string, ServiceData> = {
       qualifier: 'Rolling monthly, one month’s notice',
       founderRate: 'Founding rate — £650 a month standard',
     },
-    metaTitle: 'Engine — monthly content for trades (from £450/month)',
+    metaTitle: 'Engine — monthly content & marketing (from £450/month)',
     metaDescription:
-      'Two finished jobs written up every month, your Google Business Profile managed and every review answered. From £450 a month, no contract. For Gloucestershire trades.',
+      'Two finished projects written up every month, your Google Business Profile managed and every review answered. From £450 a month, no contract. For Gloucestershire businesses.',
     eyebrow: 'Product · Engine',
     h1: 'Your finished jobs, *working for you every month.*',
     standfirst:
@@ -239,7 +239,7 @@ export const SERVICES: Record<string, ServiceData> = {
       'Engine spends a similar budget on things you keep. Every month adds two more finished jobs to your website and your Google profile, and each one keeps pulling in searches long after it’s published. After a year you have 24 written-up jobs, a Google profile that ranks, and a body of proof no competitor can buy.',
     ],
     whoItsFor:
-      'Firms with a team, a couple of vans and a steady run of jobs worth £5,000 and up — bathroom and kitchen fitters, landscapers, joiners, roofers and extension builders across Gloucestershire and the Cotswolds.',
+      'Established businesses with a steady run of work worth £5,000 and up — trades and builders, interior and design studios, hospitality and events, and other local firms across Gloucestershire and the Cotswolds that run on reputation and repeat custom.',
     whatYouGet: [
       'Two Job Stories a month — case study, photo set, social posts and Google post for each',
       'Your Google Business Profile managed — posts, photos, services and Q&A kept current',
@@ -331,7 +331,7 @@ export const SERVICES: Record<string, ServiceData> = {
       'A steady feed does the opposite. It keeps you in front of past customers and warm leads, so when the need comes up again — the next bathroom, the next garden, the next event — you’re the name they already have. Right now your best work is sitting in your camera roll, seen by no one. This is how it earns its keep.',
     ],
     whoItsFor:
-      'Trades whose work photographs well and whose next job often comes from being remembered: bathroom and kitchen fitters, landscapers, joiners, roofers and builders. If you’re proud of what you hand over but “doing the socials” keeps sliding to the bottom of the list — this is built for you.',
+      'Businesses whose work photographs well and whose next job often comes from being remembered — trades, interiors, landscapers, hospitality, events, retail and more. If you’re proud of what you deliver but “doing the socials” keeps sliding to the bottom of the list — this is built for you.',
     whatYouGet: [
       'Captions written in your voice — researched, never generic filler',
       'Posts formatted properly for the platform (Instagram, Facebook, LinkedIn)',
@@ -418,7 +418,7 @@ export const SERVICES: Record<string, ServiceData> = {
       'One project, written up properly, becomes the thing that wins the next three. It works on your website, in your inbox, and in a reply to “can you send me some examples?” Without it, your best argument for your price stays trapped on a phone.',
     ],
     whoItsFor:
-      'Any trade whose work is bought on trust and quality rather than the lowest number: fitters, installers, joiners, landscapers, roofers and builders. If you’ve ever lost a job to a cheaper quote and thought *“if they could only see the difference”* — this is how you show it.',
+      'Any business whose work is bought on trust and quality rather than the lowest number — trades, interiors, landscapers, hospitality and events, and professional services. If you’ve ever lost a job to a cheaper quote and thought *“if they could only see the difference”* — this is how you show it.',
     whatYouGet: [
       'A written case study in a clear, repeatable structure: the project, the problem, what you did, why it worked',
       'Written in your voice — plain and confident, never corporate filler',
@@ -663,7 +663,7 @@ export const SERVICES: Record<string, ServiceData> = {
       'A neglected profile does the opposite. No recent posts, an old photo, a half-finished description — it quietly tells a ready-to-buy customer to keep scrolling to whoever looks more on it. This is some of the highest-intent visibility you can get, and most businesses leave it switched off.',
     ],
     whoItsFor:
-      'Any trade that covers a local patch and gets work from homeowners searching nearby — bathroom fitter near me, landscaper in Cheltenham, roofer in Stroud. If those searches could bring you jobs, this is where you win or lose them.',
+      'Any local business that gets work from people searching nearby — “bathroom fitter near me”, “wedding florist Cheltenham”, “barber in Stroud”. If those searches could bring you work, this is where you win or lose them.',
     whatYouGet: [
       'Regular Google Business posts — offers, updates, recent jobs',
       'Written to prompt the next action: call, message, enquire',

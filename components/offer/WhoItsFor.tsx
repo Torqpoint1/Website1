@@ -2,12 +2,12 @@ import Link from 'next/link';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import styles from './WhoItsFor.module.css';
 
-const TRADES = ['Bathrooms', 'Kitchens', 'Landscaping', 'Joinery', 'Roofing', 'Extensions'];
+const SECTORS = ['Trades & building', 'Interiors & design', 'Hospitality & events', 'Retail & salons', 'Professional services', 'Landscaping'];
 
 const SIGNALS = [
-  { big: 'A team', small: 'not a one-man band' },
-  { big: '2+ vans', small: 'on the road most days' },
-  { big: '£5k+', small: 'typical job value' },
+  { big: 'Established', small: 'past the just-starting-out stage' },
+  { big: 'Proud of it', small: 'work that’s worth showing off' },
+  { big: 'Word of mouth', small: 'reputation brings the next job' },
 ];
 
 /** The fit statement: who Torqpoint is built for, phrased as fit rather than exclusion. */
@@ -23,15 +23,16 @@ export function WhoItsFor({ index }: { index?: string }) {
               Who this is for
             </p>
             <h2 id="fit-heading" className={styles.heading}>
-              Built for <em>established</em> trades.
+              Built for businesses that do <em>good work.</em>
             </h2>
             <p className={styles.lead}>
-              Firms with a team, a couple of vans, and jobs worth £5,000 and up —
-              bathroom and kitchen fitters, landscapers, joiners, roofers and
-              extension builders across Gloucestershire and the Cotswolds.
+              Gloucestershire businesses that take pride in what they do and want more
+              people to see it — trades and builders, interiors and design studios,
+              hospitality and events, shops, salons and professional services, right
+              across the county and the Cotswolds.
             </p>
-            <ul className={styles.trades} aria-label="Trades we work with">
-              {TRADES.map(t => (
+            <ul className={styles.trades} aria-label="Who we work with">
+              {SECTORS.map(t => (
                 <li key={t} className={styles.trade}>{t}</li>
               ))}
             </ul>
@@ -45,9 +46,9 @@ export function WhoItsFor({ index }: { index?: string }) {
               </div>
             ))}
             <p className={styles.notYet}>
-              Sole trader just starting out? We&rsquo;re probably not the right fit yet — but the{' '}
+              Just getting started? The{' '}
               <Link href="/journal/" className={styles.notYetLink}>journal</Link> is free, and
-              there&rsquo;s no catch.
+              genuinely useful while you build up.
             </p>
           </ScrollReveal>
         </div>

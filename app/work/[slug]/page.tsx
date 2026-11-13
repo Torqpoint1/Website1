@@ -150,13 +150,13 @@ export default async function WorkPage({ params }: Props) {
           )}
 
           <p className={styles.landingNote}>
-            Want your next finished job written up like this? A{' '}
+            Want your next finished project written up like this? A{' '}
             <Link href="/services/job-story/" className={styles.landingLink}>
               Job Story
             </Link>{' '}
             is £350, fixed — or see what we do for{' '}
             <Link href="/marketing-agency-gloucestershire" className={styles.landingLink}>
-              Gloucestershire trades
+              Gloucestershire businesses
             </Link>.
           </p>
         </div>

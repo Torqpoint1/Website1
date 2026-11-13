@@ -9,7 +9,7 @@ export const metadata: Metadata = pageMetadata({
   path: '/services/',
   title: 'Services — Job Story and Engine',
   description:
-    'Two products for Gloucestershire trades: a Job Story (£350) turns one finished job into proof you keep; Engine (from £450/month) does it every month and manages your Google profile.',
+    'Two products for Gloucestershire businesses: a Job Story (£350) turns one finished project into proof you keep; Engine (from £450/month) does it every month and manages your Google profile.',
   og: 'services',
 });
 
@@ -32,7 +32,7 @@ const serviceList = [
   {
     name: 'Blog articles',
     slug: 'blog-articles',
-    desc: 'Answers to what homeowners search before they call — written to rank.',
+    desc: 'Answers to what your customers search before they get in touch — written to rank.',
   },
   {
     name: 'Email & newsletters',
@@ -52,7 +52,7 @@ const serviceList = [
   {
     name: 'Anything else',
     slug: 'anything-else',
-    desc: 'Vans, signage, a review drive, a one-off campaign — if it wins work, ask.',
+    desc: 'Signage, a review drive, a one-off campaign — if it wins work, ask.',
   },
 ];
 
@@ -108,7 +108,7 @@ export default function ServicesPage() {
               The pieces behind every Job Story, and the bigger jobs we take on alongside.
               Click any one to see how it works — or see how it all comes together for{' '}
               <Link href="/marketing-agency-gloucestershire" className={styles.menuHintLink}>
-                Gloucestershire trades
+                Gloucestershire businesses
               </Link>.
             </p>
           </ScrollReveal>

@@ -13,7 +13,7 @@ export function Footer() {
           <div className={styles.brand}>
             <Logo size="lg" dark />
             <p className={styles.tagline}>
-              Proof you own, not leads you rent. Content and marketing for trades across{' '}
+              Proof you own, not leads you rent. Content and marketing for businesses across{' '}
               <Link href="/marketing-agency-gloucestershire" className={styles.location}>
                 Gloucestershire.
               </Link>

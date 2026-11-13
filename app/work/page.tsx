@@ -9,9 +9,9 @@ import { Picture } from '@/components/Picture';
 
 export const metadata: Metadata = pageMetadata({
   path: '/work/',
-  title: 'Work — case studies for Gloucestershire trades',
+  title: 'Work — case studies for Gloucestershire businesses',
   description:
-    'Case studies for Gloucestershire building trades — bathrooms, landscaping, joinery and more, written up the way they should be. See what we’d produce for your next job.',
+    'Case studies for Gloucestershire businesses — written up the way they should be. See what we’d produce from one of your finished projects.',
   og: 'work',
 });
 
@@ -32,12 +32,12 @@ export default function WorkPage() {
               Work
             </p>
             <h1 className={styles.pageTitle}>
-              Finished jobs, <span className={styles.underline}>written up properly.</span>
+              Finished work, <span className={styles.underline}>written up properly.</span>
             </h1>
             <p className={styles.pageIntro}>
-              What one job becomes: the case study, the before-and-after set, the posts
-              and the Google update — for bathroom fitters, landscapers and joiners across
-              Gloucestershire.
+              What one project becomes: the case study, the before-and-after set, the
+              posts and the Google update — for businesses of every kind across
+              Gloucestershire. A few below are concept pieces, built to show the standard.
             </p>
           </ScrollReveal>
         </div>

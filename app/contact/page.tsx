@@ -10,7 +10,7 @@ export const metadata: Metadata = pageMetadata({
   path: '/contact/',
   title: 'Contact — book a call',
   description:
-    'Book a call with Torqpoint. Tell us about your trade business in a few lines — we reply the same working day if you get in touch before 4pm.',
+    'Book a call with Torqpoint. Tell us about your Gloucestershire business in a few lines — we reply the same working day if you get in touch before 4pm.',
 });
 
 export default function ContactPage() {
@@ -47,7 +47,7 @@ export default function ContactPage() {
                     <p className={styles.infoLabel}>Quickest way</p>
                     <p className={styles.infoValue}>
                       {hasPhone
-                        ? 'In the van? Send a WhatsApp or give us a ring — whichever’s easier.'
+                        ? 'Short on time? Send a WhatsApp or give us a ring — whichever’s easier.'
                         : 'Drop us an email with a line or two about the business.'}
                     </p>
                     <DirectContact place="contact" />
@@ -74,8 +74,9 @@ export default function ContactPage() {
                 <div className={styles.infoBlock}>
                   <p className={styles.infoLabel}>Working with</p>
                   <p className={styles.infoValue}>
-                    Established trades across Gloucestershire and the Cotswolds —
-                    bathrooms, kitchens, landscaping, joinery, roofing and extensions.
+                    Businesses of all kinds across Gloucestershire and the Cotswolds —
+                    trades, interiors, hospitality, events, retail and professional
+                    services.
                   </p>
                 </div>
                 <div className={styles.infoBlock}>

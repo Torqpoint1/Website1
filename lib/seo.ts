@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 export const BASE_URL = 'https://torqpoint.com';
 
 export const SITE_DESCRIPTION =
-  'Content and marketing for Gloucestershire trades. We turn your finished jobs into case studies, photos and a Google presence you own — instead of leads you rent. Bathrooms, kitchens, landscaping, joinery, roofing, extensions.';
+  'Content and marketing for Gloucestershire businesses. We turn the work you do into case studies, photos, articles and a Google presence you own — instead of leads you rent. Posts, case studies, email, blogs and websites.';
 
 export type OgImage = 'default' | 'pricing' | 'work' | 'journal' | 'about' | 'services';
 

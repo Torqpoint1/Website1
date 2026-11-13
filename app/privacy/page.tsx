@@ -57,7 +57,7 @@ export default function PrivacyPage() {
               <li>Your name</li>
               <li>Your business name</li>
               <li>Your phone number and email address</li>
-              <li>Your trade, what you&rsquo;re interested in, and how you heard about us</li>
+              <li>Your business sector, what you&rsquo;re interested in, and how you heard about us</li>
               <li>Anything you write in the message field</li>
             </ul>
             <p>

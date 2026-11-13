@@ -54,7 +54,7 @@ export default async function JournalPostPage({ params }: Props) {
     datePublished: post.date || undefined,
     dateModified: post.date || undefined,
     image: `${BASE_URL}/og/journal.png`,
-    author: { '@type': 'Person', name: 'Luke Deakin', url: `${BASE_URL}/about/` },
+    author: { '@id': ORGANIZATION_ID },
     publisher: { '@id': ORGANIZATION_ID },
     mainEntityOfPage: { '@type': 'WebPage', '@id': url },
     keywords: post.keywords?.join(', '),
@@ -94,7 +94,7 @@ export default async function JournalPostPage({ params }: Props) {
             <div className={styles.relatedText}>
               <p className={styles.relatedEyebrow}>
                 <span className="point point--sm" aria-hidden="true" />
-                We do this for Gloucestershire trades
+                We do this for Gloucestershire businesses
               </p>
               <p className={styles.relatedTitle}>
                 {related.isProduct ? related.name : `${related.name} — part of every Job Story`}

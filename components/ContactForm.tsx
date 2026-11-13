@@ -6,7 +6,7 @@ import styles from './ContactForm.module.css';
 
 type FormState = 'idle' | 'submitting' | 'success' | 'error';
 
-const TRADES = ['Bathrooms', 'Kitchens', 'Landscaping', 'Joinery', 'Roofing', 'Extensions', 'Other'];
+const TRADES = ['Trades & building', 'Interiors & design', 'Hospitality & events', 'Retail & salons', 'Professional services', 'Landscaping', 'Other'];
 
 const INTERESTS = [
   { value: 'One job written up (Job Story)', key: 'job-story' },
@@ -137,10 +137,10 @@ export function ContactForm() {
 
         <div className={styles.pair}>
           <div className="form-field">
-            <label htmlFor="trade">What do you do?</label>
+            <label htmlFor="trade">What kind of business?</label>
             <div className={styles.selectWrap}>
               <select id="trade" name="trade" required defaultValue="">
-                <option value="" disabled>Choose your trade</option>
+                <option value="" disabled>Choose your sector</option>
                 {TRADES.map(t => <option key={t} value={t}>{t}</option>)}
               </select>
             </div>
