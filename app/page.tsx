@@ -245,14 +245,6 @@ export default function HomePage() {
         </ScrollReveal>
       )}
 
-      {/* A garland strung across the page to carry the lights through the
-          gap between the work stack and the Instagram promo. */}
-      <div className="container">
-        <div className={styles.festiveSwag}>
-          <LightString units={16} wire="rgba(40,30,22,0.3)" tones={['forge', 'red', 'gold', 'green']} />
-        </div>
-      </div>
-
       {/* ── Instagram promo ────────────────────────────────── */}
       <InstagramCta />
 

@@ -31,13 +31,6 @@
   right: 0;
 }
 
-/* A free-standing garland strung across the page between sections */
-.festiveSwag {
-  position: relative;
-  height: 54px;
-  margin: clamp(12px, 2vw, 28px) 0 clamp(36px, 6vw, 72px);
-}
-
 .cardTop {
   display: flex;
   align-items: center;

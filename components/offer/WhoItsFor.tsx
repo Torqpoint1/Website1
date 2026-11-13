@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { LightString } from '@/components/festive/FestiveDecor';
 import styles from './WhoItsFor.module.css';
 
 const SECTORS = ['Trades & building', 'Interiors & design', 'Hospitality & events', 'Retail & salons', 'Professional services', 'Landscaping'];
@@ -15,6 +16,8 @@ export function WhoItsFor({ index }: { index?: string }) {
   return (
     <section className={styles.section} aria-labelledby="fit-heading">
       <div className="container">
+        <div className={styles.panelWrap}>
+        <LightString className={styles.panelLights} units={13} wire="rgba(40,30,22,0.3)" tones={['forge', 'red', 'gold', 'green']} />
         <div className={styles.panel}>
           <ScrollReveal className={styles.copy} stagger direction="left">
             <p className="index-label">
@@ -51,6 +54,7 @@ export function WhoItsFor({ index }: { index?: string }) {
               genuinely useful while you build up.
             </p>
           </ScrollReveal>
+        </div>
         </div>
       </div>
     </section>

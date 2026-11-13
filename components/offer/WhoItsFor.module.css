@@ -109,3 +109,13 @@
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+/* Fairy lights strung across the panel's top edge, tied at the corners */
+.panelWrap {
+  position: relative;
+}
+.panelLights {
+  top: -6px;
+  left: 0;
+  right: 0;
+}
