@@ -11,7 +11,7 @@ import { ProductCards } from '@/components/offer/ProductCards';
 import { WhoItsFor } from '@/components/offer/WhoItsFor';
 import { Testimonials } from '@/components/Testimonials';
 import { getAllPosts } from '@/lib/content';
-import { CAPABILITY_ORDER, SERVICES } from '@/lib/services';
+import { CapabilityGrid } from '@/components/offer/CapabilityGrid';
 import { pageMetadata, SITE_DESCRIPTION } from '@/lib/seo';
 
 /* Per-brand card background + photo tint for the Selected work stack. */
@@ -195,15 +195,7 @@ export default function HomePage() {
                 See everything we do <span aria-hidden="true">→</span>
               </Link>
             </ScrollReveal>
-            <ScrollReveal className={styles.serviceChips} stagger staggerStep={0.05}>
-              {CAPABILITY_ORDER.filter(slug => slug !== 'anything-else').map(slug => (
-                <Link key={slug} href={`/services/${slug}`} className={styles.serviceChip}>
-                  <span className="point point--sm" aria-hidden="true" />
-                  {SERVICES[slug].name}
-                  <span className={styles.chipArrow} aria-hidden="true">→</span>
-                </Link>
-              ))}
-            </ScrollReveal>
+            <CapabilityGrid />
           </div>
         </div>
       </section>

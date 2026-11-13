@@ -1,0 +1,125 @@
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 14px;
+}
+
+/* A gentler entrance than the site default — a soft scale-and-rise. */
+.grid :global(.will-animate) {
+  opacity: 0;
+  transform: scale(0.92) translateY(18px);
+}
+.grid :global(.is-visible) {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.55s var(--ease-out), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ── Tile ──────────────────────────────────────────────── */
+.tile {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 190px;
+  padding: 22px 22px 20px;
+  border: 1px solid var(--surface-2);
+  border-radius: 18px;
+  background: var(--surface);
+  color: var(--ink);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s var(--t), box-shadow 0.4s var(--t);
+}
+.tile:hover {
+  transform: translateY(-5px);
+  border-color: rgba(238, 90, 30, 0.55);
+  box-shadow: 0 22px 48px -26px rgba(23, 26, 30, 0.35);
+}
+.tile:focus-visible {
+  outline: 3px solid var(--forge);
+  outline-offset: 3px;
+}
+.tile > * { position: relative; z-index: 1; }
+
+/* Cursor-following forge spotlight */
+.spot {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 50%), rgba(238, 90, 30, 0.14), transparent 68%);
+  transition: opacity 0.35s var(--t);
+}
+.tile:hover .spot { opacity: 1; }
+
+/* ── Top row: icon + index ─────────────────────────────── */
+.top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
+  background: rgba(238, 90, 30, 0.09);
+  color: var(--forge-text);
+  transition: background 0.35s var(--t), color 0.35s var(--t), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.icon svg { width: 23px; height: 23px; display: block; }
+.tile:hover .icon {
+  background: var(--forge);
+  color: #fff;
+  transform: rotate(-6deg) scale(1.06);
+}
+.index {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  opacity: 0.6;
+  transition: color 0.3s var(--t), opacity 0.3s var(--t);
+}
+.tile:hover .index { color: var(--forge-text); opacity: 1; }
+
+/* ── Text ──────────────────────────────────────────────── */
+.name {
+  font-size: clamp(16px, 1.7vw, 18px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-top: 4px;
+}
+.blurb {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--slate);
+}
+
+/* ── Hover cue ─────────────────────────────────────────── */
+.cue {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--forge-text);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 0.3s var(--t), transform 0.3s var(--t);
+}
+.arrow { display: inline-block; transition: transform 0.3s var(--t); }
+.tile:hover .cue { opacity: 1; transform: translateY(0); }
+.tile:hover .arrow { transform: translateX(4px); }
+
+@media (prefers-reduced-motion: reduce) {
+  .tile, .icon, .cue, .arrow, .spot { transition: none; }
+  .tile:hover { transform: none; }
+  .tile:hover .icon { transform: none; }
+  .cue { opacity: 1; transform: none; }
+}

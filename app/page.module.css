@@ -114,54 +114,8 @@
 .serviceLinksAll:hover { color: var(--forge); }
 .serviceLinksAll:hover span { transform: translateX(3px); }
 
-.serviceChips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-/* Gentler entrance than the site default: a small rise, softer + quicker. */
-.serviceChips :global(.will-animate) {
-  transform: translateY(10px);
-}
-.serviceChips :global(.is-visible) {
-  transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
-}
-.serviceChip {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 18px;
-  border: 1px solid var(--surface-2);
-  border-radius: 100px;
-  background: var(--surface);
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--ink);
-  transition: color var(--t-fast), border-color var(--t-fast), background var(--t-fast), transform var(--t-fast);
-}
-.serviceChip:hover {
-  color: var(--forge);
-  border-color: var(--forge);
-  background: rgba(238, 90, 30, 0.05);
-  transform: translateY(-2px);
-}
-.serviceChip:focus-visible {
-  outline: 3px solid var(--forge);
-  outline-offset: 3px;
-}
-.chipArrow {
-  opacity: 0;
-  transform: translateX(-6px);
-  transition: opacity var(--t-fast), transform var(--t-fast);
-}
-.serviceChip:hover .chipArrow,
-.serviceChip:focus-visible .chipArrow { opacity: 1; transform: translateX(0); }
-
 @media (prefers-reduced-motion: reduce) {
-  .serviceChip,
-  .chipArrow,
   .serviceLinksAll span { transition: none; }
-  .serviceChip:hover { transform: none; }
 }
 
 /* ── FAQ (03) ─────────────────────────────────────────────────── */
