@@ -1,0 +1,65 @@
+/* Shared festive decorations: hung fairy-light strings + tinsel drapes. */
+
+/* ── Fairy-light string ─────────────────────────────────── */
+.string {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  z-index: 3;
+  pointer-events: none;
+  background-repeat: repeat-x;
+  background-position: left top;
+}
+.row {
+  display: flex;
+  height: 100%;
+}
+.unit {
+  position: relative;
+  flex: 0 0 112px; /* must match UNIT in the component */
+  width: 112px;
+}
+.bulb {
+  position: absolute;
+  border-radius: 50% 50% 50% 50% / 42% 42% 58% 58%;
+  transform-origin: top center;
+  animation: flTwinkle 4.6s ease-in-out infinite;
+}
+/* short connector wire up to the string */
+.bulb::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  width: 1px;
+  height: 6px;
+  transform: translateX(-50%);
+  background: rgba(255, 255, 255, 0.3);
+}
+.forge { background: #ee5a1e; box-shadow: 0 0 10px 1px rgba(238, 90, 30, 0.6); }
+.gold  { background: #f6c35a; box-shadow: 0 0 10px 1px rgba(246, 195, 90, 0.6); }
+.cream { background: #fdf0d6; box-shadow: 0 0 11px 1px rgba(253, 240, 214, 0.85); }
+.red   { background: #e65a4b; box-shadow: 0 0 10px 1px rgba(224, 70, 55, 0.6); }
+
+@keyframes flTwinkle {
+  0%, 100% { opacity: 0.95; filter: brightness(1.06); }
+  50%      { opacity: 0.6;  filter: brightness(0.8); }
+}
+
+/* ── Tinsel drape ───────────────────────────────────────── */
+.drape {
+  position: absolute;
+  height: 52px;
+  background-repeat: repeat-x;
+  background-position: left top;
+  pointer-events: none;
+  z-index: 3;
+  transform-origin: center;
+  filter: drop-shadow(0 4px 5px rgba(23, 26, 30, 0.28));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bulb { animation: none; opacity: 0.9; }
+}

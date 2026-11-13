@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { LightString } from '@/components/festive/FestiveDecor';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { ProductCards } from '@/components/offer/ProductCards';
 import { pageMetadata } from '@/lib/seo';
@@ -146,6 +147,7 @@ export default function ServicesPage() {
 
       {/* ── CTA Band ────────────────────────────────────── */}
       <section className="cta-band cta-band--dark" aria-label="Call to action">
+        <LightString units={14} />
         <div className="container">
           <div className="cta-band__inner">
             <p className="cta-band__statement">

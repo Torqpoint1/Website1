@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { LightString } from '@/components/festive/FestiveDecor';
 import { getPost, getAllPosts, formatDate } from '@/lib/content';
 import { marked } from 'marked';
 import { getService } from '@/lib/services';
@@ -126,6 +127,7 @@ export default async function JournalPostPage({ params }: Props) {
       </article>
 
       <section className="cta-band cta-band--dark" aria-label="Call to action">
+        <LightString units={14} />
         <div className="container">
           <div className="cta-band__inner">
             <p className="cta-band__statement">

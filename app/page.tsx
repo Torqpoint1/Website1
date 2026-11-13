@@ -13,6 +13,7 @@ import { Testimonials } from '@/components/Testimonials';
 import { getAllPosts } from '@/lib/content';
 import { CapabilityGrid } from '@/components/offer/CapabilityGrid';
 import { InstagramCta } from '@/components/InstagramCta';
+import { LightString } from '@/components/festive/FestiveDecor';
 import { pageMetadata, SITE_DESCRIPTION } from '@/lib/seo';
 
 /* Per-brand card background + photo tint for the Selected work stack. */
@@ -248,6 +249,7 @@ export default function HomePage() {
 
       {/* ── How It Works (dark band) ───────────────────────── */}
       <section className={styles.howItWorks} aria-labelledby="how-heading">
+        <LightString units={14} />
         <div className="container">
           <ScrollReveal stagger direction="left">
             <p className="index-label" style={{ color: 'var(--dark-eyebrow)' }}>
@@ -305,6 +307,7 @@ export default function HomePage() {
 
       {/* ── CTA Band ──────────────────────────────────────── */}
       <section className={`cta-band cta-band--forge`} aria-label="Call to action">
+        <LightString units={14} wire="rgba(255,255,255,0.42)" tones={['cream', 'gold', 'cream']} />
         <div className="container">
           <ScrollReveal className="cta-band__inner" stagger direction="left">
             <p className="cta-band__statement">

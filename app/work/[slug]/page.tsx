@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import { LightString } from '@/components/festive/FestiveDecor';
 import { getPost, getAllPosts } from '@/lib/content';
 import { WorkPlaceholder } from '@/components/WorkPlaceholder';
 import { BrandAssets } from '@/components/work-assets/BrandAssets';
@@ -163,6 +164,7 @@ export default async function WorkPage({ params }: Props) {
       </article>
 
       <section className="cta-band cta-band--forge" aria-label="Call to action">
+        <LightString units={14} wire="rgba(255,255,255,0.42)" tones={['cream', 'gold', 'cream']} />
         <div className="container">
           <div className="cta-band__inner">
             <p className="cta-band__statement">

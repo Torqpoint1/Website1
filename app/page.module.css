@@ -139,6 +139,8 @@
 .howItWorks {
   background: var(--ink);
   padding-block: clamp(80px, 12vw, 140px);
+  position: relative;
+  overflow: hidden;
 }
 .howItWorks :global(.eyebrow) {
   margin-bottom: 24px;

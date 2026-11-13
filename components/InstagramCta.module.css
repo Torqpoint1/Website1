@@ -19,6 +19,15 @@
   .panel { grid-template-columns: 1.08fr 0.92fr; }
 }
 
+/* Wrapper lets a tinsel strand overhang the panel's top edge. */
+.panelWrap {
+  position: relative;
+}
+.panelTinsel {
+  top: -22px;
+  left: clamp(-18px, 2vw, 24px);
+}
+
 /* ── Connected: header + live feed grid ────────────────── */
 .feedPanel {
   position: relative;

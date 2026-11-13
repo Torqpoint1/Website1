@@ -83,8 +83,18 @@ export const TINSEL_TILE = `${SWAG}px ${TILE_H}px`;
 
 /** Tinsel garland with warm fairy lights nestled in it, strung under the
  *  header site-wide. Gated by FESTIVE; respects reduced motion. */
+function jitter(seed: number, n: number): number[] {
+  let s = seed >>> 0;
+  return Array.from({ length: n }, () => {
+    s = (s * 1664525 + 1013904223) >>> 0;
+    return s / 4294967296;
+  });
+}
+
 export function FairyLights() {
   if (!FESTIVE) return null;
+  const jx = jitter(5501, UNITS);
+  const jy = jitter(6601, UNITS);
   return (
     <div
       className={styles.garland}
@@ -94,7 +104,14 @@ export function FairyLights() {
       <div className={styles.row}>
         {Array.from({ length: UNITS }).map((_, i) => (
           <span key={i} className={styles.unit}>
-            <span className={styles.bulb} style={{ ['--i' as string]: i }} />
+            <span
+              className={styles.bulb}
+              style={{
+                ['--i' as string]: i,
+                left: `calc(50% + ${(jx[i] - 0.5) * 40}px)`,
+                top: `${30 + jy[i] * 7}px`,
+              }}
+            />
           </span>
         ))}
       </div>

@@ -6,6 +6,7 @@ import { INSTAGRAM_URL } from '@/lib/contact';
 import { BEHOLD_FEED_URL } from '@/lib/social';
 import Link from 'next/link';
 import { InstagramGrid, InstagramSkeleton, normaliseBehold, normaliseBeholdProfile, type IgPost, type IgProfile } from '@/components/InstagramFeed';
+import { TinselDrape } from '@/components/festive/FestiveDecor';
 import styles from './InstagramCta.module.css';
 
 const LIMIT = 9;
@@ -81,7 +82,9 @@ export function InstagramCta() {
     return (
       <section className={styles.ig} aria-labelledby="ig-heading">
         <div className="container">
-          <div className={styles.feedPanel}>
+          <div className={styles.panelWrap}>
+            <TinselDrape className={styles.panelTinsel} width={230} angle={-4} />
+            <div className={styles.feedPanel}>
             <ScrollReveal className={styles.feedIntro} stagger direction="left">
               <p className="eyebrow">
                 <span className="point point--sm" aria-hidden="true" />
@@ -148,6 +151,7 @@ export function InstagramCta() {
                 ? <InstagramSkeleton count={LIMIT} />
                 : <InstagramGrid posts={posts} />}
             </ScrollReveal>
+            </div>
           </div>
         </div>
       </section>

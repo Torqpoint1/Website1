@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { LightString } from '@/components/festive/FestiveDecor';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { FaqAccordion } from '@/components/services/Faq';
 import { ProductCards } from '@/components/offer/ProductCards';
@@ -194,6 +195,7 @@ export default function PricingPage() {
 
       {/* ── CTA ────────────────────────────────────────────── */}
       <section className={`cta-band cta-band--dark ${styles.cta}`} aria-label="Call to action">
+        <LightString units={14} />
         <div className="container">
           <ScrollReveal className={styles.ctaInner} stagger direction="left">
             <p className="cta-band__statement">

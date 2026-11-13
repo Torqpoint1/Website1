@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import { LightString } from '@/components/festive/FestiveDecor';
 import { getAllPosts } from '@/lib/content';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { WorkPlaceholder } from '@/components/WorkPlaceholder';
@@ -119,6 +120,7 @@ export default function WorkPage() {
 
       {!isEmpty && (
         <section className="cta-band cta-band--forge" aria-label="Call to action">
+          <LightString units={14} wire="rgba(255,255,255,0.42)" tones={['cream', 'gold', 'cream']} />
           <div className="container">
             <div className="cta-band__inner">
               <p className="cta-band__statement">
