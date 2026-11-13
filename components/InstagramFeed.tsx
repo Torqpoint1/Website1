@@ -9,6 +9,29 @@ export interface IgPost {
   isAlbum: boolean;
 }
 
+export interface IgProfile {
+  username: string;
+  followers: number | null;
+  following: number | null;
+  bio: string;
+  website: string;
+}
+
+const DEFAULT_BIO =
+  'We make your work look as good as it is.\nFinished projects → posts, case studies, websites & more ▪ Gloucestershire\n↓ See the work / book a call';
+
+/** Pull the live profile header fields (followers, bio, etc.) from a Behold feed. */
+export function normaliseBeholdProfile(data: unknown): IgProfile {
+  const d: any = data && !Array.isArray(data) ? data : {};
+  return {
+    username: d.username || 'torqpoint.co',
+    followers: typeof d.followersCount === 'number' ? d.followersCount : null,
+    following: typeof d.followsCount === 'number' ? d.followsCount : null,
+    bio: (d.biography && String(d.biography).trim()) || DEFAULT_BIO,
+    website: d.website || 'https://torqpoint.com',
+  };
+}
+
 /* Behold's JSON: { posts: [...] }, each post with sizes.{small,medium,large,full}.mediaUrl
    (a still image even for videos/reels), a permalink, mediaType and caption. Read it
    defensively so a shape change degrades rather than breaks. */

@@ -32,49 +32,110 @@
 .feedIntro { margin-bottom: clamp(18px, 2.4vw, 26px); }
 .feedIntro .heading { margin: 12px 0 0; }
 
-/* Instagram-style profile preview row: avatar + handle + follow */
+/* Instagram-style profile header: avatar, name, stats, bio, link, actions */
 .profile {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 14px;
-  padding: 14px 16px;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(18px, 2.4vw, 26px);
   margin-bottom: clamp(20px, 2.6vw, 30px);
   border: 1px solid var(--surface-2);
-  border-radius: 16px;
+  border-radius: 18px;
   background: var(--paper);
 }
+
+.profileTop {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 3vw, 28px);
+}
 .profileAvatar {
-  width: 56px;
-  height: 56px;
+  width: clamp(72px, 10vw, 92px);
+  height: clamp(72px, 10vw, 92px);
   flex-shrink: 0;
   border-radius: 50%;
   object-fit: cover;
   background: var(--ink);
   border: 1px solid var(--surface-2);
 }
-.profileMeta {
+.profileHeadCol {
   display: flex;
   flex-direction: column;
-  gap: 1px;
+  gap: 3px;
   min-width: 0;
 }
 .profileName {
   font-weight: 700;
-  font-size: 16px;
-  letter-spacing: -0.01em;
+  font-size: clamp(19px, 2.4vw, 24px);
+  letter-spacing: -0.02em;
   color: var(--ink);
+  line-height: 1.1;
 }
 .profileHandle {
   font-size: 13px;
   font-weight: 600;
   color: var(--forge-text);
 }
-.profileBio {
-  font-size: 12.5px;
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-top: 8px;
+  font-size: 14px;
   color: var(--muted);
 }
-.profile .followBtn { margin-left: auto; }
+.stats b {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+/* Body: category + bio + link */
+.profileBody {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.category {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--slate);
+}
+.bio {
+  font-size: 14.5px;
+  line-height: 1.5;
+  color: var(--ink);
+  white-space: pre-line;
+}
+.bioLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 2px;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--forge-text);
+  transition: color var(--t-fast);
+  align-self: flex-start;
+}
+.bioLink:hover { color: var(--forge); }
+.linkIcon { width: 16px; height: 16px; }
+
+/* Actions */
+.profileActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.secondaryBtn { flex-shrink: 0; }
+
+@media (min-width: 680px) {
+  .profileActions .followBtn,
+  .profileActions .secondaryBtn { min-width: 180px; justify-content: center; }
+}
+@media (max-width: 420px) {
+  .profileActions .followBtn,
+  .profileActions .secondaryBtn { flex: 1; justify-content: center; }
+}
 
 .feedReveal { display: block; }
 

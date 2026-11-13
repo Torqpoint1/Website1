@@ -4,10 +4,15 @@ import { useEffect, useState } from 'react';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { INSTAGRAM_URL } from '@/lib/contact';
 import { BEHOLD_FEED_URL } from '@/lib/social';
-import { InstagramGrid, InstagramSkeleton, normaliseBehold, type IgPost } from '@/components/InstagramFeed';
+import Link from 'next/link';
+import { InstagramGrid, InstagramSkeleton, normaliseBehold, normaliseBeholdProfile, type IgPost, type IgProfile } from '@/components/InstagramFeed';
 import styles from './InstagramCta.module.css';
 
-const LIMIT = 8;
+const LIMIT = 9;
+const DISPLAY_NAME = 'Torqpoint';
+const CATEGORY = 'Marketing agency';
+
+const fmt = (n: number | null) => (n === null ? null : n.toLocaleString('en-GB'));
 
 function InstagramGlyph({ className }: { className?: string }) {
   return (
@@ -37,9 +42,18 @@ function FollowButton() {
 
 type State = 'loading' | 'ready' | 'empty';
 
+const DEFAULT_PROFILE: IgProfile = {
+  username: 'torqpoint.co',
+  followers: null,
+  following: null,
+  bio: 'We make your work look as good as it is.\nFinished projects → posts, case studies, websites & more ▪ Gloucestershire\n↓ See the work / book a call',
+  website: 'https://torqpoint.com',
+};
+
 export function InstagramCta() {
   const configured = Boolean(BEHOLD_FEED_URL);
   const [posts, setPosts] = useState<IgPost[]>([]);
+  const [profile, setProfile] = useState<IgProfile | null>(null);
   const [state, setState] = useState<State>(configured ? 'loading' : 'empty');
 
   useEffect(() => {
@@ -51,6 +65,7 @@ export function InstagramCta() {
         if (!alive) return;
         const mapped = normaliseBehold(data, LIMIT);
         setPosts(mapped);
+        setProfile(normaliseBeholdProfile(data));
         setState(mapped.length ? 'ready' : 'empty');
       })
       .catch(() => alive && setState('empty'));
@@ -58,6 +73,8 @@ export function InstagramCta() {
       alive = false;
     };
   }, [configured]);
+
+  const p = profile ?? DEFAULT_PROFILE;
 
   /* ── Live feed: header + clickable post grid (or skeleton) ── */
   if (configured && state !== 'empty') {
@@ -76,20 +93,49 @@ export function InstagramCta() {
             </ScrollReveal>
 
             <ScrollReveal className={styles.profile} direction="up">
-              <img
-                className={styles.profileAvatar}
-                src="/torqpoint-instagram.jpg"
-                alt="Torqpoint’s Instagram profile picture"
-                width={56}
-                height={56}
-                loading="lazy"
-              />
-              <div className={styles.profileMeta}>
-                <span className={styles.profileName}>torqpoint.co</span>
-                <span className={styles.profileHandle}>@torqpoint.co</span>
-                <span className={styles.profileBio}>Content &amp; marketing studio · Gloucestershire</span>
+              <div className={styles.profileTop}>
+                <img
+                  className={styles.profileAvatar}
+                  src="/torqpoint-instagram.jpg"
+                  alt="Torqpoint’s Instagram profile picture"
+                  width={88}
+                  height={88}
+                  loading="lazy"
+                />
+                <div className={styles.profileHeadCol}>
+                  <span className={styles.profileName}>{DISPLAY_NAME}</span>
+                  <span className={styles.profileHandle}>@{p.username}</span>
+                  {p.followers !== null && (
+                    <div className={styles.stats}>
+                      <span><b>{fmt(p.followers)}</b> followers</span>
+                      {p.following !== null && <span><b>{fmt(p.following)}</b> following</span>}
+                    </div>
+                  )}
+                </div>
               </div>
-              <FollowButton />
+
+              <div className={styles.profileBody}>
+                <span className={styles.category}>{CATEGORY}</span>
+                <p className={styles.bio}>{p.bio}</p>
+                <a
+                  className={styles.bioLink}
+                  href="https://torqpoint.com"
+                  data-track="instagram_biolink_click"
+                  data-track-place="home-ig"
+                >
+                  <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className={styles.linkIcon}>
+                    <path d="M9 15l6-6M8.5 10.5l-1 1a3.2 3.2 0 0 0 4.5 4.5l1-1M15.5 13.5l1-1a3.2 3.2 0 0 0-4.5-4.5l-1 1" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  torqpoint.com
+                </a>
+              </div>
+
+              <div className={styles.profileActions}>
+                <FollowButton />
+                <Link href="/contact" className={`btn btn-ghost ${styles.secondaryBtn}`} data-track="book_call_click" data-track-place="home-ig">
+                  Book a call
+                </Link>
+              </div>
             </ScrollReveal>
 
             <ScrollReveal className={styles.feedReveal}>
