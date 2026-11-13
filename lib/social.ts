@@ -10,7 +10,7 @@
  * https://feeds.behold.so/XXXXXXXXXXXX) and paste it below. While this is empty
  * the site shows the styled "Follow" card instead, so nothing looks broken.
  */
-export const BEHOLD_FEED_ID = '';
+export const BEHOLD_FEED_ID = 'uELkUH8Mzveu8MUtDFUN';
 
 export const BEHOLD_FEED_URL = BEHOLD_FEED_ID
   ? `https://feeds.behold.so/${BEHOLD_FEED_ID}`

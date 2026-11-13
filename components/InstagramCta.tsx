@@ -1,8 +1,13 @@
+'use client';
+
+import { useEffect, useState } from 'react';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { INSTAGRAM_URL } from '@/lib/contact';
 import { BEHOLD_FEED_URL } from '@/lib/social';
-import { InstagramFeed } from '@/components/InstagramFeed';
+import { InstagramGrid, InstagramSkeleton, normaliseBehold, type IgPost } from '@/components/InstagramFeed';
 import styles from './InstagramCta.module.css';
+
+const LIMIT = 8;
 
 function InstagramGlyph({ className }: { className?: string }) {
   return (
@@ -30,11 +35,32 @@ function FollowButton() {
   );
 }
 
-/** Home-page promo for the Instagram profile. Shows the live post grid once a
- *  Behold feed is connected (see lib/social.ts); until then, a styled card. */
+type State = 'loading' | 'ready' | 'empty';
+
 export function InstagramCta() {
-  /* ── Connected: live, clickable post grid ─────────────── */
-  if (BEHOLD_FEED_URL) {
+  const configured = Boolean(BEHOLD_FEED_URL);
+  const [posts, setPosts] = useState<IgPost[]>([]);
+  const [state, setState] = useState<State>(configured ? 'loading' : 'empty');
+
+  useEffect(() => {
+    if (!configured) return;
+    let alive = true;
+    fetch(BEHOLD_FEED_URL)
+      .then(r => (r.ok ? r.json() : Promise.reject(new Error(String(r.status)))))
+      .then(data => {
+        if (!alive) return;
+        const mapped = normaliseBehold(data, LIMIT);
+        setPosts(mapped);
+        setState(mapped.length ? 'ready' : 'empty');
+      })
+      .catch(() => alive && setState('empty'));
+    return () => {
+      alive = false;
+    };
+  }, [configured]);
+
+  /* ── Live feed: header + clickable post grid (or skeleton) ── */
+  if (configured && state !== 'empty') {
     return (
       <section className={styles.ig} aria-labelledby="ig-heading">
         <div className="container">
@@ -57,7 +83,9 @@ export function InstagramCta() {
             </ScrollReveal>
 
             <ScrollReveal className={styles.feedReveal}>
-              <InstagramFeed limit={8} />
+              {state === 'loading'
+                ? <InstagramSkeleton count={LIMIT} />
+                : <InstagramGrid posts={posts} />}
             </ScrollReveal>
           </div>
         </div>
@@ -65,7 +93,7 @@ export function InstagramCta() {
     );
   }
 
-  /* ── Fallback: styled Follow card (no feed connected yet) ─ */
+  /* ── Fallback: styled Follow card (not configured, or feed unavailable) ── */
   return (
     <section className={styles.ig} aria-labelledby="ig-heading">
       <div className="container">
