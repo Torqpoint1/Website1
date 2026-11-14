@@ -112,3 +112,17 @@
   color: var(--slate);
   line-height: 1.65;
 }
+
+/* Privacy note under the submit button */
+.privacyNote {
+  margin-top: 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--muted);
+  text-align: center;
+}
+.privacyNote a {
+  color: var(--forge-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}

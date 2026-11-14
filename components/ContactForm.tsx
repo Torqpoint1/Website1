@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState, FormEvent } from 'react';
+import Link from 'next/link';
 import { trackEvent } from '@/lib/track';
 import styles from './ContactForm.module.css';
 
@@ -201,6 +202,11 @@ export function ContactForm() {
       >
         {state === 'submitting' ? 'Sending…' : 'Send enquiry'}
       </button>
+
+      <p className={styles.privacyNote}>
+        We only use your details to reply to this enquiry. See our{' '}
+        <Link href="/privacy/">Privacy Policy</Link>.
+      </p>
     </form>
   );
 }
